@@ -4240,11 +4240,26 @@ body.dz-dash-page { background: var(--page); }
         document.addEventListener('click', e => { if (!$('dzHolCard').contains(e.target)) $('dzHolPop').classList.remove('open'); });
 
         // লগআউট: ক্লাউড লগইন প্যানেল (firebase-sync.js)
-        $('dzLogoutBtn').addEventListener('click', () => {
-            if (window.fbsAuth && typeof window.fbsAuth.openPanel === 'function') window.fbsAuth.openPanel();
-            else alert('ক্লাউড লগইন চালু নেই। firebase-config.js ও firebase-sync.js ঠিকভাবে আপলোড করুন।');
-        });
-
+        // $('dzLogoutBtn').addEventListener('click', () => {
+        // //     if (window.fbsAuth && typeof window.fbsAuth.openPanel === 'function') window.fbsAuth.openPanel();
+        // //     else alert('ক্লাউড লগইন চালু নেই। firebase-config.js ও firebase-sync.js ঠিকভাবে আপলোড করুন।');
+        // // });
+$('dzLogoutBtn').addEventListener('click', () => {
+  if (localStorage.getItem('nakhapara_admin')) {
+    localStorage.removeItem('nakhapara_admin');
+    alert('লগআউট সফল!');
+    location.reload();
+  } else {
+    let pass = prompt("এডমিন পাসওয়ার্ড দিন:");
+    if (pass === "nakhapara123" || pass === "1234") {
+      localStorage.setItem('nakhapara_admin', 'true');
+      alert("লগইন সফল!");
+      location.reload();
+    } else if(pass) {
+      alert("ভুল পাসওয়ার্ড!");
+    }
+  }
+});
         // বদলালে নিজে হালনাগাদ
         ['renderT', 'renderAttendance', 'renderGps'].forEach(n => {
             const f = window[n];
