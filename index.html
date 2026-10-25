@@ -6173,9 +6173,9 @@ window.checkAdmin = window.isAdmin;
   const DENY = ['openStudentModal', 'editStudent', 'deleteStudent', 'spEdit', 'spDel', 'stClearPhoto', 'deletePhotoAt', 'deleteCurrentPhoto', 'openLessonModal', 'deleteLesson', 'lpDelSlot', 'lpAddSlot', 'tpAdd', 'tpSave', 'tpSchool', 'tpJsonOut', 'openSocialModal', 'saveSocial', 'saveOfficers', 'saveGlanceData', 'saveDesigOptions', 'resetDesigOptions', 'addDesigRow', 'openDesigModal', 'setSchoolManual', 'setSchoolHere', 'saveRadius', 'recordVisitGeo', 'editVisit', 'cancelVisitEdit', 'delAtt', 'kglEdit', 'kglDel', 'kgPdfDel', 'exPdfDel', 'exOpen', 'exClear', 'exAdd', 'exSample', 'exImportPaste', 'hvSave', 'hvReset', 'hvNow', 'hvEdit', 'hvDel', 'dzAddLeave', 'dzAddHoliday', 'dzOpenLv', 'exportData', 'importData', 'galleryFileInput', 'handleGalleryFiles'];
   const fa = () => window.fbsAuth;
   const cloud = () => !!fa();                                   // ক্লাউড লগইন কনফিগ করা থাকলেই নিয়ম প্রযোজ্য (না থাকলে আগের মতো খোলা)
-  const role = () => (fa() && fa().role) || 'viewer';   const isAdmin = () => !cloud() || role() === 'admin';
+  const role = () => (fa() && fa().role) || 'viewer';   
 //   const isAdmin = () => true;
-//   const isAdmin = () => (localStorage.getItem('nakhapara_admin') === 'true') || !cloud() || role() === 'admin';
+  const isAdmin = () => (localStorage.getItem('nakhapara_admin') === 'true') || !cloud() || role() === 'admin';
 //   const ro = () => cloud() && !isAdmin();
   const ro = () => cloud() && !isAdmin();
   const rj = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } };
