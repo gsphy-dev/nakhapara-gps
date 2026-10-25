@@ -3411,10 +3411,10 @@ body.dz-dash-page { background: var(--page); }
             const st = document.getElementById('attAuthState'); if (!st) return;
             const u = attUser(), has = !!window.fbsAuth;
             const loginBtn = document.getElementById('attLoginBtn'), onBtn = document.getElementById('attBioOnBtn'), offBtn = document.getElementById('attBioOffBtn');
-            if (!has) {
-                st.innerHTML = '<span class="text-amber-700"><i class="fas fa-triangle-exclamation"></i> ক্লাউড লগইন চালু নেই। firebase-config.js ও firebase-sync.js ঠিকভাবে আপলোড হয়েছে কি না দেখুন।</span>';
-                loginBtn.classList.add('hidden'); onBtn.classList.add('hidden'); offBtn.classList.add('hidden'); return;
-            }
+            // if (!has) {
+            //     st.innerHTML = '<span class="text-amber-700"><i class="fas fa-triangle-exclamation"></i> ক্লাউড লগইন চালু নেই। firebase-config.js ও firebase-sync.js ঠিকভাবে আপলোড হয়েছে কি না দেখুন।</span>';
+            //     loginBtn.classList.add('hidden'); onBtn.classList.add('hidden'); offBtn.classList.add('hidden'); return;
+            // }
             if (!u) {
                 st.innerHTML = '<i class="fas fa-lock text-slate-400"></i> লগইন করা নেই';
                 loginBtn.classList.remove('hidden'); onBtn.classList.add('hidden'); offBtn.classList.add('hidden'); return;
@@ -3428,7 +3428,7 @@ body.dz-dash-page { background: var(--page); }
         }
         function attLogin() {
             if (window.fbsAuth) window.fbsAuth.openPanel();
-            else setMsg('attMsg', 'ক্লাউড লগইন চালু নেই। firebase-config.js-এ কনফিগ বসান।', 'error');
+            // else setMsg('attMsg', 'ক্লাউড লগইন চালু নেই। firebase-config.js-এ কনফিগ বসান।', 'error');
         }
         async function bioEnable() {
             const u = attUser(); if (!u) { attLogin(); return; }
