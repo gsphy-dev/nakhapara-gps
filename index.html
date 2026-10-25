@@ -3974,12 +3974,12 @@ body.dz-dash-page { background: var(--page); }
         editId = null; persist(); refreshAll(); toast('সংরক্ষিত হয়েছে ✔');
     };
     window.tpAdd = () => {
-        //  if (!authed()) { toast('আগে লগইন করুন'); return; } 
+        if (!authed()) { toast('আগে লগইন করুন'); return; } 
         const n = T.reduce((m, t) => Math.max(m, parseInt(String(t.id).split('-')[1]) || 100), 100) + 1, id = 'TCH-' + n;
         T.push({ id: id, name: 'নতুন শিক্ষক', desig: 'সহকারী শিক্ষক', edu: '', subj: '', svc: 'কর্মরত', addr: 'বীরগঞ্জ, দিনাজপুর', tel: '', mail: '', dob: '', first: '', join: '', st: 's', photo: '' });
         editId = id; document.getElementById('tpSearch').value = ''; persist(); renderT(); focusEdit();
     };
-       window.tpDel = id => { if (!authed()) { toast('আগে লগইন করুন'); return; } if (!confirm('এই শিক্ষককে তালিকা থেকে মুছে ফেলবেন?')) return; T = T.filter(t => t.id !== id); persist(); refreshAll(); };
+     window.tpDel = id => { if (!authed()) { toast('আগে লগইন করুন'); return; } if (!confirm('এই শিক্ষককে তালিকা থেকে মুছে ফেলবেন?')) return; T = T.filter(t => t.id !== id); persist(); refreshAll(); };
     const TINT = ['bg-emerald-50 border-emerald-200', 'bg-amber-50 border-amber-200', 'bg-sky-50 border-sky-200', 'bg-rose-50 border-rose-200', 'bg-violet-50 border-violet-200', 'bg-teal-50 border-teal-200'];
     function renderTeacherSync() {
         const box = document.getElementById('tpSync'); if (!box) return;
