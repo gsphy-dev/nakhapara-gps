@@ -4260,6 +4260,10 @@ $('dzLogoutBtn').addEventListener('click', () => {
     }
   }
 });
+// আমাদের পাসওয়ার্ড লগইনকে এডমিন হিসেবে ধরো
+window.isAdmin = function(){ return localStorage.getItem('nakhapara_admin') === 'true'; };
+window.isAdminLogged = window.isAdmin;
+window.checkAdmin = window.isAdmin;
         // বদলালে নিজে হালনাগাদ
         ['renderT', 'renderAttendance', 'renderGps'].forEach(n => {
             const f = window[n];
