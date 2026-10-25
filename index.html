@@ -3426,10 +3426,20 @@ body.dz-dash-page { background: var(--page); }
             onBtn.classList.toggle('hidden', on || !bioSupported());
             offBtn.classList.toggle('hidden', !on);
         }
+        // function attLogin() {
+        //     if (window.fbsAuth) window.fbsAuth.openPanel();
+        //     // else setMsg('attMsg', 'ক্লাউড লগইন চালু নেই। firebase-config.js-এ কনফিগ বসান।', 'error');
+        // }
         function attLogin() {
-            if (window.fbsAuth) window.fbsAuth.openPanel();
-            // else setMsg('attMsg', 'ক্লাউড লগইন চালু নেই। firebase-config.js-এ কনফিগ বসান।', 'error');
-        }
+  let pass = prompt("এডমিন পাসওয়ার্ড দিন:");
+  if (pass === "nakhapara123" || pass === "1234") {
+    localStorage.setItem('nakhapara_admin', 'true');
+    alert("লগইন সফল!");
+    location.reload();
+  } else if(pass){
+    alert("ভুল পাসওয়ার্ড! nakhapara123 দিন");
+  }
+}
         async function bioEnable() {
             const u = attUser(); if (!u) { attLogin(); return; }
             if (!bioSupported()) { setMsg('attMsg', 'এই ব্রাউজার/ডিভাইসে ফিঙ্গারপ্রিন্ট সমর্থিত নয় (https ও আধুনিক Chrome লাগে)।', 'error'); return; }
