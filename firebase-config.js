@@ -23,3 +23,7 @@ window.firebaseReady = true;
 window.firebaseConfigLoaded = true;
 window.firebaseDb = db;
 export { app, db, auth };
+// Fix login button
+window.fbsAuth = window.fbsAuth || {};
+window.fbsUser = window.fbsUser || null;
+window.attUser = window.attUser || function(){ return window.fbsUser; };
