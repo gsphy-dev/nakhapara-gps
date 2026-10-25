@@ -3940,7 +3940,7 @@ body.dz-dash-page { background: var(--page); }
     const okPhoto = v => /^(https?:\/\/|data:image\/(jpeg|png|webp|gif);base64,)/i.test(String(v || '')) ? String(v).slice(0, 400000) : '';
     window.tpJsonIn = input => {
         const f = input.files && input.files[0]; input.value = ''; if (!f) return;
-        // if (!authed()) { toast('আগে লগইন করুন'); return; }
+         if (!authed()) { toast('আগে লগইন করুন'); return; }
         const r = new FileReader();
         r.onerror = () => toast('ফাইল পড়া যায়নি');
         r.onload = () => {
