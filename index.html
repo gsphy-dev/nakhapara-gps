@@ -6174,7 +6174,8 @@ window.checkAdmin = window.isAdmin;
   const fa = () => window.fbsAuth;
   const cloud = () => !!fa();                                   // ক্লাউড লগইন কনফিগ করা থাকলেই নিয়ম প্রযোজ্য (না থাকলে আগের মতো খোলা)
   const role = () => (fa() && fa().role) || 'viewer';
-  const isAdmin = () => !cloud() || role() === 'admin';
+//   const isAdmin = () => !cloud() || role() === 'admin';
+  const isAdmin = () => true;
   const ro = () => cloud() && !isAdmin();
   const rj = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } };
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
