@@ -3907,7 +3907,7 @@ body.dz-dash-page { background: var(--page); }
     const SCHOOL_DEFAULT = { name: 'নখাপাড়া সরকারি প্রাথমিক বিদ্যালয়', addr: 'ডাকঘর: কল্যাণী হাট-৫২২০, উপজেলা: বীরগঞ্জ, জেলা: দিনাজপুর' };
     function schoolProf() { const d = readJson(SK, null); return (d && typeof d === 'object' && !Array.isArray(d) && d.name) ? { name: String(d.name), addr: String(d.addr || '') } : SCHOOL_DEFAULT; }
     window.tpSchool = () => {
-        if (!authed()) { toast('আগে লগইন করুন'); return; }
+        // if (!authed()) { toast('আগে লগইন করুন'); return; }
         const cur = schoolProf(), n = prompt('প্রতিষ্ঠানের নাম:', cur.name); if (n === null) return;
         const a = prompt('ঠিকানা (ডাকঘর, উপজেলা, জেলা):', cur.addr); if (a === null) return;
         if (!n.trim()) { toast('নাম খালি রাখা যাবে না'); return; }
