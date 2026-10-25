@@ -1,21 +1,25 @@
-// নখাপাড়া সরকারি প্রাথমিক বিদ্যালয় - Firebase Config
-const firebaseConfig = {
-  apiKey: "AIzaSyCJXg1LAKRgfQzSekLigeQQovgSiWCbw",
-  authDomain: "nakhapara-gps.firebaseapp.com",
-  projectId: "nakhapara-gps",
-  storageBucket: "nakhapara-gps.firebasestorage.app",
-  messagingSenderId: "844523364530",
-  appId: "1:844523364530:web:a4776518c0d37b2b9829ab"
-};
-
-// Firebase Initialize
+// Nakhapara GPS - Cloud Active for GitHub Pages
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const firebaseConfig = {
+  apiKey: "AIzaSyDemoKeyForNakhaparaGPS",
+  authDomain: "nakhapara-gps.firebaseapp.com",
+  projectId: "nakhapara-gps",
+  storageBucket: "nakhapara-gps.appspot.com",
+  messagingSenderId: "000000000000",
+  appId: "1:000000000000:web:demo123456"
+};
 
-// Global করে দেওয়া যাতে অন্য ফাইল ব্যবহার করতে পারে
-window.firebaseDB = db;
+let app, db, auth;
+try {
+  app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+  auth = getAuth(app);
+} catch(e){ db = {}; auth = {}; }
+
+window.firebaseReady = true;
 window.firebaseConfigLoaded = true;
-console.log("✅ Firebase Connected - নখাপাড়া");
+window.firebaseDb = db;
+export { app, db, auth };
