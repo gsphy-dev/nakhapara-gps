@@ -3966,7 +3966,7 @@ body.dz-dash-page { background: var(--page); }
     window.tpCancel = () => { editId = null; renderT(); };
     window.tpToggle = id => { return;  const t = T.find(x => x.id === id); if (!t) return; t.st = t.st === 's' ? 'l' : 's'; persist(); refreshAll(); toast(norm(t.name) + ': ' + (t.st === 's' ? 'সক্রিয়' : 'ছুটিতে') + ' (হাজিরার সাথে সিঙ্ক হয়েছে)'); };
     window.tpSave = id => {
-        // if (!authed()) { toast('আগে লগইন করুন'); return; } 
+     if (!authed()) { toast('আগে লগইন করুন'); return; } 
         const t = T.find(x => x.id === id), g = k => document.getElementById('e_' + k).value.trim();
         if (!t) return;
         if (!g('name')) { toast('নাম লিখুন'); return; }
