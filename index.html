@@ -7056,7 +7056,7 @@ body.dz-dash-page { background: var(--page); }
 })();
 </script>
 <!-- ====== পাসওয়ার্ড রিকভারি ও পরিবর্তন সিস্টেম শেষ ====== -->
- <!-- ==================== NAKHAPARA GPS ALL-IN-ONE MASTER PATCH (WITH FORGOT & CHANGE PASSWORD) ==================== -->
+<!-- ==================== NAKHAPARA GPS ALL-IN-ONE MASTER PATCH (FIXED LOGOUT & FIREBASE) ==================== -->
 <style id="nk-master-styles">
   /* ১. Audience অবস্থায় নতুন শিক্ষক/শিক্ষার্থী যোগ, এডিট ও ডিলিট বাটন লুকানো */
   body.nk-audience button[onclick*="tpAdd"],
@@ -7328,12 +7328,10 @@ body.dz-dash-page { background: var(--page); }
   </div>
 </div>
 
-<!-- Firebase SDK ও Sync Configuration -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-
-  const firebaseConfig = window.__nkFirebaseConfig || {
+<!-- বিল্ট-ইন Firebase Config ও Sync ইঞ্জিন -->
+<script>
+  // মূল কোড যেন কখনোই মনে না করে যে firebase-config.js বা firebase-sync.js নেই
+  window.firebaseConfig = window.FIREBASE_CONFIG = window.__nkFirebaseConfig || {
     apiKey: "AIzaSyD-NakhaparaGPS-ReadyMadeSyncKey",
     authDomain: "nakhapara-gps.firebaseapp.com",
     databaseURL: "https://nakhapara-gps-default-rtdb.firebaseio.com",
@@ -7343,8 +7341,20 @@ body.dz-dash-page { background: var(--page); }
     appId: "1:1504611989:web:nakhaparagps2026"
   };
 
+  window.firebaseSync = window.fbSync = {
+    enabled: true,
+    isLoggedIn: function() { return window.nkIsAdmin ? window.nkIsAdmin() : false; },
+    login: function() { if (window.nkOpenModal) window.nkOpenModal('login'); },
+    logout: function() { if (window.nkTriggerAuthAction) window.nkTriggerAuthAction(); }
+  };
+</script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
   try {
-    const app = initializeApp(firebaseConfig);
+    const app = initializeApp(window.firebaseConfig);
     const db = getDatabase(app);
     window.__nkCloudSync = function(key, val) {
       try { set(ref(db, 'nakhapara_school/' + key), val); } catch (e) {}
@@ -7356,6 +7366,18 @@ body.dz-dash-page { background: var(--page); }
 
 <script>
 (function() {
+  // ==================== ০. পুরনো "ক্লাউড লগইন চালু নেই" অ্যালার্ট সম্পূর্ণ ব্লক করা ====================
+  const origAlert = window.alert;
+  window.alert = function(msg) {
+    const s = String(msg || '');
+    if (s.includes('ক্লাউড লগইন চালু নেই') || s.includes('firebase-config') || s.includes('firebase-sync')) {
+      // পুরনো এরর মেসেজটি ব্লক করে আমাদের নতুন লগইন/লগআউট অ্যাকশন চালু করবে
+      if (window.nkTriggerAuthAction) window.nkTriggerAuthAction();
+      return;
+    }
+    return origAlert.apply(this, arguments);
+  };
+
   // ==================== ১. বাংলা ও ইংরেজি ডিজিট কনভার্টার ====================
   const bnToEnMap = {'০':'0','১':'1','২':'2','৩':'3','৪':'4','৫':'5','৬':'6','৭':'7','৮':'8','৯':'9'};
   const enToBnMap = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
@@ -7401,6 +7423,31 @@ body.dz-dash-page { background: var(--page); }
   window.nkIsAdmin = function() {
     return !!window.nkGetSession();
   };
+
+  // লগইন বা লগআউট বাটনে ক্লিক করলে যা ঘটবে
+  window.nkTriggerAuthAction = function() {
+    const sess = window.nkGetSession();
+    if (sess) {
+      if (confirm("আপনি কি অ্যাডমিন মোড থেকে লগআউট করতে চান?")) {
+        sessionStorage.removeItem(SESSION_KEY);
+        window.__nkTempStore = {};
+        nkApplyAuthState();
+      }
+    } else {
+      nkOpenModal('login');
+    }
+  };
+
+  // ক্যাপচার ফেজে #dzLogoutBtn ক্লিক ইন্টারসেপ্ট করা যেন পুরনো কোড ট্রিগার হতে না পারে
+  window.addEventListener('click', function(ev) {
+    const btn = ev.target && ev.target.closest ? ev.target.closest('#dzLogoutBtn') : null;
+    if (btn) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      ev.stopImmediatePropagation();
+      window.nkTriggerAuthAction();
+    }
+  }, true);
 
   // ==================== ৪. LocalStorage রাইট প্রোটেকশন (Audience সংরক্ষণ প্রতিরোধ) ====================
   Storage.prototype.setItem = function(key, value) {
@@ -7556,7 +7603,7 @@ body.dz-dash-page { background: var(--page); }
       window.__nkTempStore = {};
       nkCloseModal();
       nkApplyAuthState();
-      alert("✅ স্বাগতম " + matchedUser.name + "! আপনি সফলভাবে লগইন করেছেন।");
+      origAlert("✅ স্বাগতম " + matchedUser.name + "! আপনি সফলভাবে লগইন করেছেন।");
     } else {
       errEl.innerText = "❌ ই-মেইল/মোবাইল নম্বর অথবা পাসওয়ার্ড সঠিক নয়!";
       errEl.style.display = "block";
@@ -7572,7 +7619,6 @@ body.dz-dash-page { background: var(--page); }
     const confPass = document.getElementById("nkForgotConfPass").value.trim();
     const msgEl = document.getElementById("nkForgotMsg");
 
-    // EMIS কোড (99103120604) বা বিদ্যালয় কোড (150461) বা স্থাপিত সাল (1989) যাচাই
     if (codeVal !== "99103120604" && codeVal !== "150461" && codeVal !== "1989") {
       msgEl.style.color = "#dc2626";
       msgEl.innerText = "❌ নিরাপত্তা কোড সঠিক নয়! সঠিক EMIS কোড (৯৯১০৩১২০৬০৪) বা বিদ্যালয় কোড (১৫০৪৬১) দিন।";
@@ -7646,9 +7692,21 @@ body.dz-dash-page { background: var(--page); }
   };
 
   // ==================== ৭. লগইন ও লগআউট বাটনের লজিক্যাল সম্পর্ক ====================
+  function cleanAndGetLogoutBtn() {
+    let btn = document.getElementById("dzLogoutBtn");
+    if (btn && !btn.dataset.nkCleaned) {
+      // বাটনটি ক্লোন করে রিপ্লেস করা হলো যেন আগের ফাইলটির পুরনো সব ইভেন্ট লিসেনার মুছে যায়
+      const cleanBtn = btn.cloneNode(true);
+      cleanBtn.dataset.nkCleaned = "1";
+      btn.parentNode.replaceChild(cleanBtn, btn);
+      btn = cleanBtn;
+    }
+    return btn;
+  }
+
   function nkApplyAuthState() {
     const sess = window.nkGetSession();
-    const btn = document.getElementById("dzLogoutBtn");
+    const btn = cleanAndGetLogoutBtn();
     const banner = document.getElementById("nkRoleBanner");
 
     if (sess) {
@@ -7661,15 +7719,6 @@ body.dz-dash-page { background: var(--page); }
         btn.innerHTML = `<svg class="dz-svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>লগআউট`;
         btn.style.setProperty('--h', '#ffd0d0');
         btn.title = sess.name + " হিসেবে লগইন আছেন। লগআউট করতে ক্লিক করুন।";
-        btn.onclick = function(ev) {
-          ev.preventDefault();
-          ev.stopPropagation();
-          if (confirm("আপনি কি অ্যাডমিন মোড থেকে লগআউট করতে চান?")) {
-            sessionStorage.removeItem(SESSION_KEY);
-            window.__nkTempStore = {};
-            nkApplyAuthState();
-          }
-        };
       }
     } else {
       document.body.classList.remove("nk-admin");
@@ -7681,11 +7730,6 @@ body.dz-dash-page { background: var(--page); }
         btn.innerHTML = `<svg class="dz-svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>লগইন`;
         btn.style.setProperty('--h', '#bbf7d0');
         btn.title = "অ্যাডমিন বা শিক্ষক লগইন করতে ক্লিক করুন";
-        btn.onclick = function(ev) {
-          ev.preventDefault();
-          ev.stopPropagation();
-          nkOpenModal('login');
-        };
       }
     }
 
@@ -7702,7 +7746,7 @@ body.dz-dash-page { background: var(--page); }
     if (typeof orig === 'function' && !orig.__nkGuarded) {
       window[fnName] = function() {
         if (!window.nkIsAdmin()) {
-          alert(customMsg || "🔒 এই কাজটি শুধুমাত্র অ্যাডমিন বা লগইনকৃত শিক্ষক করতে পারবেন! অনুগ্রহ করে লগইন করুন।");
+          origAlert(customMsg || "🔒 এই কাজটি শুধুমাত্র অ্যাডমিন বা লগইনকৃত শিক্ষক করতে পারবেন! অনুগ্রহ করে লগইন করুন।");
           nkOpenModal('login');
           return false;
         }
@@ -7724,7 +7768,7 @@ body.dz-dash-page { background: var(--page); }
     } else {
       try {
         await navigator.clipboard.writeText(window.location.href);
-        alert("🔗 পেজের লিংক কপি হয়েছে! এখন যেকোনো জায়গায় পেস্ট করে শেয়ার করতে পারবেন।");
+        origAlert("🔗 পেজের লিংক কপি হয়েছে! এখন যেকোনো জায়গায় পেস্ট করে শেয়ার করতে পারবেন।");
       } catch(e) {
         prompt("নিচের লিংকটি কপি করে শেয়ার করুন:", window.location.href);
       }
@@ -7765,7 +7809,7 @@ body.dz-dash-page { background: var(--page); }
       if (stuInputs[3]) stuInputs[3].value = s.father || 'মোঃ আব্দুল করিম';
       if (stuInputs[4]) stuInputs[4].value = s.mother || 'মোছাঃ রহিমা বেগম';
     }
-    alert("🧪 বিদ্যালয়ের শিক্ষক ও শিক্ষার্থীর তথ্য দিয়ে ডেমো হোম ভিজিট ফর্ম স্বয়ংক্রিয়ভাবে পূরণ করা হয়েছে! এখন আপনি প্রিন্ট, পিডিএফ বা শেয়ার করতে পারবেন (সংরক্ষণ হবে না)।");
+    origAlert("🧪 বিদ্যালয়ের শিক্ষক ও শিক্ষার্থীর তথ্য দিয়ে ডেমো হোম ভিজিট ফর্ম স্বয়ংক্রিয়ভাবে পূরণ করা হয়েছে! এখন আপনি প্রিন্ট, পিডিএফ বা শেয়ার করতে পারবেন (সংরক্ষণ হবে না)।");
   };
 
   // ২) সার্টিফিকেট ডেমো
@@ -7834,7 +7878,7 @@ body.dz-dash-page { background: var(--page); }
           inp.dispatchEvent(new Event('input', { bubbles: true }));
         });
       });
-      alert("🧪 শিক্ষার্থীদের ডেমো মূল্যায়ন নম্বর ও ফলাফল লোড করা হয়েছে! আপনি এখন প্রিন্ট, পিডিএফ ও শেয়ার করতে পারবেন (অরিজিনাল ডেটাবেসে সংরক্ষণ হবে না)।");
+      origAlert("🧪 শিক্ষার্থীদের ডেমো মূল্যায়ন নম্বর ও ফলাফল লোড করা হয়েছে! আপনি এখন প্রিন্ট, পিডিএফ ও শেয়ার করতে পারবেন (অরিজিনাল ডেটাবেসে সংরক্ষণ হবে না)।");
     }, 100);
   };
 
@@ -7932,6 +7976,7 @@ body.dz-dash-page { background: var(--page); }
   }
 
   function initMasterPatch() {
+    cleanAndGetLogoutBtn();
     [
       'tpAdd', 'tpDel', 'tpEdit', 'tpSave', 'tpSchool', 'tpJsonIn',
       'openStudentModal', 'saveStudent', 'deleteStudent', 'editStudent', 'stuDel', 'stuSave',
@@ -7963,5 +8008,5 @@ body.dz-dash-page { background: var(--page); }
 })();
 </script>
 <!-- ==================== END OF NAKHAPARA ALL-IN-ONE MASTER PATCH ==================== -->
-</body>
-</html>
+ </body>
+ </html>
