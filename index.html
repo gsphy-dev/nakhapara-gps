@@ -6998,5 +6998,63 @@ body.dz-dash-page { background: var(--page); }
 })();
 </script>
 <!-- ==================== END OF NAKHAPARA MASTER PATCH ==================== -->
+ <!-- ====== পাসওয়ার্ড রিকভারি ও পরিবর্তন সিস্টেম শুরু ====== -->
+<script>
+(function() {
+  const CUSTOM_PASS_KEY = "nakhapara_custom_admin_pass_v1";
+
+  // লগইন ফর্মের নিচে "পাসওয়ার্ড ভুলে গেছেন?" বাটন যুক্ত করা
+  window.addEventListener("DOMContentLoaded", function() {
+    const loginForm = document.getElementById("nkLoginForm");
+    if (loginForm && !document.getElementById("nkForgotBtn")) {
+      const forgotDiv = document.createElement("div");
+      forgotDiv.style.cssText = "text-align:right; margin: -6px 0 12px 0;";
+      forgotDiv.innerHTML = `<button type="button" id="nkForgotBtn" onclick="nkOpenResetBox()" style="background:none;border:0;color:#059669;font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:underline;">পাসওয়ার্ড ভুলে গেছেন / পরিবর্তন করবেন?</button>`;
+      
+      const errEl = document.getElementById("nkLoginErr");
+      loginForm.insertBefore(forgotDiv, errEl);
+    }
+  });
+
+  // রিসেট বক্স ওপেন করা
+  window.nkOpenResetBox = function() {
+    const step1 = prompt("🔒 পাসওয়ার্ড রিসেট করতে বিদ্যালয়ের EMIS কোড (৯৯১০৩১২০৬০৪) অথবা বিদ্যালয় কোড (১৫০৪৬১) লিখুন:");
+    if (!step1) return;
+
+    const bnMap = {'০':'0','১':'1','২':'2','৩':'3','৪':'4','৫':'5','৬':'6','৭':'7','৮':'8','৯':'9'};
+    const cleanCode = String(step1).trim().replace(/[০-৯]/g, d => bnMap[d]);
+
+    // বিদ্যালয়ের EMIS কোড বা স্কুল কোড মিললে নতুন পাসওয়ার্ড সেট করার সুযোগ দেবে
+    if (cleanCode === "99103120604" || cleanCode === "150461") {
+      const newPass = prompt("✅ যাচাই সফল হয়েছে! আপনার নতুন পাসওয়ার্ড লিখুন (কমপক্ষে ৪ অক্ষর):");
+      if (newPass && newPass.trim().length >= 4) {
+        localStorage.setItem(CUSTOM_PASS_KEY, newPass.trim());
+        if (window.__nkCloudSync) window.__nkCloudSync(CUSTOM_PASS_KEY, newPass.trim());
+        alert("🎉 আপনার নতুন পাসওয়ার্ড সফলভাবে সেট হয়েছে! এখন নতুন পাসওয়ার্ড দিয়ে লগইন করুন।");
+      } else if (newPass !== null) {
+        alert("❌ পাসওয়ার্ড কমপক্ষে ৪ অক্ষরের হতে হবে!");
+      }
+    } else {
+      alert("❌ দুঃখিত! সঠিক EMIS কোড বা বিদ্যালয় কোড না দেওয়ায় পাসওয়ার্ড পরিবর্তন করা সম্ভব নয়।");
+    }
+  };
+
+  // নতুন সেট করা পাসওয়ার্ড দিয়েও যেন লগইন কাজ করে তার সংযোগ
+  const origHandleLogin = window.nkHandleLogin;
+  if (typeof origHandleLogin === "function") {
+    window.nkHandleLogin = function(e) {
+      const enteredPass = (document.getElementById("nkLoginPassword") || {}).value || "";
+      const savedCustomPass = localStorage.getItem(CUSTOM_PASS_KEY);
+
+      // যদি ইউজার নতুন সেট করা কাস্টম পাসওয়ার্ড দেয়, তবে সাময়িকভাবে মাস্টার পাসওয়ার্ড বসিয়ে লগইন করিয়ে দেবে
+      if (savedCustomPass && enteredPass.trim() === savedCustomPass) {
+        document.getElementById("nkLoginPassword").value = "150461";
+      }
+      return origHandleLogin.apply(this, arguments);
+    };
+  }
+})();
+</script>
+<!-- ====== পাসওয়ার্ড রিকভারি ও পরিবর্তন সিস্টেম শেষ ====== -->
 </body>
 </html>
