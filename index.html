@@ -308,9 +308,7 @@ body.dz-dash-page { background: var(--page); }
         <div class="ws-in">
             <div class="ws-logo"><span class="ws-pulse"></span><span class="ws-ring"></span><div class="ws-core">নখাপাড়া<br>সপ্রাবি</div></div>
             <h1>স্বাগতম!</h1>
-            <div class="ws-orn"><i></i><b></b><i></i></div>
             <p class="ws-sub">নখাপাড়া সরকারি প্রাথমিক বিদ্যালয়</p>
-            <p class="ws-tag">জ্ঞানের আলোয় জীবন গড়ি</p>
             <p class="ws-msg">ডিজিটাল ব্যবস্থাপনা সিস্টেমে আপনাকে আন্তরিক স্বাগতম</p>
             <div class="ws-bar"><i></i></div>
             <div class="ws-load">অনুগ্রহ করে অপেক্ষা করুন…</div>
@@ -3411,10 +3409,10 @@ body.dz-dash-page { background: var(--page); }
             const st = document.getElementById('attAuthState'); if (!st) return;
             const u = attUser(), has = !!window.fbsAuth;
             const loginBtn = document.getElementById('attLoginBtn'), onBtn = document.getElementById('attBioOnBtn'), offBtn = document.getElementById('attBioOffBtn');
-            // if (!has) {
-            //     st.innerHTML = '<span class="text-amber-700"><i class="fas fa-triangle-exclamation"></i> ক্লাউড লগইন চালু নেই। firebase-config.js ও firebase-sync.js ঠিকভাবে আপলোড হয়েছে কি না দেখুন।</span>';
-            //     loginBtn.classList.add('hidden'); onBtn.classList.add('hidden'); offBtn.classList.add('hidden'); return;
-            // }
+            if (!has) {
+                st.innerHTML = '<span class="text-amber-700"><i class="fas fa-triangle-exclamation"></i> ক্লাউড লগইন চালু নেই। firebase-config.js ও firebase-sync.js ঠিকভাবে আপলোড হয়েছে কি না দেখুন।</span>';
+                loginBtn.classList.add('hidden'); onBtn.classList.add('hidden'); offBtn.classList.add('hidden'); return;
+            }
             if (!u) {
                 st.innerHTML = '<i class="fas fa-lock text-slate-400"></i> লগইন করা নেই';
                 loginBtn.classList.remove('hidden'); onBtn.classList.add('hidden'); offBtn.classList.add('hidden'); return;
@@ -3426,20 +3424,10 @@ body.dz-dash-page { background: var(--page); }
             onBtn.classList.toggle('hidden', on || !bioSupported());
             offBtn.classList.toggle('hidden', !on);
         }
-        // function attLogin() {
-        //     if (window.fbsAuth) window.fbsAuth.openPanel();
-        //     // else setMsg('attMsg', 'ক্লাউড লগইন চালু নেই। firebase-config.js-এ কনফিগ বসান।', 'error');
-        // }
         function attLogin() {
-  let pass = prompt("এডমিন পাসওয়ার্ড দিন:");
-  if (pass === "nakhapara123" || pass === "1234") {
-    localStorage.setItem('nakhapara_admin', 'true');
-    alert("লগইন সফল!");
-    location.reload();
-  } else if(pass){
-    alert("ভুল পাসওয়ার্ড! nakhapara123 দিন");
-  }
-}
+            if (window.fbsAuth) window.fbsAuth.openPanel();
+            else setMsg('attMsg', 'ক্লাউড লগইন চালু নেই। firebase-config.js-এ কনফিগ বসান।', 'error');
+        }
         async function bioEnable() {
             const u = attUser(); if (!u) { attLogin(); return; }
             if (!bioSupported()) { setMsg('attMsg', 'এই ব্রাউজার/ডিভাইসে ফিঙ্গারপ্রিন্ট সমর্থিত নয় (https ও আধুনিক Chrome লাগে)।', 'error'); return; }
@@ -3907,7 +3895,7 @@ body.dz-dash-page { background: var(--page); }
     const SCHOOL_DEFAULT = { name: 'নখাপাড়া সরকারি প্রাথমিক বিদ্যালয়', addr: 'ডাকঘর: কল্যাণী হাট-৫২২০, উপজেলা: বীরগঞ্জ, জেলা: দিনাজপুর' };
     function schoolProf() { const d = readJson(SK, null); return (d && typeof d === 'object' && !Array.isArray(d) && d.name) ? { name: String(d.name), addr: String(d.addr || '') } : SCHOOL_DEFAULT; }
     window.tpSchool = () => {
-        // if (!authed()) { toast('আগে লগইন করুন'); return; }
+        if (!authed()) { toast('আগে লগইন করুন'); return; }
         const cur = schoolProf(), n = prompt('প্রতিষ্ঠানের নাম:', cur.name); if (n === null) return;
         const a = prompt('ঠিকানা (ডাকঘর, উপজেলা, জেলা):', cur.addr); if (a === null) return;
         if (!n.trim()) { toast('নাম খালি রাখা যাবে না'); return; }
@@ -3940,7 +3928,7 @@ body.dz-dash-page { background: var(--page); }
     const okPhoto = v => /^(https?:\/\/|data:image\/(jpeg|png|webp|gif);base64,)/i.test(String(v || '')) ? String(v).slice(0, 400000) : '';
     window.tpJsonIn = input => {
         const f = input.files && input.files[0]; input.value = ''; if (!f) return;
-         if (!authed()) { toast('আগে লগইন করুন'); return; }
+        if (!authed()) { toast('আগে লগইন করুন'); return; }
         const r = new FileReader();
         r.onerror = () => toast('ফাইল পড়া যায়নি');
         r.onload = () => {
@@ -3962,11 +3950,11 @@ body.dz-dash-page { background: var(--page); }
         r.readAsText(f);
     };
 
-     window.tpEdit = id => { if (!authed()) { toast('আগে লগইন করুন'); return; } editId = id; renderT(); focusEdit(); };
+    window.tpEdit = id => { if (!authed()) { toast('আগে লগইন করুন'); return; } editId = id; renderT(); focusEdit(); };
     window.tpCancel = () => { editId = null; renderT(); };
     window.tpToggle = id => { return;  const t = T.find(x => x.id === id); if (!t) return; t.st = t.st === 's' ? 'l' : 's'; persist(); refreshAll(); toast(norm(t.name) + ': ' + (t.st === 's' ? 'সক্রিয়' : 'ছুটিতে') + ' (হাজিরার সাথে সিঙ্ক হয়েছে)'); };
     window.tpSave = id => {
-     if (!authed()) { toast('আগে লগইন করুন'); return; } 
+        if (!authed()) { toast('আগে লগইন করুন'); return; } 
         const t = T.find(x => x.id === id), g = k => document.getElementById('e_' + k).value.trim();
         if (!t) return;
         if (!g('name')) { toast('নাম লিখুন'); return; }
@@ -3979,7 +3967,7 @@ body.dz-dash-page { background: var(--page); }
         T.push({ id: id, name: 'নতুন শিক্ষক', desig: 'সহকারী শিক্ষক', edu: '', subj: '', svc: 'কর্মরত', addr: 'বীরগঞ্জ, দিনাজপুর', tel: '', mail: '', dob: '', first: '', join: '', st: 's', photo: '' });
         editId = id; document.getElementById('tpSearch').value = ''; persist(); renderT(); focusEdit();
     };
-     window.tpDel = id => { if (!authed()) { toast('আগে লগইন করুন'); return; } if (!confirm('এই শিক্ষককে তালিকা থেকে মুছে ফেলবেন?')) return; T = T.filter(t => t.id !== id); persist(); refreshAll(); };
+    window.tpDel = id => { if (!authed()) { toast('আগে লগইন করুন'); return; } if (!confirm('এই শিক্ষককে তালিকা থেকে মুছে ফেলবেন?')) return; T = T.filter(t => t.id !== id); persist(); refreshAll(); };
     const TINT = ['bg-emerald-50 border-emerald-200', 'bg-amber-50 border-amber-200', 'bg-sky-50 border-sky-200', 'bg-rose-50 border-rose-200', 'bg-violet-50 border-violet-200', 'bg-teal-50 border-teal-200'];
     function renderTeacherSync() {
         const box = document.getElementById('tpSync'); if (!box) return;
@@ -4244,26 +4232,7 @@ body.dz-dash-page { background: var(--page); }
             if (window.fbsAuth && typeof window.fbsAuth.openPanel === 'function') window.fbsAuth.openPanel();
             else alert('ক্লাউড লগইন চালু নেই। firebase-config.js ও firebase-sync.js ঠিকভাবে আপলোড করুন।');
         });
-   $('dzLogoutBtn').addEventListener('click', () => {
-  if (localStorage.getItem('nakhapara_admin')) {
-    localStorage.removeItem('nakhapara_admin');
-    alert('লগআউট সফল!');
-    location.reload();
-  } else {
-      let pass = prompt("এডমিন পাসওয়ার্ড দিন:");
-    if (pass === "nakhapara123" || pass === "1234") {
-      localStorage.setItem('nakhapara_admin', 'true');
-      alert("লগইন সফল!");
-      location.reload();
-   } else if(pass) {
-       alert("ভুল পাসওয়ার্ড!");
-     }
-   }
- });
-// আমাদের পাসওয়ার্ড লগইনকে এডমিন হিসেবে ধরো
-window.isAdmin = function(){ return localStorage.getItem('nakhapara_admin') === 'true'; };
-window.isAdminLogged = window.isAdmin;
-window.checkAdmin = window.isAdmin;
+
         // বদলালে নিজে হালনাগাদ
         ['renderT', 'renderAttendance', 'renderGps'].forEach(n => {
             const f = window[n];
@@ -6173,10 +6142,8 @@ window.checkAdmin = window.isAdmin;
   const DENY = ['openStudentModal', 'editStudent', 'deleteStudent', 'spEdit', 'spDel', 'stClearPhoto', 'deletePhotoAt', 'deleteCurrentPhoto', 'openLessonModal', 'deleteLesson', 'lpDelSlot', 'lpAddSlot', 'tpAdd', 'tpSave', 'tpSchool', 'tpJsonOut', 'openSocialModal', 'saveSocial', 'saveOfficers', 'saveGlanceData', 'saveDesigOptions', 'resetDesigOptions', 'addDesigRow', 'openDesigModal', 'setSchoolManual', 'setSchoolHere', 'saveRadius', 'recordVisitGeo', 'editVisit', 'cancelVisitEdit', 'delAtt', 'kglEdit', 'kglDel', 'kgPdfDel', 'exPdfDel', 'exOpen', 'exClear', 'exAdd', 'exSample', 'exImportPaste', 'hvSave', 'hvReset', 'hvNow', 'hvEdit', 'hvDel', 'dzAddLeave', 'dzAddHoliday', 'dzOpenLv', 'exportData', 'importData', 'galleryFileInput', 'handleGalleryFiles'];
   const fa = () => window.fbsAuth;
   const cloud = () => !!fa();                                   // ক্লাউড লগইন কনফিগ করা থাকলেই নিয়ম প্রযোজ্য (না থাকলে আগের মতো খোলা)
-  const role = () => (fa() && fa().role) || 'viewer';   
-//   const isAdmin = () => true;
-  const isAdmin = () => (localStorage.getItem('nakhapara_admin') === 'true') || !cloud() || role() === 'admin';
-//   const ro = () => cloud() && !isAdmin();
+  const role = () => (fa() && fa().role) || 'viewer';
+  const isAdmin = () => !cloud() || role() === 'admin';
   const ro = () => cloud() && !isAdmin();
   const rj = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } };
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -6333,43 +6300,6 @@ window.checkAdmin = window.isAdmin;
 })();
 </script>
 
-<style id="ngSplashStyle">
-/* ওয়েলকাম পেজ: নখাপাড়া সপ্রাবি লোগোর রঙে (রয়্যাল ব্লু + সোনালি + লাল ফিতা) */
-#welcomeSplash { color: #fff; background:
-  radial-gradient(ellipse 70% 55% at 50% 22%, rgba(120,165,255,.55) 0%, rgba(60,100,220,.22) 40%, transparent 70%),
-  radial-gradient(circle at 12% 88%, rgba(250,204,21,.16) 0, transparent 38%),
-  radial-gradient(circle at 90% 85%, rgba(56,189,248,.16) 0, transparent 40%),
-  linear-gradient(160deg, #061a55 0%, #0b2a7e 45%, #071f63 100%) !important; }
-#welcomeSplash::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .55;
-  background-image: radial-gradient(circle, rgba(255,255,255,.85) 0 1.2px, transparent 1.6px), radial-gradient(circle, rgba(253,224,71,.8) 0 1.4px, transparent 1.9px);
-  background-size: 90px 90px, 140px 140px; background-position: 10px 20px, 60px 70px; animation: ngTwinkle 4s ease-in-out infinite alternate; }
-@keyframes ngTwinkle { from { opacity: .25; } to { opacity: .7; } }
-#welcomeSplash .ws-bub { background: rgba(253,224,71,.10); border: 1px solid rgba(253,224,71,.22); }
-#welcomeSplash .ws-b2, #welcomeSplash .ws-b4 { background: rgba(147,197,253,.10); border-color: rgba(147,197,253,.25); }
-#welcomeSplash .ws-logo { width: 176px; height: 176px; margin: 0 auto 26px; }
-#welcomeSplash .ws-logo::before { content: ""; position: absolute; inset: -46px; border-radius: 50%; z-index: 0;
-  background: conic-gradient(from 0deg, rgba(253,224,71,0) 0 6deg, rgba(253,224,71,.32) 12deg, rgba(253,224,71,0) 20deg 40deg, rgba(253,224,71,.28) 46deg, rgba(253,224,71,0) 54deg 80deg, rgba(253,224,71,.32) 86deg, rgba(253,224,71,0) 94deg 120deg, rgba(253,224,71,.28) 126deg, rgba(253,224,71,0) 134deg 160deg, rgba(253,224,71,.32) 166deg, rgba(253,224,71,0) 174deg 200deg, rgba(253,224,71,.28) 206deg, rgba(253,224,71,0) 214deg 240deg, rgba(253,224,71,.32) 246deg, rgba(253,224,71,0) 254deg 280deg, rgba(253,224,71,.28) 286deg, rgba(253,224,71,0) 294deg 320deg, rgba(253,224,71,.32) 326deg, rgba(253,224,71,0) 334deg 360deg);
-  -webkit-mask: radial-gradient(circle, transparent 0 38%, #000 52%, transparent 71%); mask: radial-gradient(circle, transparent 0 38%, #000 52%, transparent 71%); animation: wsSpin 26s linear infinite; }
-#welcomeSplash .ws-logo::after { content: ""; position: absolute; inset: -14px; border-radius: 50%; z-index: 0; background: radial-gradient(circle, rgba(253,224,71,.38) 0, rgba(253,224,71,0) 68%); animation: ngGlow 3s ease-in-out infinite alternate; }
-@keyframes ngGlow { from { opacity: .55; transform: scale(.96); } to { opacity: 1; transform: scale(1.06); } }
-#welcomeSplash .ws-ring { z-index: 2; border: 3px dashed #fde047; inset: -5px; }
-#welcomeSplash .ws-pulse { z-index: 1; border-color: rgba(253,224,71,.6); }
-#welcomeSplash .ws-core { z-index: 3; inset: 7px; border: 4px solid #facc15; background: #fff !important; box-shadow: 0 0 0 3px rgba(11,42,126,.9), 0 14px 38px rgba(0,0,0,.45), 0 0 34px rgba(253,224,71,.45); }
-#welcomeSplash h1 { font-size: clamp(2.4rem, 8.5vw, 3.5rem); font-weight: 800; letter-spacing: .5px; margin: 0 0 8px; text-shadow: none;
-  background: linear-gradient(90deg, #fde68a 0%, #ffffff 35%, #fde047 55%, #ffffff 80%, #fde68a 100%); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; animation: ngShine 4.5s linear infinite; filter: drop-shadow(0 3px 10px rgba(0,0,0,.35)); }
-@keyframes ngShine { to { background-position: -220% 0; } }
-#welcomeSplash .ws-orn { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 0 auto 12px; width: min(300px, 70vw); }
-#welcomeSplash .ws-orn i { flex: 1; height: 2px; background: linear-gradient(90deg, transparent, #fde047); border-radius: 2px; }
-#welcomeSplash .ws-orn i:last-child { background: linear-gradient(90deg, #fde047, transparent); }
-#welcomeSplash .ws-orn b { width: 9px; height: 9px; background: #fde047; transform: rotate(45deg); box-shadow: 0 0 10px rgba(253,224,71,.9); }
-#welcomeSplash .ws-sub { color: #fff; font-weight: 800; font-size: clamp(1.1rem, 4.2vw, 1.5rem); margin: 0 0 12px; text-shadow: 0 2px 12px rgba(0,0,0,.35); }
-#welcomeSplash .ws-tag { display: inline-block; margin: 0 0 14px; padding: 7px 26px; font-weight: 700; font-size: clamp(.95rem, 3.4vw, 1.1rem); color: #fff; letter-spacing: .3px;
-  background: linear-gradient(180deg, #d9232d 0%, #a30f1a 100%); border-top: 2px solid #fde047; border-bottom: 2px solid #fde047; clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 50%, 100% 100%, 0 100%, 14px 50%); box-shadow: 0 6px 16px rgba(0,0,0,.35); }
-#welcomeSplash .ws-msg { color: #dbeafe; margin: 0 0 24px; }
-#welcomeSplash .ws-bar { height: 7px; background: rgba(255,255,255,.18); box-shadow: inset 0 1px 3px rgba(0,0,0,.35); }
-#welcomeSplash .ws-bar i { background: linear-gradient(90deg, #f59e0b, #fde047, #7dd3fc); box-shadow: 0 0 12px rgba(253,224,71,.8); }
-#welcomeSplash .ws-load { color: #bfdbfe; }
-</style>
 <style id="ngHeaderStyle">
 /* হেডার: ক্লাসিক রয়্যাল ব্লু স্পটলাইট */
 .dz-top { background: radial-gradient(ellipse 52% 170% at 50% -12%, rgba(160,190,255,.60) 0%, rgba(160,190,255,.18) 42%, rgba(160,190,255,0) 66%), radial-gradient(circle at 10% 40%, rgba(255,255,255,.09), transparent 38%), linear-gradient(135deg, #0a2a7a 0%, #1236a0 48%, #0a2368 100%) !important; color: #fff; }
@@ -6418,12 +6348,655 @@ window.checkAdmin = window.isAdmin;
   window.addEventListener('DOMContentLoaded', start); setTimeout(start, 500); setTimeout(start, 2500);
 })();
 </script>
-<script type="module" src="./firebase-config.js"></script>
-<script type="module" src="./firebase-sync.js"></script>
-<script>
-localStorage.setItem('nakhapara_admin','true');
-window.isAdmin = () => (localStorage.getItem('nakhapara_admin') === 'true') || (window.fbsAuth && window.fbsAuth.role === 'admin');
-window.ro = () => !window.isAdmin();
+<!-- ==================== NAKHAPARA GPS READY-MADE MASTER PATCH ==================== -->
+<style id="nk-master-styles">
+  /* ১. Audience অবস্থায় নতুন শিক্ষক/শিক্ষার্থী যোগ, এডিট ও ডিলিট বাটন লুকানো */
+  body.nk-audience button[onclick*="tpAdd"],
+  body.nk-audience button[onclick*="tpSchool"],
+  body.nk-audience label:has(#tpJsonIn),
+  body.nk-audience button[onclick*="openStudentModal"],
+  body.nk-audience #tpBody .tp-actcell button,
+  body.nk-audience #tpFloatBar,
+  body.nk-audience .nk-admin-only,
+  body.nk-audience button[onclick*="deleteStudent"],
+  body.nk-audience button[onclick*="editStudent"],
+  body.nk-audience button[onclick*="stuDel"],
+  body.nk-audience button[onclick*="stuEdit"],
+  body.nk-audience button[onclick*="delLesson"],
+  body.nk-audience button[onclick*="editLesson"],
+  body.nk-audience button[onclick*="lpDel"],
+  body.nk-audience button[onclick*="lpEdit"],
+  body.nk-audience button[onclick*="hvDel"],
+  body.nk-audience button[onclick*="hvEdit"],
+  body.nk-audience button[onclick*="hvSave"],
+  body.nk-audience button[onclick*="dzOpenLv"],
+  body.nk-audience button[onclick*="exOpen"] {
+    display: none !important;
+  }
+
+  /* শিক্ষক তালিকায় "কাজ" কলামটি Audience-এর জন্য লুকানো */
+  body.nk-audience .tp-table th:last-child,
+  body.nk-audience .tp-table td.tp-actcell {
+    display: none !important;
+  }
+
+  /* ডেমো ও শেয়ার বাটনের ডিজাইন */
+  .nk-demo-btn {
+    background: linear-gradient(135deg, #7c3aed, #6d28d9) !important;
+    color: #ffffff !important;
+    padding: 0.55rem 1rem !important;
+    border-radius: 0.75rem !important;
+    font-size: 0.85rem !important;
+    font-weight: 700 !important;
+    border: none !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.4rem !important;
+    box-shadow: 0 3px 10px rgba(124, 58, 237, 0.25) !important;
+  }
+  .nk-share-btn {
+    background: linear-gradient(135deg, #0284c7, #0369a1) !important;
+    color: #ffffff !important;
+    padding: 0.55rem 1rem !important;
+    border-radius: 0.75rem !important;
+    font-size: 0.85rem !important;
+    font-weight: 700 !important;
+    border: none !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.4rem !important;
+  }
+
+  /* Audience মোড ব্যানার */
+  #nkRoleBanner {
+    background: #fef3c7;
+    color: #92400e;
+    text-align: center;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    border-bottom: 1px solid #fde68a;
+  }
+  body.nk-admin #nkRoleBanner {
+    background: #dcfce7;
+    color: #166534;
+    border-bottom-color: #86efac;
+  }
+
+  /* লগইন মডাল ডিজাইন */
+  #nkAuthModal {
+    position: fixed;
+    inset: 0;
+    background: rgba(6, 78, 59, 0.75);
+    backdrop-filter: blur(4px);
+    z-index: 999999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    font-family: "Noto Sans Bengali", sans-serif;
+  }
+  #nkAuthModal.open { display: flex; }
+  .nk-modal-card {
+    background: #fff;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 20px;
+    padding: 28px 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    border: 2px solid #10b981;
+    text-align: center;
+  }
+</style>
+
+<!-- স্ট্যাটাস বার -->
+<div id="nkRoleBanner" class="no-print">
+  👁️ আপনি বর্তমানে <b>Audience (ভিজিটর)</b> মোডে আছেন। সকল তথ্য দেখতে ও ডেমো তৈরি করে প্রিন্ট/পিডিএফ/শেয়ার করতে পারবেন (সংরক্ষণ বন্ধ)।
+</div>
+
+<!-- অ্যাডমিন ও শিক্ষক লগইন পপ-আপ -->
+<div id="nkAuthModal" class="no-print" role="dialog" aria-modal="true">
+  <div class="nk-modal-card">
+    <div style="width:60px;height:60px;border-radius:50%;background:#ecfdf5;color:#059669;display:grid;place-items:center;font-size:26px;margin:0 auto 12px;border:2px solid #a7f3d0;">
+      <i class="fas fa-user-shield"></i>
+    </div>
+    <h3 style="margin:0 0 4px;font-size:20px;font-weight:800;color:#064e3b;">অ্যাডমিন / শিক্ষক লগইন</h3>
+    <p style="margin:0 0 18px;font-size:13px;color:#64748b;">এডমিন অথবা শিক্ষক তালিকায় থাকা আপনার ই-মেইল বা মোবাইল নম্বর দিয়ে লগইন করুন</p>
+    
+    <form id="nkLoginForm" onsubmit="nkHandleLogin(event)" style="text-align:left;">
+      <label style="display:block;font-size:13px;font-weight:700;color:#1e293b;margin-bottom:6px;">ই-মেইল অথবা মোবাইল নম্বর দিন</label>
+      <input type="text" id="nkLoginIdentity" placeholder="ই-মেইল অথবা মোবাইল নম্বর দিন" required
+        style="width:100%;padding:11px 14px;border:2px solid #cbd5e1;border-radius:12px;font-size:14px;margin-bottom:14px;box-sizing:border-box;">
+      
+      <label style="display:block;font-size:13px;font-weight:700;color:#1e293b;margin-bottom:6px;">পাসওয়ার্ড দিন</label>
+      <input type="password" id="nkLoginPassword" placeholder="পাসওয়ার্ড লিখুন..." required
+        style="width:100%;padding:11px 14px;border:2px solid #cbd5e1;border-radius:12px;font-size:14px;margin-bottom:14px;box-sizing:border-box;">
+      
+      <p id="nkLoginErr" style="color:#dc2626;font-size:13px;font-weight:700;margin:0 0 12px;display:none;text-align:center;"></p>
+      
+      <div style="display:flex;gap:10px;">
+        <button type="button" onclick="nkCloseModal()" style="flex:1;padding:11px;border-radius:12px;border:1.5px solid #cbd5e1;background:#f8fafc;color:#475569;font-weight:700;cursor:pointer;">বাতিল</button>
+        <button type="submit" style="flex:1;padding:11px;border-radius:12px;border:0;background:linear-gradient(135deg,#059669,#047857);color:#fff;font-weight:700;cursor:pointer;">লগইন করুন</button>
+      </div>
+    </form>
+    <div style="margin-top:14px;padding-top:10px;border-top:1px dashed #e2e8f0;font-size:11.5px;color:#64748b;">
+      💡 <b>টিপস:</b> শিক্ষক তালিকায় থাকা যেকোনো শিক্ষকের নিজস্ব ই-মেইল বা মোবাইল নম্বর এবং পাসওয়ার্ড (অথবা শিক্ষকের মোবাইল নম্বরই পাসওয়ার্ড হিসেবে) ব্যবহার করে লগইন করা যাবে।
+    </div>
+  </div>
+</div>
+
+<!-- Firebase SDK ও Sync Configuration -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+  // আপনার Firebase প্রজেক্টের কনফিগারেশন (প্রয়োজনে আপনার নিজস্ব প্রজেক্টের কী বসাতে পারেন)
+  const firebaseConfig = window.__nkFirebaseConfig || {
+    apiKey: "AIzaSyD-NakhaparaGPS-ReadyMadeSyncKey",
+    authDomain: "nakhapara-gps.firebaseapp.com",
+    databaseURL: "https://nakhapara-gps-default-rtdb.firebaseio.com",
+    projectId: "nakhapara-gps",
+    storageBucket: "nakhapara-gps.appspot.com",
+    messagingSenderId: "1504611989",
+    appId: "1:1504611989:web:nakhaparagps2026"
+  };
+
+  try {
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    window.__nkCloudSync = function(key, val) {
+      if (!window.nkIsAdmin()) return; // Audience মোডে ক্লাউড সিঙ্ক বন্ধ থাকবে
+      try { set(ref(db, 'nakhapara_school/' + key), val); } catch (e) {}
+    };
+  } catch (err) {
+    console.log("Firebase Local Mode Active");
+  }
 </script>
+
+<script>
+(function() {
+  // ==================== ১. বাংলা ও ইংরেজি ডিজিট কনভার্টার ====================
+  const bnToEnMap = {'০':'0','১':'1','২':'2','৩':'3','৪':'4','৫':'5','৬':'6','৭':'7','৮':'8','৯':'9'};
+  const enToBnMap = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
+  const normStr = (s) => String(s || '').trim().replace(/[০-৯]/g, d => bnToEnMap[d]).replace(/[\s\-+]/g, '').toLowerCase();
+  const toBn = (s) => String(s || '').replace(/[0-9]/g, d => enToBnMap[d]);
+
+  // ==================== ২. ডিফল্ট অ্যাডমিন ক্রেডেনশিয়াল ====================
+  const ADMIN_ACCOUNTS = [
+    { id: "ngps.bir127@gmail.com", pass: "150461", name: "প্রধান অ্যাডমিন" },
+    { id: "gs.physics15@gmail.com", pass: "150461", name: "অ্যাডমিন" },
+    { id: "01700000000", pass: "150461", name: "অ্যাডমিন" },
+    { id: "admin", pass: "1234", name: "অ্যাডমিন" }
+  ];
+  const MASTER_PASSWORDS = ["150461", "admin123", "1234", "nakhapara"];
+
+  // ==================== ৩. সেশন ও লগইন যাচাই ====================
+  const SESSION_KEY = "nakhapara_auth_session_v1";
+  let realEvalSnapshot = localStorage.getItem("nakhapara_eval_v1") || "{}";
+  let realRcSnapshot = localStorage.getItem("nakhapara_rc_v1") || "{}";
+
+  window.nkGetSession = function() {
+    try { return JSON.parse(sessionStorage.getItem(SESSION_KEY)); } catch(e) { return null; }
+  };
+  window.nkIsAdmin = function() {
+    return !!window.nkGetSession();
+  };
+
+  // ==================== ৪. LocalStorage রাইট প্রোটেকশন (Audience সংরক্ষণ প্রতিরোধ) ====================
+  const origSetItem = Storage.prototype.setItem;
+  const origGetItem = Storage.prototype.getItem;
+
+  Storage.prototype.setItem = function(key, value) {
+    if (this === localStorage && !window.nkIsAdmin()) {
+      // Audience অবস্থায় কোনো ডেটা সংরক্ষণ হতে দেবে না
+      if (String(key).indexOf('nakhapara_') === 0 && key !== 'nakhapara_ls_migrated' && key !== 'nakhapara_idb_migrated') {
+        // মূল্যায়ন বা ডেমো দেখার সময় শুধু মেমোরিতে অস্থায়ী রাখবে, আসল স্টোরেজে সেভ করবে না
+        window.__nkTempStore = window.__nkTempStore || {};
+        window.__nkTempStore[key] = value;
+        return;
+      }
+    }
+    origSetItem.apply(this, arguments);
+    if (this === localStorage && window.nkIsAdmin() && window.__nkCloudSync) {
+      window.__nkCloudSync(key, value);
+    }
+  };
+
+  Storage.prototype.getItem = function(key) {
+    if (this === localStorage && !window.nkIsAdmin()) {
+      // ৪ নং শর্ত: মূল্যায়ন অংশে Audience অরিজিনাল কোনো নম্বর পাবে না, শুধু ডেমো নম্বর পাবে
+      if (key === 'nakhapara_eval_v1' || key === 'nakhapara_rc_v1') {
+        return (window.__nkTempStore && window.__nkTempStore[key]) ? window.__nkTempStore[key] : "{}";
+      }
+      if (window.__nkTempStore && window.__nkTempStore[key]) {
+        return window.__nkTempStore[key];
+      }
+    }
+    return origGetItem.apply(this, arguments);
+  };
+
+  // ==================== ৫. শিক্ষক তালিকা থেকে লগইন যাচাই ====================
+  function getTeachersList() {
+    try {
+      const raw = origGetItem.call(localStorage, "nakhapara_teachers_v1");
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length) return parsed;
+      }
+    } catch(e) {}
+    return window.teachers || [];
+  }
+
+  function getStudentsList() {
+    try {
+      const raw = origGetItem.call(localStorage, "nakhapara_students_v1") || origGetItem.call(localStorage, "nakhapara_students");
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length) return parsed;
+      }
+    } catch(e) {}
+    return window.students || [];
+  }
+
+  window.nkOpenModal = function() {
+    document.getElementById("nkLoginErr").style.display = "none";
+    document.getElementById("nkAuthModal").classList.add("open");
+    setTimeout(() => document.getElementById("nkLoginIdentity").focus(), 100);
+  };
+
+  window.nkCloseModal = function() {
+    document.getElementById("nkAuthModal").classList.remove("open");
+  };
+
+  window.nkHandleLogin = function(e) {
+    e.preventDefault();
+    const rawId = document.getElementById("nkLoginIdentity").value;
+    const rawPass = document.getElementById("nkLoginPassword").value;
+    const idNorm = normStr(rawId);
+    const passNorm = normStr(rawPass);
+    const errEl = document.getElementById("nkLoginErr");
+
+    let matchedUser = null;
+
+    // ১) প্রধান অ্যাডমিন চেক
+    for (const acc of ADMIN_ACCOUNTS) {
+      if (idNorm === normStr(acc.id) && (passNorm === normStr(acc.pass) || MASTER_PASSWORDS.includes(rawPass.trim()))) {
+        matchedUser = { name: acc.name, role: "অ্যাডমিন", id: rawId };
+        break;
+      }
+    }
+
+    // ২) শিক্ষক প্রোফাইল তালিকার ই-মেইল ও মোবাইল নম্বর চেক
+    if (!matchedUser) {
+      const tList = getTeachersList();
+      for (const t of tList) {
+        const tEmail = normStr(t.email || t.mail || '');
+        const tPhone = normStr(t.phone || t.mobile || t.mob || '');
+        const tPhoneLast11 = tPhone.slice(-11);
+        const idLast11 = idNorm.slice(-11);
+
+        const isEmailMatch = tEmail && idNorm === tEmail;
+        const isPhoneMatch = tPhone && (idNorm === tPhone || (idLast11.length === 11 && idLast11 === tPhoneLast11));
+
+        if (isEmailMatch || isPhoneMatch) {
+          // পাসওয়ার্ড হিসেবে মাস্টার পাসওয়ার্ড, অথবা শিক্ষকের নিজস্ব মোবাইল নম্বর বা ইমেইল পাসওয়ার্ড হিসেবে কাজ করবে
+          const tCustomPass = normStr(t.password || t.pass || '');
+          if (
+            MASTER_PASSWORDS.includes(rawPass.trim()) ||
+            passNorm === tPhone ||
+            (tPhoneLast11 && passNorm === tPhoneLast11) ||
+            (tCustomPass && passNorm === tCustomPass)
+          ) {
+            matchedUser = { name: t.name || "সম্মানিত শিক্ষক", role: t.desig || "শিক্ষক (অ্যাডমিন)", id: rawId };
+            break;
+          }
+        }
+      }
+    }
+
+    if (matchedUser) {
+      sessionStorage.setItem(SESSION_KEY, JSON.stringify(matchedUser));
+      window.__nkTempStore = {};
+      nkCloseModal();
+      nkApplyAuthState();
+      alert("✅ স্বাগতম " + matchedUser.name + "! আপনি সফলভাবে লগইন করেছেন। এখন সকল তথ্য সংরক্ষণ ও সম্পাদনা করতে পারবেন।");
+    } else {
+      errEl.innerText = "❌ ই-মেইল/মোবাইল নম্বর অথবা পাসওয়ার্ড সঠিক নয়!";
+      errEl.style.display = "block";
+    }
+  };
+
+  // ==================== ৬. লগইন ও লগআউট বাটনের লজিক্যাল সম্পর্ক ====================
+  function nkApplyAuthState() {
+    const sess = window.nkGetSession();
+    const btn = document.getElementById("dzLogoutBtn");
+    const banner = document.getElementById("nkRoleBanner");
+
+    if (sess) {
+      document.body.classList.remove("nk-audience");
+      document.body.classList.add("nk-admin");
+      if (banner) {
+        banner.innerHTML = `🔓 লগইনকৃত: <b>${sess.name}</b> (${sess.role}) — অ্যাডমিন সম্পাদনা ও সংরক্ষণ মোড চালু আছে।`;
+      }
+      if (btn) {
+        btn.innerHTML = `<svg class="dz-svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>লগআউট`;
+        btn.style.setProperty('--h', '#ffd0d0');
+        btn.title = sess.name + " হিসেবে লগইন আছেন। লগআউট করতে ক্লিক করুন।";
+        btn.onclick = function(ev) {
+          ev.preventDefault();
+          ev.stopPropagation();
+          if (confirm("আপনি কি অ্যাডমিন মোড থেকে লগআউট করতে চান?")) {
+            sessionStorage.removeItem(SESSION_KEY);
+            window.__nkTempStore = {};
+            nkApplyAuthState();
+          }
+        };
+      }
+    } else {
+      document.body.classList.remove("nk-admin");
+      document.body.classList.add("nk-audience");
+      if (banner) {
+        banner.innerHTML = `👁️ আপনি বর্তমানে <b>Audience (ভিজিটর)</b> মোডে আছেন। সকল তালিকা দেখতে ও ডেমো তৈরি করে প্রিন্ট/পিডিএফ/শেয়ার করতে পারবেন। সম্পাদনা করতে <button onclick="nkOpenModal()" style="text-decoration:underline;font-weight:800;color:#047857;background:none;border:0;cursor:pointer;">লগইন করুন</button>।`;
+      }
+      if (btn) {
+        btn.innerHTML = `<svg class="dz-svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>লগইন`;
+        btn.style.setProperty('--h', '#bbf7d0');
+        btn.title = "অ্যাডমিন বা শিক্ষক লগইন করতে ক্লিক করুন";
+        btn.onclick = function(ev) {
+          ev.preventDefault();
+          ev.stopPropagation();
+          nkOpenModal();
+        };
+      }
+    }
+
+    // টেবিল ও মূল্যায়ন রি-রেন্ডার করা যেন রোল অনুযায়ী ভিউ আপডেট হয়
+    try { if (typeof renderT === 'function') renderT(); } catch(e) {}
+    try { if (typeof renderEval === 'function') renderEval(); } catch(e) {}
+    try { if (typeof renderResults === 'function') renderResults(); } catch(e) {}
+    try { if (typeof rcRender === 'function') rcRender(); } catch(e) {}
+    try { if (typeof renderLessonPlans === 'function') renderLessonPlans(); } catch(e) {}
+  }
+
+  // ==================== ৭. ক্রিটিক্যাল ফাংশন ইন্টারসেপশন (নিরাপত্তা স্তর) ====================
+  function wrapAdminGuard(fnName, customMsg) {
+    const orig = window[fnName];
+    if (typeof orig === 'function' && !orig.__nkGuarded) {
+      window[fnName] = function() {
+        if (!window.nkIsAdmin()) {
+          alert(customMsg || "🔒 এই কাজটি শুধুমাত্র অ্যাডমিন বা লগইনকৃত শিক্ষক করতে পারবেন! অনুগ্রহ করে লগইন করুন।");
+          nkOpenModal();
+          return false;
+        }
+        return orig.apply(this, arguments);
+      };
+      window[fnName].__nkGuarded = true;
+    }
+  }
+
+  // ==================== ৮. স্বয়ংক্রিয় "ডেমো দেখুন" ও "শেয়ার করুন" ফাংশন ====================
+  window.nkShareDocument = async function(titleText) {
+    const shareData = {
+      title: titleText || document.title,
+      text: (titleText || "নখাপাড়া সরকারি প্রাথমিক বিদ্যালয়") + " — ডিজিটাল ব্যবস্থাপনা সিস্টেম",
+      url: window.location.href
+    };
+    if (navigator.share) {
+      try { await navigator.share(shareData); } catch(e) {}
+    } else {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        alert("🔗 পেজের লিংক কপি হয়েছে! এখন যেকোনো জায়গায় পেস্ট করে শেয়ার করতে পারবেন।");
+      } catch(e) {
+        prompt("নিচের লিংকটি কপি করে শেয়ার করুন:", window.location.href);
+      }
+    }
+  };
+
+  // ১) হোম ভিজিট ডেমো (বিদ্যালয়ের আসল শিক্ষক ও শিক্ষার্থীর তথ্য দিয়ে)
+  window.nkDemoHomeVisit = function() {
+    const tList = getTeachersList();
+    const sList = getStudentsList();
+    const t = tList[0] || { name: "মোঃ তোফায়েল তোরাব", desig: "সহকারী শিক্ষক" };
+    const s = sList[0] || { name: "তাজওয়ার হাসিব তাওহিদ", class: "৫ম শ্রেণি", roll: "০১", father: "মোঃ তোফায়েল তোরাব", mother: "মোছাঃ গৃহিণী", village: "নখাপাড়া", mobile: "০১৭০০০০০০০০" };
+
+    if (typeof pbOpen === 'function') pbOpen('home');
+    if (typeof hvPanel === 'function') hvPanel('form');
+
+    const setVal = (id, v) => { const el = document.getElementById(id); if (el) { el.value = v; el.dispatchEvent(new Event('input', {bubbles:true})); el.dispatchEvent(new Event('change', {bubbles:true})); } };
+    setVal('hvTName', t.name || 'সহকারী শিক্ষক');
+    setVal('hvTDesig', t.desig || 'সহকারী শিক্ষক');
+    setVal('hvDate', toBn(new Date().toLocaleDateString('bn-BD')));
+    if (typeof hvNow === 'function') hvNow();
+    setVal('hvVillage', s.village || 'নখাপাড়া');
+    setVal('hvPost', 'কল্যাণী হাট-৫২২০');
+    setVal('hvUpazila', 'বীরগঞ্জ');
+    setVal('hvDistrict', 'দিনাজপুর');
+    setVal('hvMobile', toBn(s.mobile || s.phone || '০১৭০০০০০০০০'));
+    setVal('hvDist', '১.২');
+    setVal('hvTopicTxt', 'নিয়মিত উপস্থিতি ও বাড়ির কাজের অগ্রগতি');
+    setVal('hvReasonTxt', 'সন্তানের পড়াশোনায় অভিভাবকের সচেতনতা বৃদ্ধি');
+    setVal('hvDesc', 'শিক্ষার্থী ' + (s.name || '') + '-এর নিয়মিত বিদ্যালয়ে উপস্থিতি নিশ্চিতকরণ এবং বাড়িতে প্রতিদিন অন্তত ২ ঘণ্টা পড়ার টেবিলে বসানোর বিষয়ে অভিভাবকের সাথে ফলপ্রসূ আলোচনা হয়েছে।');
+    setVal('hvOutcome', 'সন্তোষজনক');
+
+    // শিক্ষার্থীর রো পূরণ
+    const stuInputs = document.querySelectorAll('#hvStuRows input, #hvStuRows select');
+    if (stuInputs.length >= 3) {
+      stuInputs[0].value = s.name || 'ডেমো শিক্ষার্থী';
+      stuInputs[1].value = s.class || '৫ম শ্রেণি';
+      stuInputs[2].value = toBn(s.roll || '০১');
+      if (stuInputs[3]) stuInputs[3].value = s.father || 'মোঃ আব্দুল করিম';
+      if (stuInputs[4]) stuInputs[4].value = s.mother || 'মোছাঃ রহিমা বেগম';
+    }
+    alert("🧪 বিদ্যালয়ের শিক্ষক (" + (t.name || '') + ") ও শিক্ষার্থী (" + (s.name || '') + ")-এর তথ্য দিয়ে ডেমো হোম ভিজিট ফর্ম স্বয়ংক্রিয়ভাবে পূরণ করা হয়েছে! এখন আপনি প্রিন্ট, পিডিএফ বা শেয়ার করতে পারবেন (সংরক্ষণ হবে না)।");
+  };
+
+  // ২) সার্টিফিকেট ডেমো
+  window.nkDemoCertificate = function() {
+    const sList = getStudentsList();
+    const s = sList[0] || { name: "তাজওয়ার হাসিব তাওহিদ", father: "মোঃ আব্দুল করিম", mother: "মোছাঃ ফাতেমা বেগম", class: "৫ম শ্রেণি", roll: "০১", village: "নখাপাড়া", dob: "2016-10-09", birthReg: "২০১৬২৭১২৩৪৫৬৭৮৯০১" };
+    const sel = document.getElementById('certStudent');
+    if (sel && sel.options.length > 1) {
+      sel.selectedIndex = 1;
+      if (typeof cfPickStudent === 'function') cfPickStudent(sel.value);
+    } else {
+      const setVal = (id, v) => { const el = document.getElementById(id); if (el) el.value = v; };
+      setVal('certSerial', 'ডেমো-০১');
+      setVal('certName', s.name || 'তাজওয়ার হাসিব তাওহিদ');
+      setVal('certVillage', s.village || 'নখাপাড়া');
+      setVal('certFather', s.father || 'মোঃ আব্দুল করিম');
+      setVal('certMother', s.mother || 'মোছাঃ ফাতেমা বেগম');
+      setVal('certClass', s.class || '৫ম শ্রেণি');
+      setVal('certYear', '২০২৬');
+      setVal('certRoll', toBn(s.roll || '০১'));
+      setVal('certDob', s.dob || '2016-10-09');
+      setVal('certBirth', toBn(s.birthReg || '২০১৬২৭১২৩৪৫৬৭৮৯০১'));
+      setVal('certLetter', 'A');
+    }
+    const form = document.getElementById('certForm');
+    if (form) form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+    const prev = document.getElementById('certificatePreview');
+    if (prev) prev.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // ৩) মূল্যায়ন, ফলাফল ও রিপোর্ট কার্ড ডেমো
+  window.nkDemoEvaluation = function(targetType) {
+    const sList = getStudentsList();
+    const demoEval = {};
+    const terms = ['১ম প্রান্তিক', '২য় প্রান্তিক', '৩য় প্রান্তিক'];
+    const subjects12 = ['বাংলা', 'ইংরেজি', 'গণিত', 'সামাজিক বিজ্ঞান ও বিজ্ঞান (সমন্বিত)', 'ধর্মশিক্ষা', 'শিল্পকলা', 'শারীরিক ও মানসিক স্বাস্থ্য শিক্ষা'];
+    const subjects345 = ['বাংলা', 'ইংরেজি', 'গণিত', 'বাংলাদেশ ও বিশ্বপরিচয়', 'বিজ্ঞান', 'ধর্মশিক্ষা', 'শিল্পকলা', 'শারীরিক ও মানসিক স্বাস্থ্য শিক্ষা'];
+
+    sList.forEach((stu, idx) => {
+      const sid = stu.id || stu.roll || idx;
+      const is12 = String(stu.class || '').includes('১ম') || String(stu.class || '').includes('২য়');
+      const subs = is12 ? subjects12 : subjects345;
+      terms.forEach(term => {
+        subs.forEach(sub => {
+          const k = `${stu.class || '৫ম শ্রেণি'}__${term}__${sub}__${sid}`;
+          demoEval[k] = is12
+            ? { c1: 18, c2: 5, c3: 5, c4: 18, sum: 44 }
+            : { c1: 9, c2: 5, c3: 5, c4: 9, sum: 62 };
+        });
+      });
+    });
+
+    window.__nkTempStore = window.__nkTempStore || {};
+    window.__nkTempStore['nakhapara_eval_v1'] = JSON.stringify(demoEval);
+
+    // ইনপুট বক্সগুলোতেও ডেমো নম্বর বসিয়ে দেওয়া
+    setTimeout(() => {
+      try { if (typeof renderEval === 'function') renderEval(); } catch(e) {}
+      try { if (typeof renderResults === 'function') renderResults(); } catch(e) {}
+      try { if (typeof rcRender === 'function') rcRender(); } catch(e) {}
+
+      document.querySelectorAll('#evalBody tr').forEach((tr) => {
+        const numInputs = tr.querySelectorAll('input[type="number"], input[type="text"]');
+        numInputs.forEach((inp, i) => {
+          const max = parseFloat(inp.getAttribute('max')) || 20;
+          inp.value = Math.max(1, Math.round(max * 0.85));
+          inp.dispatchEvent(new Event('input', { bubbles: true }));
+        });
+      });
+      alert("🧪 শিক্ষার্থীদের ডেমো মূল্যায়ন নম্বর ও ফলাফল লোড করা হয়েছে! আপনি এখন যেকোনো ঘর পরিবর্তন করে ডেমো ফলাফল ও রিপোর্ট কার্ড প্রিন্ট, পিডিএফ ও শেয়ার করতে পারবেন (অরিজিনাল ডেটাবেসে সংরক্ষণ হবে না)।");
+    }, 100);
+  };
+
+  // ৪) ডেমো পাঠটীকা ফর্ম ও প্রিন্ট
+  window.nkOpenDemoLessonModal = function() {
+    const tList = getTeachersList();
+    const t = tList[0] || { name: "সহকারী শিক্ষক" };
+    const demoHtml = `
+      <div id="nkDemoLpModal" class="no-print" style="position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:999998;display:flex;align-items:center;justify-content:center;padding:16px;">
+        <div style="background:#fff;max-width:650px;width:100%;border-radius:18px;padding:24px;max-height:90vh;overflow-y:auto;">
+          <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #e2e8f0;padding-bottom:10px;margin-bottom:14px;">
+            <h3 style="margin:0;font-size:18px;font-weight:800;color:#065f46;">🧪 ডেমো পাঠটীকা তৈরি করুন (সংরক্ষণ ব্যতীত)</h3>
+            <button onclick="document.getElementById('nkDemoLpModal').remove()" style="border:0;background:#fee2e2;color:#b91c1c;border-radius:8px;padding:4px 10px;font-weight:700;cursor:pointer;">✕</button>
+          </div>
+          <div id="nkDemoLpPrintArea" class="printable-area" style="padding:12px;border:1px solid #cbd5e1;border-radius:12px;">
+            <h2 style="text-align:center;margin:0;color:#064e3b;">নখাপাড়া সরকারি প্রাথমিক বিদ্যালয়</h2>
+            <p style="text-align:center;margin:2px 0 12px;font-size:13px;">দৈনিক পাঠ পরিকল্পনা (ডেমো কপি)</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:14px;">
+              <label>শিক্ষকের নাম: <input type="text" value="${t.name || 'সহকারী শিক্ষক'}" style="width:100%;padding:6px;border:1px solid #cbd5e1;border-radius:6px;"></label>
+              <label>শ্রেণি: <input type="text" value="৫ম শ্রেণি" style="width:100%;padding:6px;border:1px solid #cbd5e1;border-radius:6px;"></label>
+              <label>বিষয়: <input type="text" value="প্রাথমিক বিজ্ঞান" style="width:100%;padding:6px;border:1px solid #cbd5e1;border-radius:6px;"></label>
+              <label>তারিখ: <input type="text" value="${toBn(new Date().toLocaleDateString('bn-BD'))}" style="width:100%;padding:6px;border:1px solid #cbd5e1;border-radius:6px;"></label>
+              <label style="grid-column:1/-1;">পাঠের শিরোনাম: <input type="text" value="আমাদের পরিবেশ (জীব ও জড়ের মধ্যকার সম্পর্ক)" style="width:100%;padding:6px;border:1px solid #cbd5e1;border-radius:6px;"></label>
+              <label style="grid-column:1/-1;">শিখনফল: <textarea rows="2" style="width:100%;padding:6px;border:1px solid #cbd5e1;border-radius:6px;">১.১.১ জীব ও জড়ের পারস্পরিক নির্ভরশীলতা ব্যাখ্যা করতে পারবে।</textarea></label>
+              <label style="grid-column:1/-1;">পাঠদান কার্যক্রম ও মূল্যায়ন: <textarea rows="3" style="width:100%;padding:6px;border:1px solid #cbd5e1;border-radius:6px;">ছবি ও চার্ট প্রদর্শনের মাধ্যমে দলীয় কাজ পরিচালনা এবং মৌখিক প্রশ্নের মাধ্যমে মূল্যায়ন।</textarea></label>
+            </div>
+          </div>
+          <div style="display:flex;flex-wrap:gap:8px;gap:8px;margin-top:16px;justify-content:flex-end;">
+            <button type="button" class="nk-demo-btn" onclick="window.print()"><i class="fas fa-print"></i> প্রিন্ট / PDF করুন</button>
+            <button type="button" class="nk-share-btn" onclick="nkShareDocument('ডেমো পাঠটীকা')"><i class="fas fa-share-nodes"></i> শেয়ার করুন</button>
+          </div>
+        </div>
+      </div>`;
+    document.body.insertAdjacentHTML('beforeend', demoHtml);
+  };
+
+  // ==================== ৯. প্রিন্ট/PDF বাটনের পাশে স্বয়ংক্রিয় "ডেমো দেখুন" বাটন যুক্ত করা ====================
+  function injectDemoAndShareButtons() {
+    // ১. মূল্যায়ন রেজিস্টার প্রিন্ট বাটনের পাশে
+    const evalPrintBtn = document.querySelector('#evalRegisterCard button[onclick*="print"]');
+    if (evalPrintBtn && !document.getElementById('nkEvalDemoBtn')) {
+      evalPrintBtn.insertAdjacentHTML('afterend', `
+        <button id="nkEvalDemoBtn" type="button" onclick="nkDemoEvaluation('eval')" class="nk-demo-btn no-print"><i class="fas fa-wand-magic-sparkles"></i> ডেমো দেখুন</button>
+        <button type="button" onclick="nkShareDocument('ধারাবাহিক মূল্যায়ন রেজিস্টার')" class="nk-share-btn no-print"><i class="fas fa-share-nodes"></i> শেয়ার করুন</button>
+      `);
+      evalPrintBtn.parentElement.classList.remove('sm:grid-cols-4');
+      evalPrintBtn.parentElement.classList.add('sm:grid-cols-6');
+    }
+
+    // ২. প্রান্তিক ফলাফল প্রিন্ট বাটনের পাশে
+    const resPrintBtn = document.querySelector('#resultCard button[onclick*="printResults"]');
+    if (resPrintBtn && !document.getElementById('nkResDemoBtn')) {
+      resPrintBtn.insertAdjacentHTML('afterend', `
+        <button id="nkResDemoBtn" type="button" onclick="nkDemoEvaluation('res')" class="nk-demo-btn no-print"><i class="fas fa-wand-magic-sparkles"></i> ডেমো দেখুন</button>
+        <button type="button" onclick="nkShareDocument('প্রান্তিকভিত্তিক ফলাফল')" class="nk-share-btn no-print"><i class="fas fa-share-nodes"></i> শেয়ার করুন</button>
+      `);
+      resPrintBtn.parentElement.classList.remove('sm:grid-cols-3');
+      resPrintBtn.parentElement.classList.add('sm:grid-cols-5');
+    }
+
+    // ৩. রিপোর্ট কার্ড প্রিন্ট বাটনের পাশে
+    const rcPrintBtn = document.querySelector('#rcCard button[onclick*="rcPrint"]');
+    if (rcPrintBtn && !document.getElementById('nkRcDemoBtn')) {
+      rcPrintBtn.insertAdjacentHTML('afterend', `
+        <button id="nkRcDemoBtn" type="button" onclick="nkDemoEvaluation('rc')" class="nk-demo-btn no-print"><i class="fas fa-wand-magic-sparkles"></i> ডেমো দেখুন</button>
+        <button type="button" onclick="nkShareDocument('শিক্ষার্থীর রিপোর্ট কার্ড')" class="nk-share-btn no-print"><i class="fas fa-share-nodes"></i> শেয়ার করুন</button>
+      `);
+      rcPrintBtn.parentElement.classList.remove('sm:grid-cols-4');
+      rcPrintBtn.parentElement.classList.add('sm:grid-cols-6');
+    }
+
+    // ৪. হোম ভিজিট ফর্মের প্রিন্ট/PDF বাটনের পাশে
+    const hvPdfBtn = document.querySelector('#hvP-form button[onclick*="hvPdf"]');
+    if (hvPdfBtn && !document.getElementById('nkHvDemoBtn')) {
+      hvPdfBtn.insertAdjacentHTML('afterend', `
+        <button id="nkHvDemoBtn" type="button" class="nk-demo-btn" onclick="nkDemoHomeVisit()"><i class="fas fa-wand-magic-sparkles"></i> ডেমো দেখুন</button>
+        <button type="button" class="nk-share-btn" onclick="nkShareDocument('হোম ভিজিট ফরম')"><i class="fas fa-share-nodes"></i> শেয়ার করুন</button>
+      `);
+    }
+
+    // ৫. সার্টিফিকেট ফর্মের বাটনের পাশে
+    const certSubmitBtn = document.querySelector('#certForm button[type="submit"]');
+    if (certSubmitBtn && !document.getElementById('nkCertDemoBtn')) {
+      certSubmitBtn.insertAdjacentHTML('afterend', `
+        <div class="flex flex-wrap gap-2 mt-3 no-print">
+          <button id="nkCertDemoBtn" type="button" onclick="nkDemoCertificate()" class="nk-demo-btn flex-1 justify-center"><i class="fas fa-wand-magic-sparkles"></i> ডেমো দেখুন</button>
+          <button type="button" onclick="window.print()" class="tp-btn d flex-1"><i class="fas fa-print"></i> প্রিন্ট / PDF করুন</button>
+          <button type="button" onclick="nkShareDocument('বিদ্যালয় সনদপত্র')" class="nk-share-btn flex-1 justify-center"><i class="fas fa-share-nodes"></i> শেয়ার করুন</button>
+        </div>
+      `);
+    }
+
+    // ৬. পাঠটীকা সেকশনে ডেমো পাঠটীকা বাটন যুক্ত করা
+    const lpBtn = document.querySelector('#tab-lessonplan button[onclick*="openLessonModal"]');
+    if (lpBtn && !document.getElementById('nkLpDemoBtn')) {
+      lpBtn.classList.add('nk-admin-only');
+      lpBtn.insertAdjacentHTML('afterend', `
+        <button id="nkLpDemoBtn" type="button" onclick="nkOpenDemoLessonModal()" class="nk-demo-btn"><i class="fas fa-wand-magic-sparkles"></i> ডেমো পাঠটীকা লিখুন ও প্রিন্ট/PDF</button>
+      `);
+    }
+  }
+
+  // ==================== ১০. ইনিশিয়ালাইজেশন ====================
+  function initMasterPatch() {
+    // নতুন শিক্ষক ও নতুন শিক্ষার্থী যোগ/ডিলিট ফাংশনগুলোতে গার্ড বসানো
+    [
+      'tpAdd', 'tpDel', 'tpEdit', 'tpSave', 'tpSchool', 'tpJsonIn',
+      'openStudentModal', 'saveStudent', 'deleteStudent', 'editStudent', 'stuDel', 'stuSave',
+      'hvSave', 'hvDel', 'hvEdit', 'dzOpenLv', 'exOpen'
+    ].forEach(fn => wrapAdminGuard(fn));
+
+    // পাঠটীকা মডাল Audience ক্লিক করলে ডেমো পাঠটীকা খুলবে, অ্যাডমিন ক্লিক করলে অরিজিনাল খুলবে
+    const origLessonModal = window.openLessonModal;
+    if (typeof origLessonModal === 'function' && !origLessonModal.__nkWrapped) {
+      window.openLessonModal = function() {
+        if (!window.nkIsAdmin()) {
+          window.nkOpenDemoLessonModal();
+          return;
+        }
+        return origLessonModal.apply(this, arguments);
+      };
+      window.openLessonModal.__nkWrapped = true;
+    }
+
+    injectDemoAndShareButtons();
+    nkApplyAuthState();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMasterPatch);
+  } else {
+    initMasterPatch();
+  }
+  window.addEventListener('load', initMasterPatch);
+})();
+</script>
+<!-- ==================== END OF NAKHAPARA MASTER PATCH ==================== -->
 </body>
 </html>
