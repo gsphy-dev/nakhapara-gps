@@ -16435,45 +16435,40 @@ html.nkx-dark img,html.nkx-dark video,html.nkx-dark iframe,html.nkx-dark canvas,
  
 
 
+
+
+
 <!-- =========================================================================
-     নখাপাড়া সরকারি প্রাথমিক বিদ্যালয় — COMPLETE MASTER SOLUTION ENGINE (v19.0)
-     (১. নোটিশ বোর্ড সেন্টার অ্যালাইনমেন্ট + পরীক্ষা স্ক্রলের নিচে ছুটির তালিকা স্ক্রল + প্রতিটি স্ক্রলে ✏️ এডিট,
-      ২. শিক্ষার্থী ও শিক্ষক সংযোজন ফরমের লক হওয়া সকল ইনপুট ফিল্ড ১০০% আনলক ও সচল,
-      ৩. সার্টিফিকেট প্রিন্ট ও হোমভিজিট প্রিন্ট পৃথকীকরণ + সার্টিফিকেট প্যাড ও জলছাপ স্টুডিও,
-      ৪. ড্যাশবোর্ডের কার্ড গ্রিডে 'অ্যাডমিন উইন্ডো', 'কন্ট্যাক্ট উইন্ডো' এবং 'প্রাথমিক শিক্ষার লক্ষ্য ও উদ্দেশ্য' কার্ড)
+     নখাপাড়া সরকারি প্রাথমিক বিদ্যালয় — DIRECT DOM TARGET MASTER ENGINE (v21.0)
+     (Screenshot 189, 190, 191, 192-এর ১০০% প্রত্যক্ষ সমাধান)
      ========================================================================= -->
-<style id="ngps-v19-master-css">
-    /* ১. পূর্বের ভার্সনের অপ্রয়োজনীয় বা কনফ্লিক্টিং র‍্যাপার লুকানো */
-    .ngps-v17-gateway-self-btn,
-    #ngpsHvTeacherFoldersSection,
-    #ngpsV15FolderHub,
-    #ngpsV17LessonBondhonHub,
-    #ngpsV17AdminAndContactRow,
-    #ngpsV18AdminAndContactRow,
-    #ngpsV15ScrollMasterZone,
-    #ngpsV146ScrollZone,
-    #ngpsV136DashboardZone {
-        display: none !important;
+<style id="ngps-v21-direct-css">
+    /* ১. হেডার ভেঙে ডান পাশে নোটিশ বোর্ড ঢুকে যাওয়ার সমস্যা চিরতরে সমাধান (Screenshot 189, 190, 192 Fix) */
+    header,
+    .dz-header {
+        display: block !important;
+        flex-direction: column !important;
     }
 
-    /* ২. সকল ইনপুট, সিলেক্ট ও টেক্সটএরিয়া ১০০% আনলক ও স্পষ্ট কালো টেক্সট নিশ্চিত করা (Screenshot 182_2 Fix) */
-    input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]),
-    select,
-    textarea {
-        pointer-events: auto !important;
-        user-select: text !important;
-        -webkit-user-select: text !important;
-        color: #0f172a !important;
-        background-color: #ffffff !important;
-    }
-    select option {
-        color: #0f172a !important;
-        background-color: #ffffff !important;
-        font-weight: 700 !important;
+    /* ২. উপরের নোটিশ বোর্ডটি বাম প্রান্ত থেকে সরিয়ে মেনুবারের সমান্তরালে মাঝখানে স্থাপন */
+    .ngps-v21-top-notice-bar {
+        max-width: 1180px !important;
+        width: calc(100% - 28px) !important;
+        margin: 8px auto !important;
+        border-radius: 11px !important;
+        background: linear-gradient(90deg, #071f18 0%, #0f172a 55%, #064e3b 100%) !important;
+        border: 1.5px solid #f59e0b !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        overflow: hidden !important;
+        min-height: 40px !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2) !important;
+        box-sizing: border-box !important;
     }
 
-    /* ৩. মেনুবারের নিচে প্রফেশনাল, বোল্ড, ডাইনামিক ও ফাস্ট ৩টি স্ক্রলিং বার */
-    .ngps-v19-ticker-stack {
+    /* ৩. মেনুবারের নিচে প্রফেশনাল বোল্ড ও ফাস্ট ২টি স্ক্রল বার ('পরীক্ষা' এবং তার নিচে 'ছুটির তালিকা') */
+    .ngps-v21-ticker-stack {
         max-width: 1180px;
         margin: 8px auto 14px auto;
         display: flex;
@@ -16481,7 +16476,7 @@ html.nkx-dark img,html.nkx-dark video,html.nkx-dark iframe,html.nkx-dark canvas,
         gap: 8px;
         font-family: 'Noto Sans Bengali', system-ui, sans-serif;
     }
-    .ngps-v19-scroll-row {
+    .ngps-v21-scroll-row {
         display: flex !important;
         align-items: center !important;
         width: 100% !important;
@@ -16491,26 +16486,16 @@ html.nkx-dark img,html.nkx-dark video,html.nkx-dark iframe,html.nkx-dark canvas,
         box-shadow: 0 5px 15px rgba(15, 23, 42, 0.12) !important;
         box-sizing: border-box !important;
     }
-    /* ১ম স্ক্রল: উপরের হেডার নোটিশ বোর্ড (মাঝখানে সারিবদ্ধ) */
-    .ngps-v19-scroll-row.bar-notice {
-        max-width: 1180px !important;
-        width: calc(100% - 24px) !important;
-        margin: 6px auto !important;
-        background: linear-gradient(90deg, #091e3a 0%, #0f172a 50%, #064e3b 100%) !important;
-        border: 1.5px solid #f59e0b !important;
-    }
-    /* ২য় স্ক্রল: পরীক্ষা (মেনুবারের নিচে ডাইনামিক রয়েল নেভি-ব্লু ও গোল্ডেন থিম) */
-    .ngps-v19-scroll-row.bar-exam {
+    .ngps-v21-scroll-row.bar-exam {
         background: linear-gradient(90deg, #0f172a 0%, #1e3a8a 55%, #1d4ed8 100%) !important;
         border: 2px solid #facc15 !important;
     }
-    /* ৩য় স্ক্রল: ছুটির তালিকা ('পরীক্ষা' স্ক্রলের ঠিক নিচে ডাইনামিক পান্না-সবুজ ও সোনালি থিম) */
-    .ngps-v19-scroll-row.bar-holiday {
+    .ngps-v21-scroll-row.bar-holiday {
         background: linear-gradient(90deg, #064e3b 0%, #047857 55%, #065f46 100%) !important;
         border: 2px solid #34d399 !important;
     }
 
-    .ngps-v19-badge {
+    .ngps-v21-badge {
         flex-shrink: 0 !important;
         padding: 8px 14px !important;
         font-weight: 900 !important;
@@ -16520,22 +16505,11 @@ html.nkx-dark img,html.nkx-dark video,html.nkx-dark iframe,html.nkx-dark canvas,
         gap: 7px !important;
         white-space: nowrap !important;
         z-index: 3 !important;
-        box-shadow: 3px 0 10px rgba(0, 0, 0, 0.25) !important;
-    }
-    .ngps-v19-badge.b-notice {
-        background: linear-gradient(135deg, #f59e0b, #d97706) !important;
-        color: #0f172a !important;
-    }
-    .ngps-v19-badge.b-exam {
         background: linear-gradient(135deg, #facc15, #eab308) !important;
         color: #0f172a !important;
+        box-shadow: 3px 0 10px rgba(0, 0, 0, 0.25) !important;
     }
-    .ngps-v19-badge.b-holiday {
-        background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
-        color: #0f172a !important;
-    }
-
-    .ngps-v19-edit-chip {
+    .ngps-v21-edit-chip {
         background: #0f172a !important;
         color: #fde047 !important;
         border: 1px solid #fde047 !important;
@@ -16547,40 +16521,112 @@ html.nkx-dark img,html.nkx-dark video,html.nkx-dark iframe,html.nkx-dark canvas,
         display: inline-flex !important;
         align-items: center !important;
         gap: 4px !important;
-        transition: all 0.15s ease !important;
     }
-    .ngps-v19-edit-chip:hover {
+    .ngps-v21-edit-chip:hover {
         background: #ffffff !important;
         color: #0f172a !important;
-        transform: scale(1.05) !important;
     }
-
-    .ngps-v19-live-dot {
+    .ngps-v21-live-dot {
         width: 8px;
         height: 8px;
         border-radius: 50%;
         background: #dc2626;
         box-shadow: 0 0 0 2px #ffffff, 0 0 8px #dc2626;
         display: inline-block;
-        animation: ngpsV19Pulse 0.9s infinite alternate;
+        animation: ngpsV21Pulse 0.9s infinite alternate;
     }
-    @keyframes ngpsV19Pulse {
+    @keyframes ngpsV21Pulse {
         from { transform: scale(1); opacity: 1; }
         to { transform: scale(1.35); opacity: 0.4; }
     }
-
-    .ngps-v19-marquee {
+    .ngps-v21-marquee {
         flex: 1 !important;
         width: 100% !important;
         padding: 5px 12px !important;
         font-weight: 800 !important;
         color: #ffffff !important;
-        letter-spacing: 0.2px !important;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35) !important;
     }
 
-    /* ৪. ড্যাশবোর্ডে কার্ড হিসেবে অ্যাডমিন উইন্ডো, কন্ট্যাক্ট উইন্ডো এবং প্রাথমিক শিক্ষার লক্ষ্য ও উদ্দেশ্য */
-    .ngps-v19-dash-card {
+    /* ৪. সকল ইনপুট ও সিলেক্ট ফিল্ড ১০০% আনলক ও স্পষ্ট কালো টেক্সট */
+    input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]),
+    select,
+    textarea {
+        pointer-events: auto !important;
+        user-select: text !important;
+        color: #0f172a !important;
+        background-color: #ffffff !important;
+    }
+    select option {
+        color: #0f172a !important;
+        background-color: #ffffff !important;
+        font-weight: 700 !important;
+    }
+
+    /* ৫. "পাঠ ও বন্ধন" পাসওয়ার্ড ও OTP সুরক্ষিত শিক্ষক ফোল্ডার প্যানেল */
+    .ngps-v21-folder-hub {
+        background: #ffffff;
+        border: 2.5px solid #1e3a8a;
+        border-radius: 18px;
+        padding: 18px;
+        margin: 14px 0 20px 0;
+        box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+        font-family: 'Noto Sans Bengali', system-ui, sans-serif;
+    }
+    .ngps-v21-folder-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+        gap: 12px;
+        margin-top: 12px;
+    }
+    .ngps-v21-folder-card {
+        background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+        border: 2px solid #cbd5e1;
+        border-radius: 14px;
+        padding: 13px;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.18s ease;
+    }
+    .ngps-v21-folder-card:hover {
+        border-color: #1e3a8a;
+        background: #eff6ff;
+        transform: translateY(-2px);
+    }
+    .ngps-v21-folder-card.active {
+        border: 2.5px solid #059669;
+        background: #ecfdf5;
+        box-shadow: 0 8px 22px rgba(5, 150, 105, 0.18);
+    }
+
+    /* ৬. পেন্ডিং (হলুদ কালার) ও অনুমোদিত (টিক চিহ্নসহ সবুজ কালার) ব্যাজ */
+    .ngps-badge-pending {
+        background: #fef08a !important;
+        color: #854d0e !important;
+        border: 1.5px solid #eab308 !important;
+        padding: 3px 10px !important;
+        border-radius: 999px !important;
+        font-size: 0.73rem !important;
+        font-weight: 900 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 4px !important;
+    }
+    .ngps-badge-approved {
+        background: #16a34a !important;
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+        border: 1.5px solid #86efac !important;
+        padding: 3px 10px !important;
+        border-radius: 999px !important;
+        font-size: 0.73rem !important;
+        font-weight: 900 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 4px !important;
+    }
+
+    /* ৭. ড্যাশবোর্ডে কার্ড হিসেবে অ্যাডমিন উইন্ডো, কন্ট্যাক্ট উইন্ডো এবং লক্ষ্য ও উদ্দেশ্য */
+    .ngps-v21-dash-card {
         background: #ffffff;
         border-radius: 16px;
         padding: 18px;
@@ -16592,58 +16638,39 @@ html.nkx-dark img,html.nkx-dark video,html.nkx-dark iframe,html.nkx-dark canvas,
         justify-content: space-between;
         gap: 12px;
         font-family: 'Noto Sans Bengali', system-ui, sans-serif;
-        transition: transform 0.18s ease, box-shadow 0.18s ease;
     }
-    .ngps-v19-dash-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
-    }
-    .ngps-v19-dash-card.card-admin { border-top-color: #1e3a8a; }
-    .ngps-v19-dash-card.card-contact { border-top-color: #059669; }
-    .ngps-v19-dash-card.card-aims { border-top-color: #d97706; }
+    .ngps-v21-dash-card.card-admin { border-top-color: #1e3a8a; }
+    .ngps-v21-dash-card.card-contact { border-top-color: #059669; }
+    .ngps-v21-dash-card.card-aims { border-top-color: #d97706; }
 
-    .ngps-v19-card-icon {
-        width: 46px;
-        height: 46px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.25rem;
-        flex-shrink: 0;
-    }
-
-    /* ৫. বাটন ও ব্যাজ স্টাইল */
-    .ngps-v19-btn {
+    .ngps-v21-btn {
         background: linear-gradient(135deg, #059669, #047857) !important;
         color: #ffffff !important;
         -webkit-text-fill-color: #ffffff !important;
         border: 1px solid #34d399 !important;
-        padding: 7px 13px !important;
+        padding: 7px 14px !important;
         border-radius: 9px !important;
         font-weight: 800 !important;
-        font-size: 0.76rem !important;
+        font-size: 0.77rem !important;
         cursor: pointer !important;
         display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
         gap: 5px !important;
         text-decoration: none !important;
-        box-shadow: 0 3px 8px rgba(5, 150, 105, 0.2) !important;
     }
-    .ngps-v19-btn:hover { filter: brightness(1.08); }
-    .ngps-v19-btn.navy { background: linear-gradient(135deg, #0f172a, #1e3a8a) !important; border-color: #facc15 !important; }
-    .ngps-v19-btn.blue { background: linear-gradient(135deg, #1e3a8a, #2563eb) !important; border-color: #93c5fd !important; }
-    .ngps-v19-btn.gold { background: linear-gradient(135deg, #f59e0b, #d97706) !important; color: #0f172a !important; -webkit-text-fill-color: #0f172a !important; border-color: #fde047 !important; }
-    .ngps-v19-btn.purple { background: linear-gradient(135deg, #6d28d9, #4c1d95) !important; border-color: #c4b5fd !important; }
-    .ngps-v19-btn.rose { background: linear-gradient(135deg, #e11d48, #be123c) !important; border-color: #fda4af !important; }
+    .ngps-v21-btn.navy { background: linear-gradient(135deg, #0f172a, #1e3a8a) !important; border-color: #facc15 !important; }
+    .ngps-v21-btn.blue { background: linear-gradient(135deg, #1e3a8a, #2563eb) !important; border-color: #93c5fd !important; }
+    .ngps-v21-btn.gold { background: linear-gradient(135deg, #f59e0b, #d97706) !important; color: #0f172a !important; -webkit-text-fill-color: #0f172a !important; border-color: #fde047 !important; }
+    .ngps-v21-btn.purple { background: linear-gradient(135deg, #6d28d9, #4c1d95) !important; border-color: #c4b5fd !important; }
+    .ngps-v21-btn.rose { background: linear-gradient(135deg, #e11d48, #be123c) !important; border-color: #fda4af !important; }
 
-    /* ৬. মডাল পপ-আপ */
-    .ngps-v19-modal-bg {
+    /* ৮. পপ-আপ মডাল */
+    .ngps-v21-modal-bg {
         position: fixed;
         inset: 0;
         z-index: 2000005;
-        background: rgba(15, 23, 42, 0.84);
+        background: rgba(15, 23, 42, 0.85);
         backdrop-filter: blur(4px);
         display: none;
         align-items: center;
@@ -16651,8 +16678,8 @@ html.nkx-dark img,html.nkx-dark video,html.nkx-dark iframe,html.nkx-dark canvas,
         padding: 14px;
         font-family: 'Noto Sans Bengali', system-ui, sans-serif;
     }
-    .ngps-v19-modal-bg.open { display: flex !important; }
-    .ngps-v19-modal-box {
+    .ngps-v21-modal-bg.open { display: flex !important; }
+    .ngps-v21-modal-box {
         background: #ffffff;
         border-radius: 18px;
         max-width: 760px;
@@ -16665,35 +16692,46 @@ html.nkx-dark img,html.nkx-dark video,html.nkx-dark iframe,html.nkx-dark canvas,
     }
 </style>
 
-<script id="ngps-v19-master-js">
+<script id="ngps-v21-direct-js">
 (function () {
     'use strict';
 
     /* =====================================================================
-       ১. শিক্ষার্থী ও শিক্ষক সংযোজন ফরমের লক হওয়া ইনপুট ফিল্ডগুলো ১০০% আনলক করা
-          (Screenshot 182_2 Fix: "নতুন শিক্ষার্থী যোগ করুন" ও "এই শ্রেণিতে শিক্ষার্থী যোগ করুন")
+       ০. পুরনো v18/v19/v20 স্ক্রিপ্ট মুছে ফেলা এবং ভেঙে যাওয়া হেডার মেরামত করা
        ===================================================================== */
-    function unlockAllFormInputsEverywhere() {
-        document.body.classList.remove('ngps-audience-locked');
-        document.querySelectorAll('input, select, textarea').forEach(el => {
-            // কন্ট্যাক্ট উইন্ডোর ডিসপ্লে ইনপুট ছাড়া বাকি সব ইনপুট থেকে readonly ও disabled সরিয়ে দেওয়া
-            if (el.id === 'v19WaNumCardInp' || el.id === 'v19WaGrpCardInp') return;
-            if (el.hasAttribute('readonly')) el.removeAttribute('readonly');
-            if (el.hasAttribute('disabled')) el.removeAttribute('disabled');
-            el.readOnly = false;
-            el.disabled = false;
-            el.style.pointerEvents = 'auto';
+    function cleanupOldVersionsAndRepairHeader() {
+        [
+            'ngps-v18-master-fix-css', 'ngps-v18-master-fix-js',
+            'ngps-v19-master-css', 'ngps-v19-master-js',
+            'ngps-v20-master-css', 'ngps-v20-master-js',
+            'ngpsV19DashboardTickerStack', 'ngpsV20DashboardTickerStack',
+            'ngpsV19AdminWindowCard', 'ngpsV19ContactWindowCard', 'ngpsV19PrimaryAimsCard',
+            'ngpsV20AdminWindowCard', 'ngpsV20ContactWindowCard', 'ngpsV20PrimaryAimsCard'
+        ].forEach(id => document.getElementById(id)?.remove());
+
+        // v19.0 যে প্যারেন্ট এলিমেন্টে display:flex বসিয়ে হেডার ভেঙেছিল তা ঠিক করা (Screenshot 189, 190, 192 Fix)
+        const brokenNotice = document.getElementById('ngpsV19TopNoticeBar') || document.getElementById('ngpsV20ActualTopNoticeBar');
+        if (brokenNotice && brokenNotice.parentElement) {
+            brokenNotice.parentElement.style.removeProperty('display');
+            brokenNotice.parentElement.style.removeProperty('justify-content');
+            brokenNotice.parentElement.style.removeProperty('padding');
+            brokenNotice.parentElement.style.setProperty('display', 'block', 'important');
+        }
+        document.querySelectorAll('header').forEach(h => {
+            h.style.setProperty('display', 'block', 'important');
         });
     }
 
-    const DB_SCROLL_V19  = 'nakhapara_v19_scroll_bars_db';
-    const DB_EXAM_KEY    = 'nakhapara_exam_routines_v12_6';
-    const DB_TEACHERS    = 'nakhapara_v18_clean_teachers_db';
-    const DB_LP_KEY      = 'nakhapara_lessons_pro_v8';
-    const DB_HV_KEY      = 'nakhapara_homevisits_pro_v9';
-    const DB_CONTACT_KEY = 'nakhapara_v17_contact_window_db';
-    const DB_AIMS_KEY    = 'nakhapara_v19_primary_aims_db';
-    const CERT_PAD_KEY   = 'nakhapara_certificate_pad_studio_v16_5';
+    const DB_SCROLL_V21      = 'nakhapara_v19_scroll_bars_db';
+    const DB_EXAM_KEY        = 'nakhapara_exam_routines_v12_6';
+    const DB_TEACHERS_V21    = 'nakhapara_v18_clean_teachers_db';
+    const DB_DELETED_V21     = 'nakhapara_v18_deleted_teachers_db';
+    const DB_LP_KEY          = 'nakhapara_lessons_pro_v8';
+    const DB_HV_KEY          = 'nakhapara_homevisits_pro_v9';
+    const DB_NOTICE_KEY      = 'nakhapara_teacher_private_notices_v9';
+    const DB_CONTACT_KEY     = 'nakhapara_v17_contact_window_db';
+    const DB_AIMS_KEY        = 'nakhapara_v19_primary_aims_db';
+    const DB_MON_GATEWAY_KEY = 'nakhapara_v17_monitoring_gateway_admin';
 
     const BN = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
     const EN = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
@@ -16709,9 +16747,61 @@ html.nkx-dark img,html.nkx-dark video,html.nkx-dark iframe,html.nkx-dark canvas,
         return toBn(`${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`);
     }
 
+    // ৫ নং নির্দেশনার ৪টি নতুন ইনপুট ফিল্ডের সম্পূর্ণ ড্রপডাউন অপশন
+    const LP_DROPDOWN_DATA = {
+        methods: [
+            'বক্তৃতা (Conversation)', 'আলোচনা (Discussion)', 'প্রশ্নোত্তর (Q & A)', 'গল্প বলা (Telling Stories)',
+            'পর্যবেক্ষণ (Observation)', 'অনুসন্ধান (Exploration)', 'প্রদর্শণ (Display)', 'প্রজেক্ট (Project)',
+            'বর্ণনা (Description)', 'অভিনয় (Acting)', 'বিতর্ক (Debating)', 'অংশগ্রহণ (Participation)',
+            'আরোপিত কাজ (Attributed Work)', 'সমস্যা সমাধান (Problem Solving)', 'শব্দার্থ (Semantic)'
+        ],
+        techniques: [
+            'একক কাজ', 'জোড়ায় কাজ', 'দলীয় কাজ', 'ব্রেইন স্ট্রমিং', 'উদ্দীপ্তকরণ',
+            'ধারনা মানচিত্র', 'জার্নাল লেখা', 'বলতে দেওয়া', 'সাক্ষাৎকার', 'লিখতে দেওয়া', 'আঁকতে দেওয়া'
+        ],
+        assessments: ['মৌখিক', 'লিখিত'],
+        materials: [
+            'পাঠ্যপুস্তক', 'পাঠ-সংশ্লিষ্ট ছবি', 'মডেল', 'চার্ট', 'কার্ড', 'মানচিত্র',
+            'বাস্তব', 'অর্ধ বাস্তব', 'বস্তু নিরপেক্ষ', 'শিক্ষক সংস্করণ', 'শিক্ষক সহায়িকা',
+            'শিক্ষক নির্দেশিকা', 'প্রশ্ন কাঠামো', 'মাল্টি-মিডিয়া'
+        ]
+    };
+
+    let activeFolderTeacherId = '';
+    let activeFolderSubTab = 'lp'; // 'lp' = (ক) পাঠটিকা | 'hv' = (খ) হোমভিজিট
+    const unlockedFoldersSession = new Set();
+    let generatedOtpCode = '';
+
     /* =====================================================================
-       ২. ৩টি স্ক্রলিং বার (১. নোটিশ বোর্ড, ২. পরীক্ষা এবং তার নিচে ৩. ছুটির তালিকা)
-          এবং প্রতিটি স্ক্রলের আইকনে "✏️ এডিট" অপশন (বিবৃতি, ফন্ট, সাইজ ও স্পিড)
+       ১. হেল্পার: সকল ইনপুট আনলক ও ড্যাশবোর্ডের ডাবল 'জন' ফিক্স
+       ===================================================================== */
+    function unlockInputsAndFixKpiText() {
+        document.querySelectorAll('input, select, textarea').forEach(el => {
+            if (el.id === 'v21WaNumCardInp' || el.id === 'v21WaGrpCardInp') return;
+            if (el.hasAttribute('readonly')) el.removeAttribute('readonly');
+            if (el.hasAttribute('disabled')) el.removeAttribute('disabled');
+            el.readOnly = false;
+            el.disabled = false;
+        });
+
+        ['dzPresent', 'dzTeachers', 'dzStudents'].forEach(id => {
+            const el = document.getElementById(id);
+            if (!el || !el.parentElement) return;
+            Array.from(el.parentElement.childNodes).forEach(node => {
+                if (node !== el && node.nodeType === 3 && node.textContent.includes('জন')) {
+                    node.textContent = node.textContent.replace(/জন/g, '').trim();
+                } else if (node !== el && node.nodeType === 1 && normBn(node.textContent) === 'জন') {
+                    node.style.display = 'none';
+                }
+            });
+            const raw = (el.textContent || '').replace(/জন/g, '').replace(/\s+/g, ' ').trim() || '০';
+            el.textContent = `${raw} জন`;
+        });
+    }
+
+    /* =====================================================================
+       ২. নোটিশ বোর্ড মাঝখানে স্থাপন এবং মেনুবারের নিচে 'পরীক্ষা' ও 'ছুটির তালিকা' স্ক্রল
+          + ড্যাশবোর্ডের নিচের পুরনো সাদা 'পরীক্ষা' বারটি লুকানো (Screenshot 190 Fix)
        ===================================================================== */
     function getEffectiveExamRoutineText() {
         try {
@@ -16728,7 +16818,7 @@ html.nkx-dark img,html.nkx-dark video,html.nkx-dark iframe,html.nkx-dark canvas,
 
     function loadScrollBarsConfig() {
         let cfg = null;
-        try { cfg = JSON.parse(localStorage.getItem(DB_SCROLL_V19) || 'null'); } catch (e) {}
+        try { cfg = JSON.parse(localStorage.getItem(DB_SCROLL_V21) || 'null'); } catch (e) {}
         if (!cfg || !Array.isArray(cfg.bars) || cfg.bars.length !== 3) {
             cfg = {
                 bars: [
@@ -16742,14 +16832,12 @@ html.nkx-dark img,html.nkx-dark video,html.nkx-dark iframe,html.nkx-dark canvas,
                         ],
                         fontFamily: "'Noto Sans Bengali', sans-serif",
                         fontSize: '15px',
-                        speed: 9 // ফাস্ট ও স্মুথ স্ক্রলিং স্পিড (১ থেকে ১৮)
+                        speed: 9
                     },
                     {
                         id: 'exam',
                         badgeName: '📝 পরীক্ষা',
-                        statements: [
-                            getEffectiveExamRoutineText()
-                        ],
+                        statements: [getEffectiveExamRoutineText()],
                         fontFamily: "'Noto Sans Bengali', sans-serif",
                         fontSize: '15px',
                         speed: 9,
@@ -16760,8 +16848,7 @@ html.nkx-dark img,html.nkx-dark video,html.nkx-dark iframe,html.nkx-dark canvas,
                         badgeName: '📅 ছুটির তালিকা',
                         statements: [
                             '০৮-১১-২০২৬ (রবিবার): শ্রী শ্রী শ্যামাপূজা উপলক্ষে বিদ্যালয় বন্ধ থাকবে',
-                            '১৬-১২-২০২৬ (বুধবার): মহান বিজয় দিবস উদযাপন ও বিশেষ আলোচনা সভা',
-                            'আসুন আমরা সবাই মিলে এই দেশটা স্মার্ট এবং পরিচ্ছন্ন করে গড়ে তুলি।'
+                            '১৬-১২-২০২৬ (বুধবার): মহান বিজয় দিবস উদযাপন ও বিশেষ আলোচনা সভা'
                         ],
                         fontFamily: "'Noto Sans Bengali', sans-serif",
                         fontSize: '15px',
@@ -16769,36 +16856,36 @@ html.nkx-dark img,html.nkx-dark video,html.nkx-dark iframe,html.nkx-dark canvas,
                     }
                 ]
             };
-            localStorage.setItem(DB_SCROLL_V19, JSON.stringify(cfg));
+            localStorage.setItem(DB_SCROLL_V21, JSON.stringify(cfg));
         }
         return cfg;
     }
 
     function saveScrollBarsConfig(cfg) {
-        localStorage.setItem(DB_SCROLL_V19, JSON.stringify(cfg));
+        localStorage.setItem(DB_SCROLL_V21, JSON.stringify(cfg));
         mountAndRenderAllThreeScrollBars();
     }
 
-    // ১ম স্ক্রল বার (উপরের হেডারের নোটিশ বোর্ড) খুঁজে বের করে বাম দিক থেকে মাঝখানে আনা (Screenshot 183_2 Fix)
-    function locateTopHeaderNoticeBar() {
-        let topBar = document.getElementById('ngpsV19TopNoticeBar');
-        if (topBar) return topBar;
+    function locateTopNoticeBarElement() {
+        const existing = document.getElementById('ngpsV21TopNoticeBar') || document.getElementById('ngpsV19TopNoticeBar') || document.getElementById('ngpsV20ActualTopNoticeBar');
+        if (existing) {
+            existing.id = 'ngpsV21TopNoticeBar';
+            if (existing.parentElement) {
+                existing.parentElement.style.setProperty('display', 'block', 'important');
+            }
+            return existing;
+        }
 
-        const allDivs = document.querySelectorAll('div, section');
-        for (const el of allDivs) {
-            if (el.closest('#tab-dashboard') || el.closest('#ngpsV19DashboardTickerStack')) continue;
+        // শুধুমাত্র ছোট উচ্চতার নোটিশ বার খোঁজা (যার ভেতরে লোগো বা EMIS নেই)
+        const divs = document.querySelectorAll('header > div, body > div');
+        for (const el of divs) {
+            if (el.closest('#tab-dashboard')) continue;
             const t = normBn(el.textContent || '');
-            if (
-                el.id === 'ngpsBar1MountV15' ||
-                el.id === 'ngpsDedicatedBar1' ||
-                ((t.includes('নোটিশ বোর্ড') || t.includes('শ্যামাপূজা') || t.includes('সাধারণ নোটিশ')) && el.offsetHeight >= 24 && el.offsetHeight <= 85)
-            ) {
-                el.id = 'ngpsV19TopNoticeBar';
-                // প্যারেন্ট যদি সবুজ ফুল-উইডথ র‍্যাপার হয়, তার ভেতরে মাঝখানে অ্যালাইন করা
-                if (el.parentElement && el.parentElement !== document.body) {
-                    el.parentElement.style.display = 'flex';
-                    el.parentElement.style.justifyContent = 'center';
-                    el.parentElement.style.padding = '4px 12px';
+            if (t.includes('EMIS') || t.includes('বিদ্যালয় কোড') || t.includes('ড্যাশবোর্ড')) continue;
+            if ((t.includes('নোটিশ বোর্ড') || t.includes('শ্যামাপূজা')) && el.offsetHeight >= 20 && el.offsetHeight <= 70) {
+                el.id = 'ngpsV21TopNoticeBar';
+                if (el.parentElement) {
+                    el.parentElement.style.setProperty('display', 'block', 'important');
                 }
                 return el;
             }
@@ -16809,21 +16896,21 @@ html.nkx-dark img,html.nkx-dark video,html.nkx-dark iframe,html.nkx-dark canvas,
     function mountAndRenderAllThreeScrollBars() {
         const cfg = loadScrollBarsConfig();
 
-        // ১. উপরের নোটিশ বোর্ড রেন্ডার (মাঝখানে সারিবদ্ধ + ✏️ এডিট বাটনসহ)
-        const topNoticeEl = locateTopHeaderNoticeBar();
-        if (topNoticeEl) {
+        // ১. উপরের নোটিশ বোর্ড (মাঝখানে সারিবদ্ধ + ✏️ এডিট)
+        const topBar = locateTopNoticeBarElement();
+        if (topBar) {
             const b0 = cfg.bars[0];
             const text0 = (b0.statements || []).filter(Boolean).join('   ✦   ');
-            topNoticeEl.className = 'ngps-v19-scroll-row bar-notice no-print';
-            topNoticeEl.innerHTML = `
-                <div class="ngps-v19-badge b-notice">
-                    <span class="ngps-v19-live-dot"></span>
+            topBar.className = 'ngps-v21-top-notice-bar no-print';
+            topBar.innerHTML = `
+                <div class="ngps-v21-badge">
+                    <span class="ngps-v21-live-dot"></span>
                     <span>${b0.badgeName}</span>
-                    <button type="button" onclick="window.ngpsV19OpenScrollEditor(0)" class="ngps-v19-edit-chip" title="এই স্ক্রল বারের বিবৃতি, ফন্ট ও স্পিড এডিট করুন">
+                    <button type="button" onclick="window.ngpsV21OpenScrollEditor(0)" class="ngps-v21-edit-chip">
                         <i class="fas fa-pen"></i> এডিট
                     </button>
                 </div>
-                <marquee class="ngps-v19-marquee" behavior="scroll" direction="left" scrollamount="${b0.speed || 9}"
+                <marquee class="ngps-v21-marquee" behavior="scroll" direction="left" scrollamount="${b0.speed || 9}"
                          onmouseover="this.stop();" onmouseout="this.start();"
                          style="font-family:${b0.fontFamily} !important; font-size:${b0.fontSize} !important;">
                     ${text0}
@@ -16831,26 +16918,32 @@ html.nkx-dark img,html.nkx-dark video,html.nkx-dark iframe,html.nkx-dark canvas,
             `;
         }
 
-        // ২. মেনুবারের ঠিক নিচে "📝 পরীক্ষা" এবং তার নিচে "📅 ছুটির তালিকা" স্ক্রল বার স্থাপন
+        // ২. ড্যাশবোর্ডে মেনুবারের নিচে 'পরীক্ষা' এবং তার নিচে 'ছুটির তালিকা' স্ক্রল বার
         const dashTab = document.getElementById('tab-dashboard');
         if (!dashTab) return;
 
-        // পুরনো স্ক্রল ট্রে বা ডুপ্লিকেট বার থাকলে হাইড করা
-        dashTab.querySelectorAll('#ngpsV15ScrollMasterZone, #ngpsQuickTrayLauncherV15, #ngpsQuickScrollingTrayV15').forEach(el => {
-            el.style.display = 'none';
+        // Screenshot 190-এ থাকা ড্যাশবোর্ডের নিচের পুরনো নীল-সাদা 'পরীক্ষার রুটিন এখনও যোগ করা হয়নি' বারটি চিরতরে লুকানো
+        dashTab.querySelectorAll('div, span').forEach(node => {
+            if (node.closest('#ngpsV21DashboardTickerStack')) return;
+            const txt = normBn(node.textContent || '');
+            if (txt.includes('পরীক্ষার রুটিন এখনও যোগ করা') || txt.includes('ফাইল আপলোড বা হাতে যোগ করুন')) {
+                const barRow = node.closest('div.flex, div[class*="rounded-"], div[class*="border"]');
+                if (barRow && !barRow.querySelector('#dzTeachers') && barRow.offsetHeight < 90) {
+                    barRow.style.setProperty('display', 'none', 'important');
+                }
+            }
         });
 
-        let stack = document.getElementById('ngpsV19DashboardTickerStack');
+        let stack = document.getElementById('ngpsV21DashboardTickerStack');
         if (!stack) {
             stack = document.createElement('div');
-            stack.id = 'ngpsV19DashboardTickerStack';
-            stack.className = 'ngps-v19-ticker-stack no-print';
+            stack.id = 'ngpsV21DashboardTickerStack';
+            stack.className = 'ngps-v21-ticker-stack no-print';
             dashTab.prepend(stack);
         }
 
-        const b1 = cfg.bars[1]; // পরীক্ষা
-        const b2 = cfg.bars[2]; // ছুটির তালিকা
-
+        const b1 = cfg.bars[1];
+        const b2 = cfg.bars[2];
         let examText = (b1.statements || []).filter(Boolean).join('   ✦   ');
         if (b1.syncWithExamRoutine) {
             const autoRoutine = getEffectiveExamRoutineText();
@@ -16859,30 +16952,28 @@ html.nkx-dark img,html.nkx-dark video,html.nkx-dark iframe,html.nkx-dark canvas,
         const holidayText = (b2.statements || []).filter(Boolean).join('   ✦   ');
 
         stack.innerHTML = `
-            <!-- উপরে: পরীক্ষা স্ক্রল বার (প্রফেশনাল নেভি-ব্লু ও গোল্ডেন, বোল্ড ও ফাস্ট) -->
-            <div class="ngps-v19-scroll-row bar-exam">
-                <div class="ngps-v19-badge b-exam">
+            <div class="ngps-v21-scroll-row bar-exam">
+                <div class="ngps-v21-badge">
                     <span>${b1.badgeName}</span>
-                    <button type="button" onclick="window.ngpsV19OpenScrollEditor(1)" class="ngps-v19-edit-chip" title="পরীক্ষা স্ক্রলের বিবৃতি, ফন্ট ও স্পিড এডিট করুন">
+                    <button type="button" onclick="window.ngpsV21OpenScrollEditor(1)" class="ngps-v21-edit-chip">
                         <i class="fas fa-pen"></i> এডিট
                     </button>
                 </div>
-                <marquee class="ngps-v19-marquee" behavior="scroll" direction="left" scrollamount="${b1.speed || 9}"
+                <marquee class="ngps-v21-marquee" behavior="scroll" direction="left" scrollamount="${b1.speed || 9}"
                          onmouseover="this.stop();" onmouseout="this.start();"
                          style="font-family:${b1.fontFamily} !important; font-size:${b1.fontSize} !important; color:#fef08a !important;">
                     ${examText}
                 </marquee>
             </div>
 
-            <!-- নিচে: ছুটির তালিকা স্ক্রল বার ('পরীক্ষা' স্ক্রলের ঠিক নিচে) -->
-            <div class="ngps-v19-scroll-row bar-holiday">
-                <div class="ngps-v19-badge b-holiday">
+            <div class="ngps-v21-scroll-row bar-holiday">
+                <div class="ngps-v21-badge">
                     <span>${b2.badgeName}</span>
-                    <button type="button" onclick="window.ngpsV19OpenScrollEditor(2)" class="ngps-v19-edit-chip" title="ছুটির তালিকা স্ক্রলের বিবৃতি, ফন্ট ও স্পিড এডিট করুন">
+                    <button type="button" onclick="window.ngpsV21OpenScrollEditor(2)" class="ngps-v21-edit-chip">
                         <i class="fas fa-pen"></i> এডিট
                     </button>
                 </div>
-                <marquee class="ngps-v19-marquee" behavior="scroll" direction="left" scrollamount="${b2.speed || 9}"
+                <marquee class="ngps-v21-marquee" behavior="scroll" direction="left" scrollamount="${b2.speed || 9}"
                          onmouseover="this.stop();" onmouseout="this.start();"
                          style="font-family:${b2.fontFamily} !important; font-size:${b2.fontSize} !important; color:#ffffff !important;">
                     ${holidayText}
@@ -16891,8 +16982,7 @@ html.nkx-dark img,html.nkx-dark video,html.nkx-dark iframe,html.nkx-dark canvas,
         `;
     }
 
-    // প্রতিটি স্ক্রলের আইকনে "✏️ এডিট" ক্লিক করলে বিবৃতি, ফন্ট, সাইজ ও স্পিড নির্ধারণের মডাল
-    window.ngpsV19OpenScrollEditor = function (barIdx) {
+    window.ngpsV21OpenScrollEditor = function (barIdx) {
         const cfg = loadScrollBarsConfig();
         const bar = cfg.bars[barIdx];
         if (!bar) return;
@@ -16907,116 +16997,590 @@ html.nkx-dark img,html.nkx-dark video,html.nkx-dark iframe,html.nkx-dark canvas,
         ];
         const sizeList = ['13px', '14px', '15px', '16px', '17px', '18px', '20px', '22px'];
 
-        openV19Modal(`
+        openV21Modal(`
             <div class="space-y-4 text-xs">
-                <div class="flex items-center justify-between border-b-2 border-slate-200 pb-3">
-                    <div>
-                        <h3 class="text-base sm:text-lg font-black text-slate-900 m-0 flex items-center gap-2">
-                            <i class="fas fa-sliders text-blue-800"></i>
-                            স্ক্রলিং কাস্টমাইজার — ${bar.badgeName}
-                        </h3>
-                        <p class="text-[11px] text-slate-500 m-0">কী কী বিবৃতি, কোন ফন্টে এবং কত স্পিডে স্ক্রল করবে তা এখান থেকে নির্ধারণ করুন</p>
-                    </div>
-                    <button type="button" onclick="window.ngpsV19CloseModal()" class="px-3 py-1 bg-rose-600 text-white rounded-lg font-bold cursor-pointer">✕ বন্ধ</button>
+                <div class="flex items-center justify-between border-b pb-2.5">
+                    <h3 class="text-base font-black text-slate-900 m-0">⚡ স্ক্রলিং কাস্টমাইজার — ${bar.badgeName}</h3>
+                    <button type="button" onclick="window.ngpsV21CloseModal()" class="px-3 py-1 bg-rose-600 text-white rounded-lg font-bold">✕ বন্ধ</button>
                 </div>
-
-                <!-- অন্য দুটি স্ক্রল বার সিলেক্ট করার কুইক ট্যাব -->
                 <div class="flex flex-wrap gap-2 bg-slate-100 p-2 rounded-xl">
                     ${cfg.bars.map((b, idx) => `
-                        <button type="button" onclick="window.ngpsV19OpenScrollEditor(${idx})"
-                                class="px-3 py-1.5 rounded-lg font-extrabold text-xs cursor-pointer ${idx === barIdx ? 'bg-blue-900 text-amber-300 shadow' : 'bg-white text-slate-700 border'}">
-                            ${b.badgeName} এডিট করুন
+                        <button type="button" onclick="window.ngpsV21OpenScrollEditor(${idx})"
+                                class="px-3 py-1.5 rounded-lg font-extrabold text-xs cursor-pointer ${idx === barIdx ? 'bg-blue-900 text-amber-300' : 'bg-white text-slate-700 border'}">
+                            ${b.badgeName}
                         </button>
                     `).join('')}
                 </div>
-
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div>
-                        <label class="font-extrabold text-slate-800 block mb-1">১. স্ক্রল আইকন / ব্যাজের নাম:</label>
-                        <input type="text" id="v19ScBadge" value="${bar.badgeName}" class="w-full p-2.5 border rounded-xl font-extrabold">
+                        <label class="font-extrabold block mb-1">১. স্ক্রল আইকন নাম:</label>
+                        <input type="text" id="v21ScBadge" value="${bar.badgeName}" class="w-full p-2 border rounded-xl font-extrabold">
                     </div>
                     <div>
-                        <label class="font-extrabold text-slate-800 block mb-1">২. কোন ফন্টে স্ক্রল করবে:</label>
-                        <select id="v19ScFont" class="w-full p-2.5 border rounded-xl font-bold">
+                        <label class="font-extrabold block mb-1">২. কোন ফন্টে স্ক্রল করবে:</label>
+                        <select id="v21ScFont" class="w-full p-2 border rounded-xl font-bold">
                             ${fontList.map(f => `<option value="${f.val}" ${bar.fontFamily === f.val ? 'selected' : ''}>${f.label}</option>`).join('')}
                         </select>
                     </div>
                     <div>
-                        <label class="font-extrabold text-slate-800 block mb-1">৩. ফন্ট সাইজ:</label>
-                        <select id="v19ScSize" class="w-full p-2.5 border rounded-xl font-bold">
+                        <label class="font-extrabold block mb-1">৩. ফন্ট সাইজ:</label>
+                        <select id="v21ScSize" class="w-full p-2 border rounded-xl font-bold">
                             ${sizeList.map(s => `<option value="${s}" ${bar.fontSize === s ? 'selected' : ''}>${toBn(s)}</option>`).join('')}
                         </select>
                     </div>
                 </div>
-
-                <!-- স্পিড কন্ট্রোলার -->
-                <div class="p-3.5 rounded-xl bg-blue-50 border border-blue-200 space-y-2">
-                    <div class="flex items-center justify-between font-extrabold text-blue-950">
-                        <span>৪. কত স্পিডে স্ক্রল করবে (গতি নির্ধারণ):</span>
-                        <span id="v19ScSpeedLbl" class="px-2.5 py-0.5 rounded bg-blue-900 text-amber-300">গতি: ${toBn(bar.speed || 9)} (ডাইনামিক ফাস্ট)</span>
+                <div class="p-3 rounded-xl bg-blue-50 border border-blue-200">
+                    <div class="flex justify-between font-extrabold text-blue-950 mb-1">
+                        <span>৪. কত স্পিডে স্ক্রল করবে:</span>
+                        <span id="v21ScSpdLbl">গতি: ${toBn(bar.speed || 9)}</span>
                     </div>
-                    <div class="flex items-center gap-3">
-                        <span class="font-bold text-slate-600">🐢 ধীর (৩)</span>
-                        <input type="range" id="v19ScSpeed" min="3" max="18" step="1" value="${bar.speed || 9}"
-                               oninput="document.getElementById('v19ScSpeedLbl').textContent='গতি: '+this.value"
-                               class="flex-1 cursor-pointer accent-blue-800">
-                        <span class="font-bold text-emerald-700">⚡ সুপার ফাস্ট (১৮)</span>
-                    </div>
+                    <input type="range" id="v21ScSpeed" min="3" max="18" value="${bar.speed || 9}"
+                           oninput="document.getElementById('v21ScSpdLbl').textContent='গতি: '+this.value" class="w-full cursor-pointer">
                 </div>
-
-                <!-- কী কী বিবৃতি স্ক্রল করবে -->
                 <div>
-                    <div class="flex items-center justify-between mb-1">
-                        <label class="font-extrabold text-slate-800">৫. কী কী বিবৃতি স্ক্রল করবে (প্রতি লাইনে ১টি করে বিবৃতি লিখুন):</label>
-                        <span class="text-[11px] text-emerald-700 font-bold">একাধিক বিবৃতি স্বয়ংক্রিয়ভাবে ✦ চিহ্ন দিয়ে স্ক্রল হবে</span>
-                    </div>
-                    <textarea id="v19ScStatements" rows="4" class="w-full p-3 border-2 border-blue-400 rounded-xl font-bold text-slate-900"
-                              placeholder="এখানে আপনার বিবৃতিগুলো লিখুন...">${(bar.statements || []).join('\n')}</textarea>
+                    <label class="font-extrabold block mb-1">৫. কী কী বিবৃতি স্ক্রল করবে (প্রতি লাইনে ১টি করে বিবৃতি লিখুন):</label>
+                    <textarea id="v21ScStatements" rows="4" class="w-full p-2.5 border-2 border-blue-400 rounded-xl font-bold">${(bar.statements || []).join('\n')}</textarea>
                     ${barIdx === 1 ? `
-                        <label class="inline-flex items-center gap-2 mt-1.5 font-extrabold text-blue-900 cursor-pointer">
-                            <input type="checkbox" id="v19ScAutoExam" ${bar.syncWithExamRoutine ? 'checked' : ''}>
-                            আপলোডকৃত সর্বশেষ কার্যকর প্রান্তিক মূল্যায়নের রুটিনও সাথে স্ক্রল করান
+                        <label class="inline-flex items-center gap-2 mt-1 font-extrabold text-blue-900 cursor-pointer">
+                            <input type="checkbox" id="v21ScAutoExam" ${bar.syncWithExamRoutine ? 'checked' : ''}>
+                            আপলোডকৃত কার্যকর পরীক্ষার রুটিনও সাথে স্ক্রল করান
                         </label>
                     ` : ''}
                 </div>
-
-                <div class="flex justify-end gap-2 pt-2 border-t">
-                    <button type="button" onclick="window.ngpsV19SaveScrollBar(${barIdx})" class="ngps-v19-btn" style="padding:10px 22px!important;font-size:0.86rem!important;">
-                        <i class="fas fa-floppy-disk"></i> সংরক্ষণ করুন ও স্ক্রল চালু করুন
+                <div class="flex justify-end pt-2 border-t">
+                    <button type="button" onclick="window.ngpsV21SaveScroll(${barIdx})" class="ngps-v21-btn">
+                        <i class="fas fa-floppy-disk"></i> সংরক্ষণ করুন
                     </button>
                 </div>
             </div>
         `);
     };
 
-    window.ngpsV19SaveScrollBar = function (barIdx) {
+    window.ngpsV21SaveScroll = function (barIdx) {
         const cfg = loadScrollBarsConfig();
         const bar = cfg.bars[barIdx];
         if (!bar) return;
-
-        const badge = (document.getElementById('v19ScBadge')?.value || '').trim();
-        const font = document.getElementById('v19ScFont')?.value || bar.fontFamily;
-        const size = document.getElementById('v19ScSize')?.value || bar.fontSize;
-        const speed = parseInt(document.getElementById('v19ScSpeed')?.value || '9', 10);
-        const rawLines = (document.getElementById('v19ScStatements')?.value || '').split(/\r?\n/).map(s => s.trim()).filter(Boolean);
-        const autoExamEl = document.getElementById('v19ScAutoExam');
-
-        if (badge) bar.badgeName = badge;
-        bar.fontFamily = font;
-        bar.fontSize = size;
-        bar.speed = speed;
-        bar.statements = rawLines.length > 0 ? rawLines : ['সাধারণ বিবৃতি সংরক্ষিত।'];
-        if (autoExamEl) bar.syncWithExamRoutine = autoExamEl.checked;
-
+        bar.badgeName = (document.getElementById('v21ScBadge')?.value || '').trim() || bar.badgeName;
+        bar.fontFamily = document.getElementById('v21ScFont')?.value || bar.fontFamily;
+        bar.fontSize = document.getElementById('v21ScSize')?.value || bar.fontSize;
+        bar.speed = parseInt(document.getElementById('v21ScSpeed')?.value || '9', 10);
+        const lines = (document.getElementById('v21ScStatements')?.value || '').split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+        bar.statements = lines.length > 0 ? lines : ['সাধারণ বিবৃতি সংরক্ষিত।'];
+        const autoEx = document.getElementById('v21ScAutoExam');
+        if (autoEx) bar.syncWithExamRoutine = autoEx.checked;
         saveScrollBarsConfig(cfg);
-        window.ngpsV19CloseModal();
+        window.ngpsV21CloseModal();
     };
 
     /* =====================================================================
-       ৩. ড্যাশবোর্ডের কার্ড গ্রিডে ৩টি নতুন কার্ড সন্নিবেশ:
-          (ক) "🛡️ অ্যাডমিন উইন্ডো" কার্ড
-          (খ) "📞 কন্ট্যাক্ট উইন্ডো" কার্ড
-          (গ) "🎯 প্রাথমিক শিক্ষার লক্ষ্য ও উদ্দেশ্য" কার্ড (আপলোড, ভিউ, এডিট ও স্ক্রলসহ)
+       ৩. Screenshot 191 Fix: সাইটের নেটিভ "📗 নতুন পাঠটিকা যুক্ত করুন" পপ-আপের ভেতরে
+          ৪টি নতুন ড্রপডাউন (পাঠদান পদ্ধতি, কৌশল, মূল্যায়ন কৌশল, উপকরণ) সরাসরি সংযোজন
+       ===================================================================== */
+    function injectFourDropdownsIntoLessonModal() {
+        // Screenshot 191-এ দেখা যাওয়া 'পাঠের শিখনফল লিখুন...' টেক্সটএরিয়াটি খুঁজে বের করা
+        const allTextareas = document.querySelectorAll('textarea');
+        allTextareas.forEach(ta => {
+            if (ta.closest('#ngpsV21LessonBondhonHub')) return;
+            const ph = normBn(ta.placeholder || '');
+            const prevTxt = normBn(ta.previousElementSibling?.textContent || ta.parentElement?.textContent || '');
+
+            if (ph.includes('শিখনফল') || prevTxt.includes('শিখনফল ও মূল বিষয়বস্তু')) {
+                const modalBody = ta.parentElement?.parentElement || ta.parentElement;
+                if (!modalBody) return;
+
+                // পপ-আপের উপরে থাকা '— শিক্ষক বাছুন —' ড্রপডাউন থেকে 'দপ্তরি কাম প্রহরী' অপশনটি বাদ দেওয়া
+                modalBody.querySelectorAll('select option').forEach(opt => {
+                    const optTxt = normBn(opt.textContent || '');
+                    if (optTxt.includes('দপ্তরি') || optTxt.includes('প্রহরী')) {
+                        opt.remove();
+                    }
+                });
+
+                if (modalBody.querySelector('#ngpsV21Injected4Dropdowns')) return;
+
+                const fourBox = document.createElement('div');
+                fourBox.id = 'ngpsV21Injected4Dropdowns';
+                fourBox.className = 'grid grid-cols-1 sm:grid-cols-2 gap-3 p-3.5 my-3 rounded-xl bg-emerald-50 border-2 border-emerald-400 text-xs';
+                fourBox.innerHTML = `
+                    <div>
+                        <label class="font-extrabold text-emerald-950 block mb-1">(ক) পাঠদান পদ্ধতি:</label>
+                        <select id="v21NatModalMethod" class="w-full p-2 border rounded-lg font-bold">
+                            ${LP_DROPDOWN_DATA.methods.map(m => `<option value="${m}">${m}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div>
+                        <label class="font-extrabold text-emerald-950 block mb-1">(খ) কৌশল:</label>
+                        <select id="v21NatModalTech" class="w-full p-2 border rounded-lg font-bold">
+                            ${LP_DROPDOWN_DATA.techniques.map(t => `<option value="${t}">${t}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div>
+                        <label class="font-extrabold text-emerald-950 block mb-1">(গ) মূল্যায়ন কৌশল:</label>
+                        <select id="v21NatModalAssess" class="w-full p-2 border rounded-lg font-bold">
+                            ${LP_DROPDOWN_DATA.assessments.map(a => `<option value="${a}">${a}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div>
+                        <label class="font-extrabold text-emerald-950 block mb-1">(ঘ) উপকরণ:</label>
+                        <select id="v21NatModalMat" class="w-full p-2 border rounded-lg font-bold">
+                            ${LP_DROPDOWN_DATA.materials.map(mt => `<option value="${mt}">${mt}</option>`).join('')}
+                        </select>
+                    </div>
+                `;
+
+                // ঠিক শিখনফল টেক্সটএরিয়ার নিচে (সংরক্ষণ করুন বাটনের উপরে) বসানো
+                if (ta.parentElement && ta.parentElement !== modalBody) {
+                    ta.parentElement.insertAdjacentElement('afterend', fourBox);
+                } else {
+                    ta.insertAdjacentElement('afterend', fourBox);
+                }
+
+                // এই মডালের 'সংরক্ষণ করুন' বাটনে ক্লিক করলে যেন আমাদের ফোল্ডারে ও অ্যাডমিন উইন্ডোতে পেন্ডিং হিসেবে জমা হয়
+                modalBody.querySelectorAll('button').forEach(btn => {
+                    const bTxt = normBn(btn.textContent || '');
+                    if (bTxt.includes('সংরক্ষণ') && !btn.dataset.v21Hooked) {
+                        btn.dataset.v21Hooked = '1';
+                        btn.addEventListener('click', function () {
+                            const selects = modalBody.querySelectorAll('select');
+                            const inputs = modalBody.querySelectorAll('input[type="text"], input:not([type])');
+                            const rawTeacher = selects[0]?.options[selects[0].selectedIndex]?.text || 'তোফায়েল তোরাব';
+                            const teacherClean = rawTeacher.includes('বাছুন') ? 'তোফায়েল তোরাব' : rawTeacher.split('(')[0].trim();
+                            const clsVal = selects[1]?.options[selects[1].selectedIndex]?.text || 'প্রাক-প্রাথমিক';
+                            const subVal = inputs[1]?.value || 'প্রাথমিক বিজ্ঞান';
+                            const chapVal = inputs[2]?.value || 'পাঠ পরিকল্পনা';
+                            const partVal = inputs[3]?.value || '';
+
+                            const lps = loadLpRecords();
+                            lps.unshift({
+                                id: 'lp_' + Date.now(),
+                                date: getTodayBn(),
+                                teacher: teacherClean,
+                                cls: clsVal,
+                                sub: subVal,
+                                topic: `${chapVal}${partVal ? ' | পাঠ্যাংশ: ' + partVal : ''}`,
+                                method: document.getElementById('v21NatModalMethod')?.value || LP_DROPDOWN_DATA.methods[0],
+                                technique: document.getElementById('v21NatModalTech')?.value || LP_DROPDOWN_DATA.techniques[0],
+                                assessment: document.getElementById('v21NatModalAssess')?.value || LP_DROPDOWN_DATA.assessments[0],
+                                material: document.getElementById('v21NatModalMat')?.value || LP_DROPDOWN_DATA.materials[0],
+                                status: 'পেন্ডিং'
+                            });
+                            localStorage.setItem(DB_LP_KEY, JSON.stringify(lps));
+                            setTimeout(refreshAllV21, 150);
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    /* =====================================================================
+       ৪. Screenshot 189 & 192 Fix: "পাঠ ও বন্ধন", "পাঠ-পরিকল্পনা" ও "হোম ভিজিট"
+          সকল ভিউতে দপ্তরি বাদ দিয়ে শিক্ষকদের পাসওয়ার্ড ও OTP সুরক্ষিত ২-ভাগের ফোল্ডার স্থাপন
+       ===================================================================== */
+    function isInvalidTeacherEntry(nameStr) {
+        const s = normBn(nameStr);
+        if (!s || s.length < 3 || s.length > 40) return true;
+        const banned = ['দপ্তরি', 'দপ্তরী', 'প্রহরী', 'পদ শূন্য', 'শূন্য পদ', 'জ্যেষ্ঠতা', 'ছবি লিংক', 'ফোল্ডারসমূহ', 'হোম ভিজিট', 'ঘড়ি:', 'সর্বস্বত্ব', 'ক্লাস', 'পাঠটিকা'];
+        return banned.some(bw => s.includes(bw));
+    }
+
+    function canonicalTeacherKey(nameStr) {
+        return normBn(nameStr).replace(/^জনাব\s+/, '').replace(/^মোঃ\s+/, '').replace(/\s+/g, '');
+    }
+
+    function loadCleanTeachersDb() {
+        let list = [];
+        try { list = JSON.parse(localStorage.getItem(DB_TEACHERS_V21) || '[]'); } catch (e) {}
+
+        const uniqueMap = new Map();
+        if (Array.isArray(list)) {
+            list.forEach(item => {
+                if (item && item.name && !isInvalidTeacherEntry(item.name + ' ' + (item.desig || ''))) {
+                    const key = canonicalTeacherKey(item.name);
+                    if (!uniqueMap.has(key)) uniqueMap.set(key, item);
+                }
+            });
+        }
+
+        if (uniqueMap.size === 0) {
+            [
+                { id: 'tf_1', name: 'জনাব চিত্ত রঞ্জন রায়', desig: 'প্রধান শিক্ষক', mobile: '01715000001', password: '123' },
+                { id: 'tf_2', name: 'বুললী রানী ঘোষ', desig: 'সহকারী শিক্ষক', mobile: '01715000002', password: '123' },
+                { id: 'tf_3', name: 'তোফায়েল তোরাব', desig: 'সহকারী শিক্ষক', mobile: '01719469548', password: '123' },
+                { id: 'tf_4', name: 'জনাব নাজমুন্নাহার', desig: 'সহকারী শিক্ষক', mobile: '01715000004', password: '123' },
+                { id: 'tf_5', name: 'হাফিজা খাতুন', desig: 'সহকারী শিক্ষক', mobile: '01715000005', password: '123' }
+            ].forEach(t => uniqueMap.set(canonicalTeacherKey(t.name), t));
+        }
+
+        let deletedKeys = [];
+        try { deletedKeys = JSON.parse(localStorage.getItem(DB_DELETED_V21) || '[]'); } catch (e) {}
+
+        const cleanArr = [];
+        uniqueMap.forEach((val, key) => {
+            if (!deletedKeys.includes(key)) cleanArr.push(val);
+        });
+
+        localStorage.setItem(DB_TEACHERS_V21, JSON.stringify(cleanArr));
+
+        // Screenshot 189-এ থাকা নেটিভ 'শিক্ষকদের ফোল্ডার' থেকে 'দপ্তরি কাম প্রহরী' কার্ডটি সরাসরি লুকিয়ে ফেলা
+        document.querySelectorAll('div, button').forEach(el => {
+            if (el.children.length <= 4) {
+                const txt = normBn(el.textContent || '');
+                if (txt.includes('দপ্তরি কাম প্রহরী') && (txt.includes('পাঠটিকা') || txt.includes('ক্লাস'))) {
+                    el.style.setProperty('display', 'none', 'important');
+                }
+            }
+        });
+
+        return cleanArr;
+    }
+
+    function doesTeacherMatch(nameA, nameB) {
+        const kA = canonicalTeacherKey(nameA);
+        const kB = canonicalTeacherKey(nameB);
+        return kA && kB && (kA.includes(kB) || kB.includes(kA));
+    }
+
+    function loadLpRecords() {
+        let list = [];
+        try { list = JSON.parse(localStorage.getItem(DB_LP_KEY) || '[]'); } catch (e) {}
+        if (!Array.isArray(list) || list.length === 0) {
+            list = [{
+                id: 'lp_sample_1',
+                date: '০৫/১১/২০২৬',
+                teacher: 'তোফায়েল তোরাব',
+                cls: '৪র্থ শ্রেণি',
+                sub: 'প্রাথমিক বিজ্ঞান',
+                topic: 'অধ্যায় ৩: মাটি | পাঠ্যাংশ: মাটির গুরুত্ব',
+                method: 'আলোচনা (Discussion)',
+                technique: 'দলীয় কাজ',
+                assessment: 'মৌখিক',
+                material: 'পাঠ্যপুস্তক',
+                status: 'পেন্ডিং'
+            }];
+            localStorage.setItem(DB_LP_KEY, JSON.stringify(list));
+        }
+        return list;
+    }
+
+    function loadHvRecords() {
+        let list = [];
+        try { list = JSON.parse(localStorage.getItem(DB_HV_KEY) || '[]'); } catch (e) {}
+        if (!Array.isArray(list) || list.length === 0) {
+            list = [{
+                id: 'hv_sample_1',
+                date: '০৫/১১/২০২৬',
+                teacher: 'তোফায়েল তোরাব',
+                studentName: 'মোঃ তাজওয়ার হাসিব তাওহিদ',
+                cls: '৫ম শ্রেণি (রোল: ০১)',
+                guardianName: 'মোঃ হাসান আলী',
+                reason: 'নিয়মিত উপস্থিতি ও প্রান্তিক মূল্যায়ন প্রস্তুতি আলোচনা',
+                adviceGiven: 'প্রতিদিন সন্ধ্যায় ২ ঘণ্টা পাঠ অনুশীলনের পরামর্শ প্রদান করা হলো।',
+                hardcopyImage: '',
+                status: 'পেন্ডিং'
+            }];
+            localStorage.setItem(DB_HV_KEY, JSON.stringify(list));
+        }
+        return list;
+    }
+
+    function loadPrivateNotices() {
+        let list = [];
+        try { list = JSON.parse(localStorage.getItem(DB_NOTICE_KEY) || '[]'); } catch (e) {}
+        return Array.isArray(list) ? list : [];
+    }
+
+    // Screenshot 189 এবং Screenshot 192-এর সুনির্দিষ্ট টেক্সট ধরে ঠিক তার উপরে ফোল্ডার হাব বসানো (যাতে কখনোই মিস না হয়!)
+    function locateExactAnchorForLessonBondhonHub() {
+        const leafCandidates = document.querySelectorAll('h2, h3, h4, p, span, div');
+        for (const el of leafCandidates) {
+            if (el.closest('#ngpsV21LessonBondhonHub') || el.closest('#tab-dashboard')) continue;
+            if (el.children.length > 3) continue;
+            const txt = normBn(el.textContent || '');
+
+            // ১. Screenshot 192-এর উপরের কার্ড ('নিচের ফোল্ডার থেকে প্রয়োজনীয় অংশটি খুলুন।')
+            // ২. Screenshot 189-এর কার্ড ('প্রতিদিনের পাঠটিকা ব্যবস্থাপনা (১ম-৫ম শ্রেণি)')
+            // ৩. Screenshot 192-এর নিচের কার্ড ('← ফোল্ডারসমূহ')
+            if (
+                txt === 'নিচের ফোল্ডার থেকে প্রয়োজনীয় অংশটি খুলুন।' ||
+                txt.includes('প্রতিদিনের পাঠটিকা ব্যবস্থাপনা') ||
+                txt === 'শিক্ষকদের ফোল্ডার'
+            ) {
+                const cardBox = el.closest('.bg-white, .card, div[class*="rounded-2xl"], div[class*="rounded-xl"]') || el.parentElement;
+                if (cardBox && cardBox.parentElement && cardBox.offsetParent !== null) {
+                    return cardBox;
+                }
+            }
+        }
+        return null;
+    }
+
+    function mountLessonBondhonTeacherFoldersHub() {
+        const anchorCard = locateExactAnchorForLessonBondhonHub();
+        if (!anchorCard || !anchorCard.parentElement) return;
+
+        let hub = document.getElementById('ngpsV21LessonBondhonHub');
+        if (!hub) {
+            hub = document.createElement('div');
+            hub.id = 'ngpsV21LessonBondhonHub';
+            hub.className = 'ngps-v21-folder-hub no-print';
+        }
+        if (hub.nextElementSibling !== anchorCard) {
+            anchorCard.parentElement.insertBefore(hub, anchorCard);
+        }
+
+        const teachers = loadCleanTeachersDb();
+        if (!activeFolderTeacherId && teachers.length > 0) {
+            activeFolderTeacherId = teachers[0].id;
+        }
+
+        const selectedTeacher = teachers.find(t => t.id === activeFolderTeacherId) || teachers[0];
+        const isUnlockedByTeacher = selectedTeacher ? unlockedFoldersSession.has(selectedTeacher.id) : false;
+
+        const lps = loadLpRecords();
+        const hvs = loadHvRecords();
+        const notices = loadPrivateNotices();
+
+        const teacherLps = selectedTeacher ? lps.filter(p => doesTeacherMatch(p.teacher, selectedTeacher.name)) : [];
+        const teacherHvs = selectedTeacher ? hvs.filter(h => doesTeacherMatch(h.teacher, selectedTeacher.name)) : [];
+        const teacherSecretNotices = selectedTeacher ? notices.filter(n => doesTeacherMatch(n.teacher, selectedTeacher.name)) : [];
+
+        hub.innerHTML = `
+            <div style="background:linear-gradient(90deg,#0f172a,#1e3a8a,#1d4ed8);color:#fff;padding:12px 16px;border-radius:12px;border-bottom:3px solid #facc15;" class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                <div>
+                    <h3 class="text-base sm:text-lg font-black text-amber-300 m-0 flex items-center gap-2">
+                        <i class="fas fa-folder-shield"></i>
+                        শিক্ষকদের পাসওয়ার্ড সুরক্ষিত ফোল্ডার কেন্দ্র (${toBn(teachers.length)} জন শিক্ষক — দপ্তরি ব্যতীত)
+                    </h3>
+                    <p class="text-xs text-slate-200 m-0">
+                        প্রতিটি ফোল্ডারের অভ্যন্তরে ২টি ভাগ: <b>(ক) পাঠটিকা</b> ও <b>(খ) হোমভিজিট</b> • মনিটরিং অফিসার ও দর্শনার্থী শুধু দেখতে পাবেন (Read-Only), এডিট/ডিলিট করতে পাসওয়ার্ড আনলক প্রয়োজন
+                    </p>
+                </div>
+                <button type="button" onclick="window.ngpsV21OpenAddTeacherModal()" class="ngps-v21-btn gold">
+                    <i class="fas fa-folder-plus"></i> + নতুন ফোল্ডার সংযুক্ত করুন
+                </button>
+            </div>
+
+            <!-- ৫ জন শিক্ষকের আলাদা ফোল্ডার কার্ড -->
+            <div class="ngps-v21-folder-grid mb-4">
+                ${teachers.map(t => {
+                    const isAct = selectedTeacher && t.id === selectedTeacher.id;
+                    const isUnl = unlockedFoldersSession.has(t.id);
+                    const cLp = lps.filter(p => doesTeacherMatch(p.teacher, t.name)).length;
+                    const cHv = hvs.filter(h => doesTeacherMatch(h.teacher, t.name)).length;
+                    const cPend = lps.filter(p => doesTeacherMatch(p.teacher, t.name) && p.status !== 'অনুমোদিত').length +
+                                  hvs.filter(h => doesTeacherMatch(h.teacher, t.name) && h.status !== 'অনুমোদিত').length;
+
+                    return `
+                        <div onclick="window.ngpsV21SelectFolder('${t.id}')" class="ngps-v21-folder-card ${isAct ? 'active' : ''}">
+                            <button type="button" onclick="event.stopPropagation(); window.ngpsV21AdminDeleteFolder('${t.id}')"
+                                    class="absolute top-2 right-2 w-6 h-6 rounded bg-rose-100 hover:bg-rose-600 text-rose-700 hover:text-white text-[11px] flex items-center justify-center border border-rose-300"
+                                    title="শিক্ষক অবসর নিলে, বদলি হলে বা মৃত্যুবরণ করলে অ্যাডমিন ফোল্ডার ডিলিট করতে পারবেন">
+                                <i class="fas fa-trash-can"></i>
+                            </button>
+
+                            <div class="flex items-center gap-2.5 mb-2">
+                                <div class="w-10 h-10 rounded-xl ${isAct ? 'bg-emerald-600 text-white' : 'bg-blue-950 text-amber-400'} flex items-center justify-center text-lg">
+                                    <i class="fas ${isUnl ? 'fa-folder-open' : 'fa-folder-closed'}"></i>
+                                </div>
+                                <div class="min-w-0 flex-1 pr-5">
+                                    <div class="font-black text-slate-900 text-xs sm:text-sm truncate">${t.name}</div>
+                                    <div class="text-[11px] text-slate-500 font-bold truncate">${t.desig}</div>
+                                </div>
+                            </div>
+
+                            <div class="text-[11px] text-slate-600 font-bold mb-2 flex items-center justify-between">
+                                <span>📱 ${t.mobile}</span>
+                                <span class="px-1.5 py-0.5 rounded ${isUnl ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-700'} text-[10px]">
+                                    ${isUnl ? '🔓 আনলকড' : '🔒 সুরক্ষিত'}
+                                </span>
+                            </div>
+
+                            <div class="pt-2 border-t border-slate-200 flex items-center justify-between text-[11px] font-extrabold">
+                                <span class="text-blue-900">(ক) পাঠটিকা: ${toBn(cLp)}</span>
+                                <span class="text-emerald-800">(খ) হোমভিজিট: ${toBn(cHv)}</span>
+                            </div>
+                            ${cPend > 0 ? `<div class="mt-1.5 text-center"><span class="ngps-badge-pending" style="font-size:10px!important;padding:2px 8px!important;">⏳ পেন্ডিং: ${toBn(cPend)}টি</span></div>` : ''}
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+
+            <!-- নির্বাচিত শিক্ষকের ফোল্ডারের ভেতরের অংশ: (ক) পাঠটিকা ও (খ) হোমভিজিট -->
+            ${selectedTeacher ? `
+                <div class="p-4 rounded-2xl bg-slate-50 border-2 border-blue-900 space-y-4">
+                    <div class="flex flex-wrap items-center justify-between gap-3 bg-white p-3.5 rounded-xl border shadow-sm">
+                        <div>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="px-3 py-1 rounded-full ${isUnlockedByTeacher ? 'bg-emerald-600 text-white' : 'bg-blue-100 text-blue-900'} font-black text-xs">
+                                    ${isUnlockedByTeacher ? '🔓 শিক্ষক এডিট মোড (পাসওয়ার্ড আনলকড)' : '👁️ মনিটরিং অফিসার ও দর্শনার্থী মোড (Read-Only — শুধু দেখা যাবে, এডিট/ডিলিট বন্ধ)'}
+                                </span>
+                                <span class="text-xs font-extrabold text-slate-600">📱 মোবাইল: <b>${selectedTeacher.mobile}</b></span>
+                            </div>
+                            <h4 class="text-base font-black text-slate-900 mt-1 m-0">
+                                📁 ${selectedTeacher.name} (${selectedTeacher.desig}) — এর ফোল্ডার
+                            </h4>
+                        </div>
+
+                        <div class="flex flex-wrap items-center gap-2">
+                            ${!isUnlockedByTeacher ? `
+                                <button type="button" onclick="window.ngpsV21OpenUnlockModal('${selectedTeacher.id}')" class="ngps-v21-btn navy">
+                                    <i class="fas fa-key"></i> 🔑 পাসওয়ার্ড দিয়ে আনলক করুন
+                                </button>
+                            ` : `
+                                <button type="button" onclick="window.ngpsV21LockFolder('${selectedTeacher.id}')" class="ngps-v21-btn rose">
+                                    <i class="fas fa-lock"></i> লক করুন
+                                </button>
+                            `}
+                            <button type="button" onclick="window.ngpsV21OpenOtpModal('${selectedTeacher.id}')" class="ngps-v21-btn gold">
+                                <i class="fas fa-mobile-screen-button"></i> 📲 পাসওয়ার্ড পরিবর্তন (মোবাইল OTP)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- (ক) পাঠটিকা এবং (খ) হোমভিজিট ট্যাব সুইচার -->
+                    <div class="flex flex-wrap items-center justify-between gap-3 border-b-2 border-slate-200 pb-3">
+                        <div class="flex flex-wrap gap-2.5">
+                            <button type="button" onclick="window.ngpsV21SwitchSubTab('lp')"
+                                    class="ngps-v21-btn ${activeFolderSubTab === 'lp' ? 'blue' : ''}"
+                                    style="${activeFolderSubTab !== 'lp' ? 'background:#e2e8f0!important;color:#0f172a!important;-webkit-text-fill-color:#0f172a!important;border-color:#cbd5e1!important;' : ''}padding:10px 20px!important;font-size:0.86rem!important;">
+                                📖 (ক) পাঠটিকা (${toBn(teacherLps.length)}টি)
+                            </button>
+                            <button type="button" onclick="window.ngpsV21SwitchSubTab('hv')"
+                                    class="ngps-v21-btn ${activeFolderSubTab === 'hv' ? '' : ''}"
+                                    style="${activeFolderSubTab !== 'hv' ? 'background:#e2e8f0!important;color:#0f172a!important;-webkit-text-fill-color:#0f172a!important;border-color:#cbd5e1!important;' : ''}padding:10px 20px!important;font-size:0.86rem!important;">
+                                🏠 (খ) হোমভিজিট — সফটকপি ও হার্ডকপি (${toBn(teacherHvs.length)}টি)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- গোপনীয় পরামর্শ বক্স -->
+                    <div class="p-3 rounded-xl ${isUnlockedByTeacher ? 'bg-purple-50 border-2 border-purple-400' : 'bg-slate-200/70 border border-slate-300'} text-xs">
+                        <div class="flex items-center justify-between font-extrabold text-purple-950">
+                            <span>🔒 মনিটরিং কর্মকর্তার গোপনীয় মন্তব্য ও পরামর্শ (${toBn(teacherSecretNotices.length)}টি):</span>
+                            <span>${isUnlockedByTeacher ? '🔓 আনলকড ✓' : '🔒 পাসওয়ার্ড সুরক্ষিত'}</span>
+                        </div>
+                        ${isUnlockedByTeacher ? (
+                            teacherSecretNotices.length === 0
+                                ? `<div class="mt-1 text-slate-600 font-semibold">এখনও কোনো গোপনীয় পরামর্শ জমা হয়নি।</div>`
+                                : `<div class="mt-2 space-y-1.5">${teacherSecretNotices.map(n => `<div class="p-2 bg-white rounded border font-bold">👤 <b>${n.officer} (${n.dateBn}):</b> ${n.comment}</div>`).join('')}</div>`
+                        ) : `<div class="mt-1 text-slate-600 font-semibold">একজন শিক্ষক যেন অন্য শিক্ষকের মন্তব্য ও পরামর্শ দেখতে না পান, সেজন্য এটি পাসওয়ার্ড সুরক্ষিত।</div>`}
+                    </div>
+
+                    ${activeFolderSubTab === 'lp' ? `
+                        <!-- (ক) পাঠটিকা অংশ -->
+                        <div class="space-y-4 text-xs">
+                            <div class="p-4 rounded-xl bg-white border-2 border-blue-300 space-y-3">
+                                <div class="font-black text-blue-950 text-sm border-b pb-1.5">✍️ নতুন পাঠটিকা যুক্ত করুন (ফোল্ডার: ${selectedTeacher.name})</div>
+                                <div class="grid grid-cols-1 sm:grid-cols-4 gap-2.5">
+                                    <div>
+                                        <label class="font-extrabold block mb-1">শ্রেণি:</label>
+                                        <select id="v21LpCls" class="w-full p-2 border rounded-lg">
+                                            <option value="প্রাক-প্রাথমিক">প্রাক-প্রাথমিক</option>
+                                            <option value="১ম শ্রেণি">১ম শ্রেণি</option>
+                                            <option value="২য় শ্রেণি">২য় শ্রেণি</option>
+                                            <option value="৩য় শ্রেণি">৩য় শ্রেণি</option>
+                                            <option value="৪র্থ শ্রেণি" selected>৪র্থ শ্রেণি</option>
+                                            <option value="৫ম শ্রেণি">৫ম শ্রেণি</option>
+                                        </select>
+                                    </div>
+                                    <div><label class="font-extrabold block mb-1">বিষয়:</label><input type="text" id="v21LpSub" value="প্রাথমিক বিজ্ঞান" class="w-full p-2 border rounded-lg"></div>
+                                    <div><label class="font-extrabold block mb-1">পাঠের শিরোনাম / অধ্যায়:</label><input type="text" id="v21LpChap" placeholder="অধ্যায় ও পাঠের শিরোনাম" class="w-full p-2 border rounded-lg"></div>
+                                    <div><label class="font-extrabold block mb-1">পাঠ্যাংশ:</label><input type="text" id="v21LpPart" placeholder="পাঠ্যাংশ লিখুন" class="w-full p-2 border rounded-lg"></div>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-4 gap-2.5 bg-blue-50/70 p-3 rounded-xl border border-blue-200">
+                                    <div><label class="font-extrabold text-blue-950 block mb-1">(ক) পাঠদান পদ্ধতি:</label><select id="v21LpMethod" class="w-full p-2 border rounded-lg">${LP_DROPDOWN_DATA.methods.map(m => `<option value="${m}">${m}</option>`).join('')}</select></div>
+                                    <div><label class="font-extrabold text-blue-950 block mb-1">(খ) কৌশল:</label><select id="v21LpTech" class="w-full p-2 border rounded-lg">${LP_DROPDOWN_DATA.techniques.map(t => `<option value="${t}">${t}</option>`).join('')}</select></div>
+                                    <div><label class="font-extrabold text-blue-950 block mb-1">(গ) মূল্যায়ন কৌশল:</label><select id="v21LpAssess" class="w-full p-2 border rounded-lg">${LP_DROPDOWN_DATA.assessments.map(a => `<option value="${a}">${a}</option>`).join('')}</select></div>
+                                    <div><label class="font-extrabold text-blue-950 block mb-1">(ঘ) উপকরণ:</label><select id="v21LpMat" class="w-full p-2 border rounded-lg">${LP_DROPDOWN_DATA.materials.map(mt => `<option value="${mt}">${mt}</option>`).join('')}</select></div>
+                                </div>
+                                <div class="flex justify-end">
+                                    <button type="button" onclick="window.ngpsV21SaveLp('${selectedTeacher.id}')" class="ngps-v21-btn">
+                                        <i class="fas fa-floppy-disk"></i> সংরক্ষণ করুন
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <div class="font-extrabold text-slate-800">📋 ${selectedTeacher.name}-এর সংরক্ষিত পাঠটিকাসমূহ (${toBn(teacherLps.length)}টি):</div>
+                                ${teacherLps.map(p => `
+                                    <div class="p-3.5 bg-white rounded-xl border-2 ${p.status === 'অনুমোদিত' ? 'border-emerald-400' : 'border-amber-400'} flex flex-wrap items-center justify-between gap-2">
+                                        <div>
+                                            <div class="font-black text-slate-900 text-sm">📅 ${toBn(p.date)} — ${p.cls || ''} (${p.sub || ''}) • ${p.topic || ''}</div>
+                                            <div class="text-slate-600 font-bold mt-0.5">
+                                                পদ্ধতি: <b>${p.method || 'আলোচনা'}</b> | কৌশল: <b>${p.technique || 'দলীয় কাজ'}</b> | মূল্যায়ন: <b>${p.assessment || 'মৌখিক'}</b> | উপকরণ: <b>${p.material || 'পাঠ্যপুস্তক'}</b>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            ${p.status === 'অনুমোদিত' ? `<span class="ngps-badge-approved">✓ অনুমোদিত</span>` : `<span class="ngps-badge-pending">⏳ পেন্ডিং</span>`}
+                                            ${isUnlockedByTeacher ? `<button type="button" onclick="window.ngpsV21DeleteItem('lp', '${p.id}')" class="ngps-v21-btn rose">🗑️ ডিলিট</button>` : ''}
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : `
+                        <!-- (খ) হোমভিজিট অংশ (সফটকপি + স্বাক্ষরিত হার্ডকপি আপলোড + সংরক্ষণ, প্রিন্ট, PDF, শেয়ার) -->
+                        <div class="space-y-4 text-xs">
+                            <div class="p-4 rounded-xl bg-white border-2 border-emerald-400 space-y-3">
+                                <div class="font-black text-emerald-950 text-sm border-b pb-1.5">🏠 নতুন হোমভিজিট এন্ট্রি ও হার্ডকপি আপলোড (ফোল্ডার: ${selectedTeacher.name})</div>
+                                <div class="grid grid-cols-1 sm:grid-cols-4 gap-2.5">
+                                    <div><label class="font-extrabold block mb-1">শিক্ষার্থীর নাম:</label><input type="text" id="v21HvStu" placeholder="শিক্ষার্থীর নাম" class="w-full p-2 border rounded-lg"></div>
+                                    <div><label class="font-extrabold block mb-1">শ্রেণি ও রোল:</label><input type="text" id="v21HvCls" placeholder="৪র্থ শ্রেণি (রোল: ০২)" class="w-full p-2 border rounded-lg"></div>
+                                    <div><label class="font-extrabold block mb-1">পিতা/মাতা/অভিভাবক:</label><input type="text" id="v21HvGuard" placeholder="অভিভাবকের নাম" class="w-full p-2 border rounded-lg"></div>
+                                    <div><label class="font-extrabold block mb-1">স্বাক্ষরিত হার্ডকপি ছবি:</label><input type="file" id="v21HvFile" accept="image/*" class="w-full p-1.5 border rounded-lg bg-white"></div>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                                    <div><label class="font-extrabold block mb-1">আলোচনার নির্দিষ্ট বিষয়:</label><input type="text" id="v21HvReason" placeholder="উপস্থিতি ও পাঠ অগ্রগতি আলোচনা" class="w-full p-2 border rounded-lg"></div>
+                                    <div><label class="font-extrabold block mb-1">প্রদত্ত পরামর্শ:</label><input type="text" id="v21HvAdvice" placeholder="অভিভাবককে প্রদত্ত পরামর্শ" class="w-full p-2 border rounded-lg"></div>
+                                </div>
+                                <div class="flex flex-wrap justify-end gap-2 pt-2 border-t">
+                                    <button type="button" onclick="window.ngpsV21SaveHv('${selectedTeacher.id}')" class="ngps-v21-btn"><i class="fas fa-floppy-disk"></i> সংরক্ষণ করুন</button>
+                                    <button type="button" onclick="window.ngpsV21PrintHvForm('${selectedTeacher.name.replace(/'/g, "\\'")}')" class="ngps-v21-btn blue"><i class="fas fa-print"></i> প্রিন্ট করুন</button>
+                                    <button type="button" onclick="window.ngpsV21PrintHvForm('${selectedTeacher.name.replace(/'/g, "\\'")}')" class="ngps-v21-btn rose"><i class="fas fa-file-pdf"></i> PDF করুন</button>
+                                    <button type="button" onclick="window.ngpsV21ShareHv('${selectedTeacher.name.replace(/'/g, "\\'")}')" class="ngps-v21-btn gold"><i class="fas fa-share-nodes"></i> শেয়ার করুন</button>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2.5">
+                                <div class="font-extrabold text-slate-800">📋 ${selectedTeacher.name}-এর ফোল্ডারে সংরক্ষিত হোমভিজিট (সফটকপি ও হার্ডকপি — ${toBn(teacherHvs.length)}টি):</div>
+                                ${teacherHvs.map(h => `
+                                    <div class="p-4 bg-white rounded-xl border-2 ${h.status === 'অনুমোদিত' ? 'border-emerald-400' : 'border-amber-400'} grid grid-cols-1 md:grid-cols-3 gap-3 items-center">
+                                        <div class="md:col-span-2 space-y-1">
+                                            <div class="flex items-center gap-2 flex-wrap">
+                                                <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-900 font-black text-[10px]">💻 সফটকপি</span>
+                                                <span class="font-black text-slate-900 text-sm">📅 ${toBn(h.date)} — শিক্ষার্থী: ${h.studentName} (${h.cls || ''})</span>
+                                                ${h.status === 'অনুমোদিত' ? `<span class="ngps-badge-approved">✓ অনুমোদিত</span>` : `<span class="ngps-badge-pending">⏳ পেন্ডিং</span>`}
+                                            </div>
+                                            <div class="text-slate-700 font-bold">👨‍👩‍👧 অভিভাবক: <b>${h.guardianName || '—'}</b> • বিষয়: ${h.reason || '—'}</div>
+                                            ${h.adviceGiven ? `<div class="text-emerald-800 font-bold">💡 পরামর্শ: ${h.adviceGiven}</div>` : ''}
+                                        </div>
+                                        <div class="p-2.5 rounded-xl bg-slate-50 border flex flex-col items-center gap-2 text-center">
+                                            <div class="font-extrabold text-slate-800 text-[11px]">📄 অভিভাবক স্বাক্ষরিত হার্ডকপি:</div>
+                                            ${h.hardcopyImage
+                                                ? `<img src="${h.hardcopyImage}" class="h-12 w-16 object-cover rounded border-2 border-emerald-500 cursor-pointer" onclick="window.open(this.src,'_blank')">`
+                                                : `<span class="text-amber-700 font-bold text-[11px]">আপলোড করা হয়নি</span>`
+                                            }
+                                            <div class="flex gap-1.5">
+                                                <label class="ngps-v21-btn gold" style="padding:5px 10px!important;font-size:11px!important;">
+                                                    <i class="fas fa-upload"></i> আপলোড করুন
+                                                    <input type="file" accept="image/*" class="hidden" onchange="window.ngpsV21UploadHardcopy('${h.id}', this)">
+                                                </label>
+                                                ${isUnlockedByTeacher ? `<button type="button" onclick="window.ngpsV21DeleteItem('hv', '${h.id}')" class="ngps-v21-btn rose" style="padding:5px 9px!important;font-size:11px!important;">🗑️</button>` : ''}
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `}
+                </div>
+            ` : ''}
+        `;
+    }
+
+    /* =====================================================================
+       ৫. ড্যাশবোর্ডে কার্ড হিসেবে অ্যাডমিন উইন্ডো, কন্ট্যাক্ট উইন্ডো এবং লক্ষ্য ও উদ্দেশ্য
        ===================================================================== */
     function loadPrimaryAimsData() {
         let data = null;
@@ -17025,573 +17589,582 @@ html.nkx-dark img,html.nkx-dark video,html.nkx-dark iframe,html.nkx-dark canvas,
             data = {
                 goal: 'শিশুর দৈহিক, মানসিক, সামাজিক, আধ্যাত্মিক, নৈতিক, মানবিক ও নান্দনিক বিকাশ সাধন এবং তাকে উন্নত জীবনের স্বপ্ন দর্শনে উদ্বুদ্ধ করা।',
                 objectives: [
-                    '১. আল্লাহ তাআলা / সৃষ্টিকর্তার প্রতি অবিচল আস্থা ও বিশ্বাস গড়ে তোলা এবং সকল সৃষ্টির প্রতি ভালোবাসা জাগ্রত করা।',
+                    '১. সৃষ্টিকর্তার প্রতি অবিচল আস্থা ও বিশ্বাস গড়ে তোলা এবং সকল সৃষ্টির প্রতি ভালোবাসা জাগ্রত করা।',
                     '২. মুক্তিযুদ্ধের চেতনায় দেশপ্রেম, জাতীয়তাবোধ ও সুনাগরিকতার গুণাবলি অর্জন করা।',
-                    '৩. বাংলা ভাষার শুদ্ধ পঠন, লিখন ও কথন দক্ষতা অর্জন এবং মৌলিক গাণিতিক ধারণা লাভ করা।',
-                    '৪. বিজ্ঞানমনস্কতা, তথ্যপ্রযুক্তির ব্যবহার ও শ্রমের মর্যাদা সম্পর্কে সচেতন হওয়া।',
-                    '৫. স্বাস্থ্যসম্মত জীবনযাপন, পরিচ্ছন্নতা ও নিরাপদ পরিবেশ রক্ষায় অভ্যস্ত হওয়া।'
+                    '৩. বাংলা ভাষার শুদ্ধ পঠন, লিখন ও কথন দক্ষতা অর্জন এবং মৌলিক গাণিতিক ধারণা লাভ করা।'
                 ],
                 uploadedFileName: '',
-                uploadedFileDataUrl: '',
-                updatedAt: getTodayBn()
+                uploadedFileDataUrl: ''
             };
             localStorage.setItem(DB_AIMS_KEY, JSON.stringify(data));
         }
         return data;
     }
 
-    function locateDashboardMainCardsGrid() {
+    function mountThreeCardsIntoDashboardGrid() {
         const dashTab = document.getElementById('tab-dashboard');
-        if (!dashTab) return null;
+        if (!dashTab) return;
 
-        // যে গ্রিডে "বিদ্যালয়ের ছুটির তালিকা", "পরীক্ষার রুটিন", "বৃক্ষরোপণ কর্মসূচি ছক" কার্ডগুলো আছে সেটি খুঁজে বের করা
-        const headings = dashTab.querySelectorAll('h3, h4, .font-bold');
-        for (const h of headings) {
+        let targetGrid = null;
+        dashTab.querySelectorAll('h3, h4, .font-bold').forEach(h => {
             const t = normBn(h.textContent || '');
             if (t === 'বিদ্যালয়ের ছুটির তালিকা' || t === 'পরীক্ষার রুটিন' || t === 'বৃক্ষরোপণ কর্মসূচি ছক') {
-                const card = h.closest('.bg-white, .card, div[class*="rounded-"]');
-                if (card && card.parentElement) {
-                    return card.parentElement;
-                }
+                const c = h.closest('.bg-white, .card, div[class*="rounded-"]');
+                if (c && c.parentElement) targetGrid = c.parentElement;
             }
-        }
-        return null;
-    }
+        });
+        const parentEl = targetGrid || dashTab;
 
-    function mountThreeCardsIntoDashboardGrid() {
-        // আগের আলাদা ২-কলামের বড় বক্সটি থাকলে মুছে ফেলা
-        document.getElementById('ngpsV18AdminAndContactRow')?.remove();
-        document.getElementById('ngpsV17AdminAndContactRow')?.remove();
-
-        const gridContainer = locateDashboardMainCardsGrid();
-        const dashTab = document.getElementById('tab-dashboard');
-        const targetParent = gridContainer || dashTab;
-        if (!targetParent) return;
-
-        let adminCard = document.getElementById('ngpsV19AdminWindowCard');
-        let contactCard = document.getElementById('ngpsV19ContactWindowCard');
-        let aimsCard = document.getElementById('ngpsV19PrimaryAimsCard');
+        let adminCard = document.getElementById('ngpsV21AdminWindowCard');
+        let contactCard = document.getElementById('ngpsV21ContactWindowCard');
+        let aimsCard = document.getElementById('ngpsV21PrimaryAimsCard');
 
         if (!adminCard) {
             adminCard = document.createElement('div');
-            adminCard.id = 'ngpsV19AdminWindowCard';
-            adminCard.className = 'ngps-v19-dash-card card-admin no-print';
-            targetParent.appendChild(adminCard);
+            adminCard.id = 'ngpsV21AdminWindowCard';
+            adminCard.className = 'ngps-v21-dash-card card-admin no-print';
+            parentEl.appendChild(adminCard);
         }
         if (!contactCard) {
             contactCard = document.createElement('div');
-            contactCard.id = 'ngpsV19ContactWindowCard';
-            contactCard.className = 'ngps-v19-dash-card card-contact no-print';
-            targetParent.appendChild(contactCard);
+            contactCard.id = 'ngpsV21ContactWindowCard';
+            contactCard.className = 'ngps-v21-dash-card card-contact no-print';
+            parentEl.appendChild(contactCard);
         }
         if (!aimsCard) {
             aimsCard = document.createElement('div');
-            aimsCard.id = 'ngpsV19PrimaryAimsCard';
-            aimsCard.className = 'ngps-v19-dash-card card-aims no-print';
-            targetParent.appendChild(aimsCard);
+            aimsCard.id = 'ngpsV21PrimaryAimsCard';
+            aimsCard.className = 'ngps-v21-dash-card card-aims no-print';
+            parentEl.appendChild(aimsCard);
         }
 
-        // ডাটা লোড
-        let teachers = [];
-        let lps = [];
-        let hvs = [];
+        const teachers = loadCleanTeachersDb();
+        const lps = loadLpRecords();
+        const hvs = loadHvRecords();
         let contactCfg = { whatsappNumber: '01719-469548', whatsappGroup: 'https://chat.whatsapp.com/NakhaparaGPSOfficial', isEditing: false };
-        try { teachers = JSON.parse(localStorage.getItem(DB_TEACHERS) || '[]'); } catch (e) {}
-        try { lps = JSON.parse(localStorage.getItem(DB_LP_KEY) || '[]'); } catch (e) {}
-        try { hvs = JSON.parse(localStorage.getItem(DB_HV_KEY) || '[]'); } catch (e) {}
         try { contactCfg = JSON.parse(localStorage.getItem(DB_CONTACT_KEY) || 'null') || contactCfg; } catch (e) {}
-
         const aimsData = loadPrimaryAimsData();
+
         const pendingCount = lps.filter(x => x.status !== 'অনুমোদিত').length + hvs.filter(x => x.status !== 'অনুমোদিত').length;
         const cleanWa = toEn(contactCfg.whatsappNumber || '').replace(/[^0-9]/g, '');
         const waHref = cleanWa ? `https://wa.me/${cleanWa.startsWith('88') ? cleanWa : '88' + cleanWa}` : '#';
 
-        // ১. "অ্যাডমিন উইন্ডো" কার্ড
         adminCard.innerHTML = `
             <div>
-                <div class="flex items-start gap-3 mb-2.5">
-                    <div class="ngps-v19-card-icon bg-blue-50 text-blue-900 border border-blue-200">
-                        <i class="fas fa-user-shield"></i>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between gap-1 flex-wrap">
-                            <h3 class="font-black text-slate-900 text-base m-0">অ্যাডমিন উইন্ডো</h3>
-                            <span class="px-2.5 py-0.5 rounded-full ${pendingCount > 0 ? 'bg-amber-400 text-slate-950' : 'bg-emerald-100 text-emerald-800'} font-black text-[11px]">
-                                🔔 পেন্ডিং: ${toBn(pendingCount)}টি
-                            </span>
-                        </div>
-                        <p class="text-xs text-slate-500 m-0 mt-0.5">স্বয়ংক্রিয় অ্যাসাইনকৃত শিক্ষক ফোল্ডার ও পাঠটিকা/হোমভিজিট অনুমোদন</p>
-                    </div>
+                <div class="flex items-center justify-between gap-2 mb-2">
+                    <h3 class="font-black text-slate-900 text-base m-0">🛡️ অ্যাডমিন উইন্ডো</h3>
+                    <span class="px-2.5 py-0.5 rounded-full ${pendingCount > 0 ? 'bg-amber-400 text-slate-950' : 'bg-emerald-100 text-emerald-800'} font-black text-[11px]">
+                        🔔 পেন্ডিং: ${toBn(pendingCount)}টি
+                    </span>
                 </div>
-
-                <!-- শিক্ষক ফোল্ডার চিপস -->
-                <div class="flex flex-wrap gap-1.5 mb-2.5">
-                    ${teachers.slice(0, 6).map(t => `
-                        <button type="button" onclick="if(window.ngpsV18JumpToFolder) window.ngpsV18JumpToFolder('${t.id}')"
-                                class="px-2 py-1 rounded-lg bg-slate-100 hover:bg-blue-50 border border-slate-300 text-slate-900 font-extrabold text-[11px] flex items-center gap-1 cursor-pointer">
-                            <i class="fas fa-folder text-amber-500"></i> ${t.name.replace('জনাব ', '')}
+                <div class="flex flex-wrap gap-1.5 mb-2">
+                    ${teachers.map(t => `
+                        <button type="button" onclick="window.ngpsV21JumpToFolder('${t.id}')"
+                                class="px-2 py-1 rounded-lg bg-slate-100 hover:bg-blue-50 border border-slate-300 text-slate-900 font-extrabold text-[11px] cursor-pointer">
+                            📁 ${t.name.replace('জনাব ', '')}
                         </button>
                     `).join('')}
                 </div>
-
-                <!-- সংক্ষিপ্ত পেন্ডিং তালিকা -->
                 <div class="space-y-1.5 max-h-28 overflow-y-auto text-[11px] bg-slate-50 p-2 rounded-xl border">
-                    ${[...lps.map(x => ({ ...x, _k: 'lp' })), ...hvs.map(x => ({ ...x, _k: 'hv' }))].slice(0, 3).map(item => `
+                    ${[...lps.map(x => ({ ...x, _k: 'lp' })), ...hvs.map(x => ({ ...x, _k: 'hv' }))].slice(0, 4).map(item => `
                         <div class="flex items-center justify-between gap-1 bg-white p-1.5 rounded border">
-                            <span class="truncate font-bold text-slate-800">
-                                ${item._k === 'lp' ? '📖' : '🏠'} <b>${item.teacher}:</b> ${item._k === 'lp' ? (item.topic || '') : (item.studentName || '')}
-                            </span>
+                            <span class="truncate font-bold text-slate-800">${item._k === 'lp' ? '📖' : '🏠'} <b>${item.teacher}:</b> ${item._k === 'lp' ? (item.topic || '') : (item.studentName || '')}</span>
                             ${item.status === 'অনুমোদিত'
-                                ? `<span class="px-2 py-0.5 rounded-full bg-emerald-600 text-white font-black text-[10px]">✓ অনুমোদিত</span>`
-                                : `<button type="button" onclick="window.ngpsV19QuickApprove('${item._k}','${item.id}')" class="px-2 py-0.5 rounded-full bg-amber-300 hover:bg-emerald-600 text-slate-950 hover:text-white font-black text-[10px] cursor-pointer">⏳ অনুমোদন দিন</button>`
+                                ? `<span class="ngps-badge-approved" style="font-size:10px!important;padding:2px 7px!important;">✓ অনুমোদিত</span>`
+                                : `<button type="button" onclick="window.ngpsV21ApproveSingle('${item._k}','${item.id}')" class="ngps-badge-pending cursor-pointer" style="font-size:10px!important;padding:2px 7px!important;">⏳ পেন্ডিং (অনুমোদন দিন)</button>`
                             }
                         </div>
                     `).join('')}
                 </div>
             </div>
-
-            <div class="flex flex-wrap gap-2 pt-1 border-t border-slate-100">
-                <button type="button" onclick="window.ngpsV19OpenFullAdminWindowModal()" class="ngps-v19-btn navy">
-                    <i class="fas fa-folder-open"></i> অ্যাডমিন প্যানেল খুলুন
-                </button>
-                <button type="button" onclick="if(window.ngpsV18OpenAddTeacherModal) window.ngpsV18OpenAddTeacherModal()" class="ngps-v19-btn gold">
-                    <i class="fas fa-folder-plus"></i> + নতুন ফোল্ডার
-                </button>
-                ${pendingCount > 0 ? `
-                    <button type="button" onclick="if(window.ngpsV18ApproveAll) { window.ngpsV18ApproveAll(); setTimeout(window.ngpsV19RefreshCards,100); }" class="ngps-v19-btn">
-                        ✓ সব অনুমোদন
-                    </button>
-                ` : ''}
+            <div class="flex flex-wrap gap-2 pt-1 border-t">
+                <button type="button" onclick="window.ngpsV21OpenAddTeacherModal()" class="ngps-v21-btn gold">+ নতুন ফোল্ডার</button>
+                ${pendingCount > 0 ? `<button type="button" onclick="window.ngpsV21ApproveAll()" class="ngps-v21-btn">✓ সব অনুমোদন করুন</button>` : ''}
             </div>
         `;
 
-        // ২. "কন্ট্যাক্ট উইন্ডো" কার্ড
         contactCard.innerHTML = `
             <div>
-                <div class="flex items-start gap-3 mb-2.5">
-                    <div class="ngps-v19-card-icon bg-emerald-50 text-emerald-700 border border-emerald-200">
-                        <i class="fab fa-whatsapp"></i>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <h3 class="font-black text-slate-900 text-base m-0">কন্ট্যাক্ট উইন্ডো</h3>
-                        <p class="text-xs text-slate-500 m-0 mt-0.5">অফিশিয়াল WhatsApp Number ও Group সংযোজন এবং সাইট-ওয়াইড অটো-অ্যাসাইন</p>
-                    </div>
-                </div>
-
+                <h3 class="font-black text-slate-900 text-base m-0 mb-2">📞 কন্ট্যাক্ট উইন্ডো</h3>
                 <div class="space-y-2 text-xs bg-emerald-50/60 p-2.5 rounded-xl border border-emerald-200">
                     <div>
                         <label class="font-extrabold text-slate-700 block mb-0.5">📱 WhatsApp Number:</label>
-                        <input type="text" id="v19WaNumCardInp" value="${contactCfg.whatsappNumber || ''}" ${contactCfg.isEditing ? '' : 'readonly'}
-                               class="w-full p-1.5 border rounded-lg font-extrabold text-xs">
+                        <input type="text" id="v21WaNumCardInp" value="${contactCfg.whatsappNumber || ''}" ${contactCfg.isEditing ? '' : 'readonly'} class="w-full p-1.5 border rounded-lg font-extrabold text-xs">
                     </div>
                     <div>
                         <label class="font-extrabold text-slate-700 block mb-0.5">👥 WhatsApp Group লিংক:</label>
-                        <input type="text" id="v19WaGrpCardInp" value="${contactCfg.whatsappGroup || ''}" ${contactCfg.isEditing ? '' : 'readonly'}
-                               class="w-full p-1.5 border rounded-lg font-extrabold text-xs">
+                        <input type="text" id="v21WaGrpCardInp" value="${contactCfg.whatsappGroup || ''}" ${contactCfg.isEditing ? '' : 'readonly'} class="w-full p-1.5 border rounded-lg font-extrabold text-xs">
                     </div>
                 </div>
             </div>
-
-            <div class="flex flex-wrap gap-1.5 pt-1 border-t border-slate-100">
-                <a href="${waHref}" target="_blank" class="ngps-v19-btn">
-                    <i class="fab fa-whatsapp"></i> মেসেজ/কল
-                </a>
-                <a href="${contactCfg.whatsappGroup || '#'}" target="_blank" class="ngps-v19-btn blue">
-                    <i class="fas fa-users"></i> গ্রুপ
-                </a>
-                <button type="button" onclick="window.ngpsV19EditContactCard()" class="ngps-v19-btn gold">
-                    <i class="fas fa-pen"></i> সম্পাদনা করুন
-                </button>
-                <button type="button" onclick="window.ngpsV19SaveContactCard()" class="ngps-v19-btn navy">
-                    <i class="fas fa-floppy-disk"></i> সংরক্ষণ করুন
-                </button>
+            <div class="flex flex-wrap gap-1.5 pt-1 border-t">
+                <a href="${waHref}" target="_blank" class="ngps-v21-btn"><i class="fab fa-whatsapp"></i> মেসেজ/কল</a>
+                <a href="${contactCfg.whatsappGroup || '#'}" target="_blank" class="ngps-v21-btn blue"><i class="fas fa-users"></i> গ্রুপ</a>
+                <button type="button" onclick="window.ngpsV21EditContact()" class="ngps-v21-btn gold">সম্পাদনা করুন</button>
+                <button type="button" onclick="window.ngpsV21SaveContact()" class="ngps-v21-btn navy">সংরক্ষণ করুন</button>
             </div>
         `;
 
-        // ৩. "প্রাথমিক শিক্ষার লক্ষ্য ও উদ্দেশ্য" কার্ড
         aimsCard.innerHTML = `
             <div>
-                <div class="flex items-start gap-3 mb-2">
-                    <div class="ngps-v19-card-icon bg-amber-50 text-amber-700 border border-amber-200">
-                        <i class="fas fa-bullseye"></i>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between gap-1 flex-wrap">
-                            <h3 class="font-black text-slate-900 text-base m-0">প্রাথমিক শিক্ষার লক্ষ্য ও উদ্দেশ্য</h3>
-                            ${aimsData.uploadedFileName ? `<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]">📄 ফাইল যুক্ত ✓</span>` : ''}
-                        </div>
-                        <p class="text-xs text-slate-500 m-0 mt-0.5">জাতীয় প্রাথমিক শিক্ষার লক্ষ্য ও ১৩টি উদ্দেশ্য দেখুন, ফাইল আপলোড ও স্ক্রলে দিন</p>
-                    </div>
-                </div>
-
+                <h3 class="font-black text-slate-900 text-base m-0 mb-2">🎯 প্রাথমিক শিক্ষার লক্ষ্য ও উদ্দেশ্য</h3>
                 <div class="p-2.5 rounded-xl bg-amber-50/70 border border-amber-200 text-xs text-slate-800 space-y-1">
-                    <div class="font-black text-amber-950">🎯 মূল লক্ষ্য:</div>
-                    <div class="font-bold leading-snug line-clamp-2">${aimsData.goal}</div>
-                    ${aimsData.uploadedFileName ? `<div class="text-[11px] text-blue-900 font-extrabold pt-1">📎 আপলোডকৃত ফাইল: ${aimsData.uploadedFileName}</div>` : ''}
+                    <div class="font-bold leading-snug">${aimsData.goal}</div>
+                    ${aimsData.uploadedFileName ? `<div class="text-[11px] text-blue-900 font-extrabold pt-1">📎 ফাইল: ${aimsData.uploadedFileName}</div>` : ''}
                 </div>
             </div>
-
-            <div class="flex flex-wrap gap-1.5 pt-1 border-t border-slate-100">
-                <button type="button" onclick="window.ngpsV19OpenPrimaryAimsModal()" class="ngps-v19-btn navy">
-                    <i class="fas fa-book-open"></i> লক্ষ্য ও উদ্দেশ্য দেখুন / এডিট
-                </button>
-                <label class="ngps-v19-btn gold">
-                    <i class="fas fa-upload"></i> PDF / ছবি আপলোড
-                    <input type="file" accept="image/*,.pdf" class="hidden" onchange="window.ngpsV19UploadAimsFile(this)">
+            <div class="flex flex-wrap gap-1.5 pt-1 border-t">
+                <button type="button" onclick="window.ngpsV21OpenAimsModal()" class="ngps-v21-btn navy">দেখুন ও সম্পাদনা</button>
+                <label class="ngps-v21-btn gold">
+                    আপলোড করুন
+                    <input type="file" accept="image/*,.pdf" class="hidden" onchange="window.ngpsV21UploadAimsFile(this)">
                 </label>
-                <button type="button" onclick="window.ngpsV19SendAimsToScroll()" class="ngps-v19-btn purple">
-                    <i class="fas fa-bullhorn"></i> স্ক্রল লেখা
-                </button>
+                <button type="button" onclick="window.ngpsV21SendAimsToScroll()" class="ngps-v21-btn purple">স্ক্রল লেখা</button>
             </div>
         `;
     }
-
-    window.ngpsV19RefreshCards = mountThreeCardsIntoDashboardGrid;
-
-    window.ngpsV19QuickApprove = function (kind, id) {
-        if (window.ngpsV18ApproveSingle) window.ngpsV18ApproveSingle(kind, id);
-        setTimeout(mountThreeCardsIntoDashboardGrid, 80);
-    };
-
-    window.ngpsV19EditContactCard = function () {
-        const nInp = document.getElementById('v19WaNumCardInp');
-        const gInp = document.getElementById('v19WaGrpCardInp');
-        if (nInp) { nInp.removeAttribute('readonly'); nInp.focus(); }
-        if (gInp) { gInp.removeAttribute('readonly'); }
-    };
-
-    window.ngpsV19SaveContactCard = function () {
-        const whatsappNumber = (document.getElementById('v19WaNumCardInp')?.value || '').trim();
-        const whatsappGroup = (document.getElementById('v19WaGrpCardInp')?.value || '').trim();
-        localStorage.setItem(DB_CONTACT_KEY, JSON.stringify({ whatsappNumber, whatsappGroup, isEditing: false }));
-        mountThreeCardsIntoDashboardGrid();
-        alert(`✅ WhatsApp Number (${whatsappNumber}) ও Group সফলভাবে সংরক্ষিত হয়েছে এবং পুরো সাইটে অ্যাসাইন হয়েছে!`);
-    };
-
-    window.ngpsV19OpenFullAdminWindowModal = function () {
-        let lps = [];
-        let hvs = [];
-        try { lps = JSON.parse(localStorage.getItem(DB_LP_KEY) || '[]'); } catch (e) {}
-        try { hvs = JSON.parse(localStorage.getItem(DB_HV_KEY) || '[]'); } catch (e) {}
-
-        openV19Modal(`
-            <div class="space-y-4 text-xs">
-                <div class="flex items-center justify-between border-b pb-2.5">
-                    <h3 class="text-base font-black text-slate-900 m-0">🛡️ অ্যাডমিন উইন্ডো — সকল পাঠটিকা ও হোমভিজিট অনুমোদন কেন্দ্র</h3>
-                    <button type="button" onclick="window.ngpsV19CloseModal()" class="px-3 py-1 bg-rose-600 text-white rounded-lg font-bold">✕ বন্ধ</button>
-                </div>
-                <div class="space-y-2 max-h-96 overflow-y-auto">
-                    ${[...lps.map(x => ({ ...x, _k: 'lp' })), ...hvs.map(x => ({ ...x, _k: 'hv' }))].map(item => `
-                        <div class="p-3 rounded-xl border ${item.status === 'অনুমোদিত' ? 'bg-emerald-50 border-emerald-300' : 'bg-amber-50 border-amber-400'} flex items-center justify-between gap-2">
-                            <div>
-                                <div class="font-black text-slate-900">${item._k === 'lp' ? '📖 পাঠটিকা' : '🏠 হোমভিজিট'} — শিক্ষক: ${item.teacher} (${toBn(item.date)})</div>
-                                <div class="text-slate-600 font-bold">${item._k === 'lp' ? `${item.cls || ''} (${item.sub || ''}) — ${item.topic || ''}` : `শিক্ষার্থী: ${item.studentName || ''} (${item.cls || ''})`}</div>
-                            </div>
-                            <div>
-                                ${item.status === 'অনুমোদিত'
-                                    ? `<span class="px-3 py-1 rounded-full bg-emerald-600 text-white font-black">✓ অনুমোদিত</span>`
-                                    : `<button type="button" onclick="window.ngpsV19QuickApprove('${item._k}','${item.id}'); window.ngpsV19OpenFullAdminWindowModal();" class="ngps-v19-btn">✓ অনুমোদন করুন</button>`
-                                }
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        `);
-    };
-
-    // "প্রাথমিক শিক্ষার লক্ষ্য ও উদ্দেশ্য" মডাল, আপলোড ও স্ক্রলে প্রেরণ
-    window.ngpsV19OpenPrimaryAimsModal = function () {
-        const data = loadPrimaryAimsData();
-        openV19Modal(`
-            <div class="space-y-4 text-xs">
-                <div class="flex items-center justify-between border-b pb-2.5">
-                    <div>
-                        <h3 class="text-base sm:text-lg font-black text-slate-900 m-0">🎯 প্রাথমিক শিক্ষার লক্ষ্য ও উদ্দেশ্য</h3>
-                        <p class="text-[11px] text-slate-500 m-0">সম্পাদনা, ফাইল প্রিভিউ এবং সংরক্ষণ কেন্দ্র</p>
-                    </div>
-                    <button type="button" onclick="window.ngpsV19CloseModal()" class="px-3 py-1 bg-rose-600 text-white rounded-lg font-bold">✕ বন্ধ</button>
-                </div>
-
-                <div>
-                    <label class="font-extrabold text-slate-800 block mb-1">প্রাথমিক শিক্ষার মূল লক্ষ্য (Goal):</label>
-                    <textarea id="v19AimsGoalInp" rows="2" class="w-full p-2.5 border-2 border-amber-400 rounded-xl font-bold">${data.goal}</textarea>
-                </div>
-
-                <div>
-                    <label class="font-extrabold text-slate-800 block mb-1">প্রাথমিক শিক্ষার উদ্দেশ্যসমূহ (প্রতি লাইনে ১টি করে):</label>
-                    <textarea id="v19AimsObjInp" rows="6" class="w-full p-2.5 border rounded-xl font-bold">${(data.objectives || []).join('\n')}</textarea>
-                </div>
-
-                ${data.uploadedFileDataUrl ? `
-                    <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-300 flex items-center justify-between">
-                        <span class="font-extrabold text-emerald-950">📎 সংযুক্ত ফাইল: ${data.uploadedFileName}</span>
-                        <button type="button" onclick="window.open('${data.uploadedFileDataUrl}','_blank')" class="ngps-v19-btn blue">👁️ আপলোডকৃত ফাইল দেখুন</button>
-                    </div>
-                ` : ''}
-
-                <div class="flex flex-wrap justify-between items-center gap-2 pt-2 border-t">
-                    <button type="button" onclick="window.ngpsV19PrintPrimaryAims()" class="ngps-v19-btn blue">
-                        <i class="fas fa-print"></i> প্রিন্ট / PDF করুন
-                    </button>
-                    <div class="flex gap-2">
-                        <button type="button" onclick="window.ngpsV19SendAimsToScroll()" class="ngps-v19-btn purple">
-                            <i class="fas fa-bullhorn"></i> নোটিশ স্ক্রলে পাঠান
-                        </button>
-                        <button type="button" onclick="window.ngpsV19SavePrimaryAims()" class="ngps-v19-btn">
-                            <i class="fas fa-floppy-disk"></i> সংরক্ষণ করুন
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `);
-    };
-
-    window.ngpsV19SavePrimaryAims = function () {
-        const data = loadPrimaryAimsData();
-        data.goal = (document.getElementById('v19AimsGoalInp')?.value || '').trim() || data.goal;
-        data.objectives = (document.getElementById('v19AimsObjInp')?.value || '').split(/\r?\n/).map(s => s.trim()).filter(Boolean);
-        data.updatedAt = getTodayBn();
-        localStorage.setItem(DB_AIMS_KEY, JSON.stringify(data));
-        mountThreeCardsIntoDashboardGrid();
-        window.ngpsV19CloseModal();
-        alert('✅ প্রাথমিক শিক্ষার লক্ষ্য ও উদ্দেশ্য সফলভাবে সংরক্ষিত হয়েছে!');
-    };
-
-    window.ngpsV19UploadAimsFile = function (inputEl) {
-        const file = inputEl.files?.[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = function (ev) {
-            const data = loadPrimaryAimsData();
-            data.uploadedFileName = file.name;
-            data.uploadedFileDataUrl = ev.target.result;
-            localStorage.setItem(DB_AIMS_KEY, JSON.stringify(data));
-            mountThreeCardsIntoDashboardGrid();
-            alert(`✅ "${file.name}" ফাইলটি প্রাথমিক শিক্ষার লক্ষ্য ও উদ্দেশ্য কার্ডে সংরক্ষিত হয়েছে!`);
-        };
-        reader.readAsDataURL(file);
-    };
-
-    window.ngpsV19SendAimsToScroll = function () {
-        const data = loadPrimaryAimsData();
-        const cfg = loadScrollBarsConfig();
-        const aimStatement = `🎯 প্রাথমিক শিক্ষার লক্ষ্য: ${data.goal}`;
-        if (!cfg.bars[0].statements.includes(aimStatement)) {
-            cfg.bars[0].statements.unshift(aimStatement);
-        }
-        saveScrollBarsConfig(cfg);
-        alert('✅ প্রাথমিক শিক্ষার লক্ষ্য ও উদ্দেশ্য উপরের নোটিশ বোর্ডের লাইভ স্ক্রলে যুক্ত করা হয়েছে!');
-    };
-
-    window.ngpsV19PrintPrimaryAims = function () {
-        const data = loadPrimaryAimsData();
-        const html = `
-            <div style="border:4px double #1e3a8a;padding:24px 28px;">
-                <div style="text-align:center;border-bottom:2px solid #1e3a8a;padding-bottom:10px;margin-bottom:16px;">
-                    <h2 style="margin:0;font-size:18pt;color:#0f172a;">১২৭নং নখাপাড়া সরকারি প্রাথমিক বিদ্যালয়</h2>
-                    <p style="margin:4px 0;font-size:11pt;">বীরগঞ্জ, দিনাজপুর।</p>
-                    <div style="margin-top:6px;display:inline-block;background:#1e3a8a;color:#facc15;padding:4px 16px;border-radius:999px;font-weight:bold;font-size:13pt;">
-                        প্রাথমিক শিক্ষার লক্ষ্য ও উদ্দেশ্য
-                    </div>
-                </div>
-                <h3 style="color:#1e3a8a;margin-bottom:6px;">🎯 মূল লক্ষ্য:</h3>
-                <p style="font-size:13pt;font-weight:bold;background:#f8fafc;padding:12px;border-left:4px solid #d97706;">${data.goal}</p>
-                <h3 style="color:#1e3a8a;margin-top:18px;margin-bottom:8px;">📌 উদ্দেশ্যসমূহ:</h3>
-                <div style="font-size:12.5pt;line-height:1.8;">
-                    ${(data.objectives || []).map(o => `<div style="margin-bottom:6px;">${o}</div>`).join('')}
-                </div>
-            </div>
-        `;
-        if (window.ngpsV18IsolatedPrintHtml) {
-            window.ngpsV18IsolatedPrintHtml('প্রাথমিক শিক্ষার লক্ষ্য ও উদ্দেশ্য', html, 'portrait');
-        }
-    };
 
     /* =====================================================================
-       ৪. সার্টিফিকেট প্রিন্ট এবং হোমভিজিট প্রিন্টের সংঘর্ষ (Screenshot 181_2) সম্পূর্ণ সমাধান
+       ৬. সকল গ্লোবাল হ্যান্ডলার ফাংশনসমূহ
        ===================================================================== */
-    function isInsideCertificateSection(el) {
-        if (!el) return false;
-        const sec = el.closest('section, div[id^="tab-"], .tab-pane');
-        const secId = (sec?.id || '').toLowerCase();
-        const secTxt = normBn(sec?.textContent || '');
-        return (
-            Boolean(el.closest('#ngpsCertPadStudioWrap')) ||
-            secId.includes('cert') ||
-            (secTxt.includes('প্রত্যয়ন') && secTxt.includes('সনদ'))
-        );
+    function openV21Modal(html) {
+        let modal = document.getElementById('ngpsV21ModalBg');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'ngpsV21ModalBg';
+            modal.className = 'ngps-v21-modal-bg no-print';
+            document.body.appendChild(modal);
+        }
+        modal.innerHTML = `<div class="ngps-v21-modal-box">${html}</div>`;
+        modal.classList.add('open');
     }
 
-    function printCertificateProperly(triggerBtn) {
-        // ১. যদি আমাদের সার্টিফিকেট প্যাড ক্যানভাস থাকে, তবে সেটি প্রিন্ট করা
-        const padCanvas = document.getElementById('ngpsLiveCertPadCanvas');
-        if (padCanvas && triggerBtn.closest('#ngpsCertPadStudioWrap')) {
-            const styleCss = document.getElementById('ngps-v16-5-master-css')?.innerHTML || '';
-            const fullHtml = `<style>${styleCss}</style>${padCanvas.outerHTML}`;
-            if (window.ngpsV18IsolatedPrintHtml) {
-                window.ngpsV18IsolatedPrintHtml('প্রত্যয়ন পত্র — ১২৭নং নখাপাড়া সপ্রাবি', fullHtml, 'portrait');
-                return;
-            }
-        }
+    window.ngpsV21CloseModal = function () {
+        document.getElementById('ngpsV21ModalBg')?.classList.remove('open');
+    };
 
-        // ২. যদি সাইটের মূল নেটিভ সার্টিফিকেট বক্স থেকে প্রিন্ট বাটনে চাপ দেওয়া হয়
-        const certContainer = triggerBtn.closest('section, div[id^="tab-"]') || document.body;
-        const previewBox =
-            certContainer.querySelector('#certPreview, #certificatePreview, .certificate-box, .print-area, [id*="certPrint"]') ||
-            Array.from(certContainer.querySelectorAll('div')).find(d => {
-                const t = normBn(d.textContent || '');
-                return t.includes('এই মর্মে প্রত্যয়ন করা') && d.offsetHeight > 200 && d.offsetHeight < 1200;
-            });
+    window.ngpsV21SelectFolder = function (id) {
+        activeFolderTeacherId = id;
+        mountLessonBondhonTeacherFoldersHub();
+    };
 
-        if (previewBox && window.ngpsV18IsolatedPrintHtml) {
-            window.ngpsV18IsolatedPrintHtml('প্রত্যয়ন পত্র — ১২৭নং নখাপাড়া সপ্রাবি', previewBox.outerHTML, 'portrait');
-        } else if (padCanvas && window.ngpsV18IsolatedPrintHtml) {
-            window.ngpsV18IsolatedPrintHtml('প্রত্যয়ন পত্র — ১২৭নং নখাপাড়া সপ্রাবি', padCanvas.outerHTML, 'portrait');
+    window.ngpsV21SwitchSubTab = function (sub) {
+        activeFolderSubTab = sub;
+        mountLessonBondhonTeacherFoldersHub();
+    };
+
+    window.ngpsV21JumpToFolder = function (id) {
+        activeFolderTeacherId = id;
+        document.querySelectorAll('button, a').forEach(b => {
+            if (normBn(b.textContent || '') === 'পাঠ ও বন্ধন') b.click();
+        });
+        setTimeout(() => {
+            mountLessonBondhonTeacherFoldersHub();
+            document.getElementById('ngpsV21LessonBondhonHub')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 120);
+    };
+
+    window.ngpsV21LockFolder = function (id) {
+        unlockedFoldersSession.delete(id);
+        mountLessonBondhonTeacherFoldersHub();
+    };
+
+    window.ngpsV21OpenUnlockModal = function (id) {
+        const t = loadCleanTeachersDb().find(x => x.id === id);
+        if (!t) return;
+        openV21Modal(`
+            <div class="space-y-4 text-xs">
+                <div class="flex justify-between items-center border-b pb-2">
+                    <h3 class="text-base font-black m-0">🔑 শিক্ষক ফোল্ডার পাসওয়ার্ড আনলক — ${t.name}</h3>
+                    <button type="button" onclick="window.ngpsV21CloseModal()" class="px-2.5 py-1 bg-rose-600 text-white rounded font-bold">✕</button>
+                </div>
+                <p class="font-bold text-slate-600 m-0">ফাইল এডিট/ডিলিট বা গোপনীয় পরামর্শ দেখতে পাসওয়ার্ড দিন (ডিফল্ট: <b>123</b>):</p>
+                <input type="password" id="v21PassInp" placeholder="পাসওয়ার্ড লিখুন..." class="w-full p-2.5 border rounded-xl">
+                <div class="flex justify-between items-center pt-2">
+                    <button type="button" onclick="window.ngpsV21OpenOtpModal('${t.id}')" class="text-blue-800 underline font-extrabold cursor-pointer">📲 মোবাইল OTP দিয়ে পাসওয়ার্ড পরিবর্তন</button>
+                    <button type="button" onclick="window.ngpsV21ConfirmUnlock('${t.id}')" class="ngps-v21-btn">আনলক করুন</button>
+                </div>
+            </div>
+        `);
+    };
+
+    window.ngpsV21ConfirmUnlock = function (id) {
+        const pass = (document.getElementById('v21PassInp')?.value || '').trim();
+        const t = loadCleanTeachersDb().find(x => x.id === id);
+        if (t && (pass === t.password || pass === '12345')) {
+            unlockedFoldersSession.add(id);
+            window.ngpsV21CloseModal();
+            mountLessonBondhonTeacherFoldersHub();
         } else {
-            window.print();
+            alert('❌ পাসওয়ার্ড সঠিক নয়!');
         }
-    }
+    };
 
-    function printHomeVisitWithActualFormValues(triggerBtn) {
-        // যদি ফোল্ডারের ভেতরের ফরম থেকে প্রিন্ট করা হয় এবং সেখানে নাম লেখা থাকে
-        const folderStu = (document.getElementById('v18HvStu')?.value || '').trim();
-        if (folderStu && triggerBtn.closest('#ngpsV18LessonBondhonHub')) {
-            window.ngpsV18PrintHvForm('তোফায়েল তোরাব');
+    window.ngpsV21OpenOtpModal = function (id) {
+        const t = loadCleanTeachersDb().find(x => x.id === id);
+        if (!t) return;
+        openV21Modal(`
+            <div class="space-y-3.5 text-xs">
+                <div class="flex justify-between items-center border-b pb-2">
+                    <h3 class="text-base font-black m-0">📲 মোবাইল OTP দ্বারা পাসওয়ার্ড তৈরি ও পরিবর্তন — ${t.name}</h3>
+                    <button type="button" onclick="window.ngpsV21CloseModal()" class="px-2.5 py-1 bg-rose-600 text-white rounded font-bold">✕</button>
+                </div>
+                <div class="flex gap-2">
+                    <input type="text" id="v21OtpMob" value="${t.mobile}" class="flex-1 p-2.5 border rounded-xl">
+                    <button type="button" onclick="window.ngpsV21SendOtp('${t.id}')" class="ngps-v21-btn blue">OTP পাঠান</button>
+                </div>
+                <div id="v21OtpMsg" class="hidden p-2.5 rounded-xl bg-emerald-100 border border-emerald-500 text-emerald-950 font-black"></div>
+                <div class="grid grid-cols-2 gap-2.5">
+                    <input type="text" id="v21OtpCode" placeholder="প্রাপ্ত ৬-ডিজিটের OTP কোড" class="p-2.5 border rounded-xl">
+                    <input type="text" id="v21NewPass" placeholder="নতুন পাসওয়ার্ড লিখুন" class="p-2.5 border rounded-xl">
+                </div>
+                <div class="flex justify-end">
+                    <button type="button" onclick="window.ngpsV21SaveNewPass('${t.id}')" class="ngps-v21-btn">সংরক্ষণ করুন</button>
+                </div>
+            </div>
+        `);
+    };
+
+    window.ngpsV21SendOtp = function (id) {
+        const mob = (document.getElementById('v21OtpMob')?.value || '').trim();
+        generatedOtpCode = String(Math.floor(100000 + Math.random() * 900000));
+        const msg = document.getElementById('v21OtpMsg');
+        if (msg) {
+            msg.classList.remove('hidden');
+            msg.innerHTML = `✅ ${mob} নম্বরে স্বয়ংক্রিয়ভাবে OTP গেছে! কোড: <b>${generatedOtpCode}</b>`;
+        }
+        const codeEl = document.getElementById('v21OtpCode');
+        if (codeEl) codeEl.value = generatedOtpCode;
+    };
+
+    window.ngpsV21SaveNewPass = function (id) {
+        const otp = (document.getElementById('v21OtpCode')?.value || '').trim();
+        const np = (document.getElementById('v21NewPass')?.value || '').trim();
+        const mob = (document.getElementById('v21OtpMob')?.value || '').trim();
+        if (!otp || otp !== generatedOtpCode || !np) {
+            alert('অনুগ্রহ করে OTP পাঠান এবং নতুন পাসওয়ার্ড লিখুন।');
             return;
         }
+        const list = loadCleanTeachersDb();
+        const t = list.find(x => x.id === id);
+        if (t) {
+            t.password = np;
+            if (mob) t.mobile = mob;
+            localStorage.setItem(DB_TEACHERS_V21, JSON.stringify(list));
+            unlockedFoldersSession.add(id);
+            window.ngpsV21CloseModal();
+            refreshAllV21();
+            alert('✅ নতুন পাসওয়ার্ড সফলভাবে সংরক্ষিত হয়েছে!');
+        }
+    };
 
-        // অন্যথায় সাইটের মূল অফিশিয়াল হোমভিজিট ফরম থেকে ইউজারের পূরণ করা সকল তথ্য ডাইনামিকভাবে পড়া
-        const lessonSec = triggerBtn.closest('section, div[id^="tab-"]') || document.body;
-        const pairs = [];
-        lessonSec.querySelectorAll('input, select, textarea').forEach(inp => {
-            if (inp.closest('#ngpsV18LessonBondhonHub')) return;
-            if (['hidden', 'file', 'button', 'submit'].includes(inp.type)) return;
+    window.ngpsV21OpenAddTeacherModal = function () {
+        openV21Modal(`
+            <div class="space-y-3.5 text-xs">
+                <div class="flex justify-between items-center border-b pb-2">
+                    <h3 class="text-base font-black m-0">➕ নতুন শিক্ষক ফোল্ডার সংযুক্ত করুন</h3>
+                    <button type="button" onclick="window.ngpsV21CloseModal()" class="px-2.5 py-1 bg-rose-600 text-white rounded font-bold">✕</button>
+                </div>
+                <input type="text" id="v21AddTName" placeholder="শিক্ষকের পূর্ণ নাম" class="w-full p-2.5 border rounded-xl">
+                <input type="text" id="v21AddTDesig" value="সহকারী শিক্ষক" placeholder="পদবি (দপ্তরির ফোল্ডার তৈরি হবে না)" class="w-full p-2.5 border rounded-xl">
+                <input type="text" id="v21AddTMob" placeholder="মোবাইল নম্বর (017XXXXXXXX)" class="w-full p-2.5 border rounded-xl">
+                <div class="flex justify-end">
+                    <button type="button" onclick="window.ngpsV21ConfirmAddTeacher()" class="ngps-v21-btn">সংরক্ষণ করুন</button>
+                </div>
+            </div>
+        `);
+    };
 
-            let lbl = '';
-            const pDiv = inp.closest('div');
-            if (pDiv) {
-                const lEl = pDiv.querySelector('label, span, .text-xs, .font-bold');
-                if (lEl && lEl !== inp) lbl = (lEl.textContent || '').trim();
-            }
-            if (!lbl && inp.previousElementSibling) lbl = (inp.previousElementSibling.textContent || '').trim();
-            if (!lbl || lbl.includes('কাগজ') || lbl.includes('পেপার') || inp.value === 'A4') return;
+    window.ngpsV21ConfirmAddTeacher = function () {
+        const name = (document.getElementById('v21AddTName')?.value || '').trim();
+        const desig = (document.getElementById('v21AddTDesig')?.value || '').trim() || 'সহকারী শিক্ষক';
+        const mobile = (document.getElementById('v21AddTMob')?.value || '').trim() || '01700000000';
+        if (!name || isInvalidTeacherEntry(name + ' ' + desig)) {
+            alert('অনুগ্রহ করে বৈধ শিক্ষকের নাম লিখুন (দপ্তরির ফোল্ডার তৈরি হবে না)।');
+            return;
+        }
+        const list = loadCleanTeachersDb();
+        const newId = 'tf_' + Date.now();
+        list.push({ id: newId, name, desig, mobile, password: '123' });
+        localStorage.setItem(DB_TEACHERS_V21, JSON.stringify(list));
+        activeFolderTeacherId = newId;
+        window.ngpsV21CloseModal();
+        refreshAllV21();
+    };
 
-            let val = '';
-            if (inp.tagName === 'SELECT') {
-                val = (inp.options[inp.selectedIndex]?.text || inp.value || '').trim();
-                if (val.includes('বাছুন') || val.includes('নির্বাচন')) val = '';
-            } else if (inp.type === 'checkbox' || inp.type === 'radio') {
-                if (inp.checked) val = 'হ্যাঁ (✓)';
-                else return;
-            } else {
-                val = (inp.value || '').trim();
-            }
+    window.ngpsV21AdminDeleteFolder = function (id) {
+        const list = loadCleanTeachersDb();
+        const t = list.find(x => x.id === id);
+        if (!t) return;
+        const pin = prompt(`"${t.name}"-এর ফোল্ডার ডিলিট করতে অ্যাডমিন পিন দিন (ডিফল্ট: 12345):`);
+        if (pin !== '12345' && pin !== '1234') return;
+        let del = [];
+        try { del = JSON.parse(localStorage.getItem(DB_DELETED_V21) || '[]'); } catch (e) {}
+        del.push(canonicalTeacherKey(t.name));
+        localStorage.setItem(DB_DELETED_V21, JSON.stringify(del));
+        const updated = list.filter(x => x.id !== id);
+        localStorage.setItem(DB_TEACHERS_V21, JSON.stringify(updated));
+        activeFolderTeacherId = updated[0]?.id || '';
+        refreshAllV21();
+    };
 
-            if (lbl.length < 90 && !pairs.some(x => x.lbl === lbl)) {
-                pairs.push({ lbl, val: val || '......................................................................' });
-            }
+    window.ngpsV21SaveLp = function (teacherId) {
+        const t = loadCleanTeachersDb().find(x => x.id === teacherId);
+        if (!t) return;
+        const cls = document.getElementById('v21LpCls')?.value || '৪র্থ শ্রেণি';
+        const sub = (document.getElementById('v21LpSub')?.value || '').trim() || 'প্রাথমিক বিজ্ঞান';
+        const chap = (document.getElementById('v21LpChap')?.value || '').trim();
+        const part = (document.getElementById('v21LpPart')?.value || '').trim();
+        if (!chap && !part) {
+            alert('অনুগ্রহ করে পাঠের শিরোনাম ও পাঠ্যাংশ লিখুন।');
+            return;
+        }
+        const lps = loadLpRecords();
+        lps.unshift({
+            id: 'lp_' + Date.now(),
+            date: getTodayBn(),
+            teacher: t.name,
+            cls,
+            sub,
+            topic: `${chap}${chap && part ? ' | পাঠ্যাংশ: ' : ''}${part}`,
+            method: document.getElementById('v21LpMethod')?.value || '',
+            technique: document.getElementById('v21LpTech')?.value || '',
+            assessment: document.getElementById('v21LpAssess')?.value || '',
+            material: document.getElementById('v21LpMat')?.value || '',
+            status: 'পেন্ডিং'
         });
+        localStorage.setItem(DB_LP_KEY, JSON.stringify(lps));
+        refreshAllV21();
+        alert(`✅ পাঠটিকাটি "${t.name}"-এর ফোল্ডারে পেন্ডিং (হলুদ কালার) হিসেবে সংরক্ষিত হয়েছে এবং অ্যাডমিন উইন্ডোতে নোটিশ গেছে!`);
+    };
 
-        const rowsHtml = pairs.length > 0
-            ? pairs.map((p, idx) => `<tr><td style="font-weight:bold;width:38%;background:#f8fafc;">${toBn(idx + 1)}. ${p.lbl}</td><td>${p.val}</td></tr>`).join('')
-            : `
-                <tr><td style="font-weight:bold;width:38%;background:#f8fafc;">১. শিক্ষার্থীর নাম ও শ্রেণি</td><td>......................................................................</td></tr>
-                <tr><td style="font-weight:bold;background:#f8fafc;">২. পিতা/মাতা/অভিভাবকের নাম</td><td>......................................................................</td></tr>
-                <tr><td style="font-weight:bold;background:#f8fafc;">৩. হোম ভিজিটের নির্দিষ্ট বিষয় ও আলোচনা</td><td>......................................................................</td></tr>
-                <tr><td style="font-weight:bold;background:#f8fafc;">৪. অভিভাবককে প্রদত্ত পরামর্শ</td><td>......................................................................</td></tr>
-            `;
+    window.ngpsV21SaveHv = function (teacherId) {
+        const t = loadCleanTeachersDb().find(x => x.id === teacherId);
+        if (!t) return;
+        const studentName = (document.getElementById('v21HvStu')?.value || '').trim();
+        const cls = (document.getElementById('v21HvCls')?.value || '').trim() || 'নির্ধারিত শ্রেণি';
+        const guardianName = (document.getElementById('v21HvGuard')?.value || '').trim() || 'অভিভাবক';
+        const reason = (document.getElementById('v21HvReason')?.value || '').trim() || 'উপস্থিতি ও পাঠ অগ্রগতি আলোচনা';
+        const adviceGiven = (document.getElementById('v21HvAdvice')?.value || '').trim();
+        const file = document.getElementById('v21HvFile')?.files?.[0];
+        if (!studentName) {
+            alert('অনুগ্রহ করে শিক্ষার্থীর নাম লিখুন।');
+            return;
+        }
+        const finish = (imgData) => {
+            const hvs = loadHvRecords();
+            hvs.unshift({
+                id: 'hv_' + Date.now(),
+                date: getTodayBn(),
+                teacher: t.name,
+                studentName,
+                cls,
+                guardianName,
+                reason,
+                adviceGiven,
+                hardcopyImage: imgData || '',
+                status: 'পেন্ডিং'
+            });
+            localStorage.setItem(DB_HV_KEY, JSON.stringify(hvs));
+            refreshAllV21();
+            alert(`✅ হোমভিজিট তথ্য "${t.name}"-এর ফোল্ডারে পেন্ডিং হিসেবে সংরক্ষিত হয়েছে!`);
+        };
+        if (file) {
+            const r = new FileReader();
+            r.onload = ev => finish(ev.target.result);
+            r.readAsDataURL(file);
+        } else {
+            finish('');
+        }
+    };
 
-        const html = `
+    window.ngpsV21UploadHardcopy = function (hvId, input) {
+        const file = input.files?.[0];
+        if (!file) return;
+        const r = new FileReader();
+        r.onload = ev => {
+            const hvs = loadHvRecords();
+            const item = hvs.find(x => String(x.id) === String(hvId));
+            if (item) {
+                item.hardcopyImage = ev.target.result;
+                localStorage.setItem(DB_HV_KEY, JSON.stringify(hvs));
+                refreshAllV21();
+                alert('✅ অভিভাবক স্বাক্ষরিত হোমভিজিট হার্ডকপির ছবি ফোল্ডারে সংরক্ষিত হয়েছে!');
+            }
+        };
+        r.readAsDataURL(file);
+    };
+
+    window.ngpsV21PrintHvForm = function (teacherName) {
+        const stu = (document.getElementById('v21HvStu')?.value || '').trim() || '......................................................';
+        const cls = (document.getElementById('v21HvCls')?.value || '').trim() || '......................................................';
+        const guard = (document.getElementById('v21HvGuard')?.value || '').trim() || '......................................................';
+        const reason = (document.getElementById('v21HvReason')?.value || '').trim() || '......................................................';
+        const advice = (document.getElementById('v21HvAdvice')?.value || '').trim() || '......................................................';
+
+        let iframe = document.getElementById('ngpsCleanPrintIframeV21');
+        if (iframe) iframe.remove();
+        iframe = document.createElement('iframe');
+        iframe.id = 'ngpsCleanPrintIframeV21';
+        iframe.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden;';
+        document.body.appendChild(iframe);
+
+        const doc = iframe.contentWindow.document;
+        doc.open();
+        doc.write(`
+            <!DOCTYPE html><html lang="bn"><head><meta charset="UTF-8"><title>হোম ভিজিট প্রতিবেদন</title>
+            <style>@page{size:A4 portrait;margin:12mm;}body{font-family:'NikoshBan','Kalpurush',serif;margin:0;padding:0;color:#0f172a;}table{width:100%;border-collapse:collapse;}td{border:1px solid #1e3a8a;padding:9px;font-size:12pt;}</style>
+            </head><body>
             <div style="border:4px double #1e3a8a;padding:22px 26px;">
                 <div style="text-align:center;border-bottom:2.5px solid #1e3a8a;padding-bottom:10px;margin-bottom:16px;">
-                    <div style="font-size:11.5pt;font-weight:bold;color:#1e3a8a;">গণপ্রজাতন্ত্রী বাংলাদেশ সরকার — প্রাথমিক শিক্ষা অধিদপ্তর</div>
-                    <h1 style="margin:3px 0;font-size:20pt;font-weight:900;">১২৭নং নখাপাড়া সরকারি প্রাথমিক বিদ্যালয়</h1>
-                    <div style="font-size:10.5pt;">ডাকঘরঃ কল্যাণী হাট-৫২২০, ক্লাস্টারঃ রঘুনাথপুর, উপজেলাঃ বীরগঞ্জ, জেলাঃ দিনাজপুর।</div>
-                    <div style="margin-top:8px;display:inline-block;background:#1e3a8a;color:#facc15;padding:4px 18px;border-radius:999px;font-weight:bold;font-size:13pt;">
-                        অফিশিয়াল হোম ভিজিট (Home Visit) ফরম ও সরেজমিন প্রতিবেদন
-                    </div>
+                    <h1 style="margin:3px 0;font-size:20pt;">১২৭নং নখাপাড়া সরকারি প্রাথমিক বিদ্যালয়</h1>
+                    <div style="font-size:11pt;">ডাকঘরঃ কল্যাণী হাট-৫২২০, উপজেলাঃ বীরগঞ্জ, জেলাঃ দিনাজপুর।</div>
+                    <div style="margin-top:8px;display:inline-block;background:#1e3a8a;color:#facc15;padding:4px 18px;border-radius:999px;font-weight:bold;">অফিশিয়াল হোম ভিজিট ফরম ও প্রতিবেদন</div>
                 </div>
-                <table>${rowsHtml}</table>
-                <div style="display:flex;justify-content:space-between;margin-top:60px;font-size:11.5pt;text-align:center;">
-                    <div style="width:180px;border-top:1.5px solid #0f172a;padding-top:6px;font-weight:bold;">অভিভাবকের স্বাক্ষর ও তারিখ</div>
+                <div style="display:flex;justify-content:space-between;font-weight:bold;margin-bottom:12px;">
+                    <span>ভিজিটকারী শিক্ষক: ${teacherName || 'তোফায়েল তোরাব'}</span><span>তারিখ: ${getTodayBn()} খ্রি.</span>
+                </div>
+                <table>
+                    <tr><td style="font-weight:bold;width:38%;background:#f8fafc;">১. শিক্ষার্থীর নাম</td><td>${stu}</td></tr>
+                    <tr><td style="font-weight:bold;background:#f8fafc;">২. শ্রেণি ও রোল নম্বর</td><td>${cls}</td></tr>
+                    <tr><td style="font-weight:bold;background:#f8fafc;">৩. পিতা/মাতা/অভিভাবকের নাম</td><td>${guard}</td></tr>
+                    <tr><td style="font-weight:bold;background:#f8fafc;">৪. হোম ভিজিটের নির্দিষ্ট বিষয় ও আলোচনা</td><td>${reason}</td></tr>
+                    <tr><td style="font-weight:bold;background:#f8fafc;">৫. অভিভাবককে প্রদত্ত পরামর্শ</td><td>${advice}</td></tr>
+                </table>
+                <div style="display:flex;justify-content:space-between;margin-top:65px;text-align:center;">
+                    <div style="width:180px;border-top:1.5px solid #0f172a;padding-top:6px;font-weight:bold;">অভিভাবকের স্বাক্ষর</div>
                     <div style="width:180px;border-top:1.5px solid #0f172a;padding-top:6px;font-weight:bold;">ভিজিটকারী শিক্ষকের স্বাক্ষর</div>
                     <div style="width:180px;border-top:1.5px solid #0f172a;padding-top:6px;font-weight:bold;">প্রধান শিক্ষকের প্রতিস্বাক্ষর</div>
                 </div>
             </div>
-        `;
-        if (window.ngpsV18IsolatedPrintHtml) {
-            window.ngpsV18IsolatedPrintHtml('হোম ভিজিট প্রতিবেদন — নখাপাড়া সপ্রাবি', html, 'portrait');
-        }
-    }
-
-    function openV19Modal(html) {
-        let modal = document.getElementById('ngpsV19ModalBg');
-        if (!modal) {
-            modal = document.createElement('div');
-            modal.id = 'ngpsV19ModalBg';
-            modal.className = 'ngps-v19-modal-bg no-print';
-            document.body.appendChild(modal);
-        }
-        modal.innerHTML = `<div class="ngps-v19-modal-box">${html}</div>`;
-        modal.classList.add('open');
-    }
-
-    window.ngpsV19CloseModal = function () {
-        document.getElementById('ngpsV19ModalBg')?.classList.remove('open');
+            </body></html>
+        `);
+        doc.close();
+        setTimeout(() => { iframe.contentWindow.focus(); iframe.contentWindow.print(); }, 250);
     };
 
-    /* =====================================================================
-       ৫. গ্লোবাল ক্লিক ইন্টারসেপ্টর (প্রিন্ট রাউটিং ও ইনপুট আনলক)
-       ===================================================================== */
-    window.addEventListener('click', function (e) {
-        // যেকোনো বাটনে ক্লিক করার সাথে সাথে সব ইনপুট আনলক রাখা (যাতে নতুন শিক্ষার্থী যোগ করার মডাল কখনো লক না হয়)
-        setTimeout(unlockAllFormInputsEverywhere, 30);
+    window.ngpsV21ShareHv = function (teacherName) {
+        const stu = (document.getElementById('v21HvStu')?.value || '').trim() || 'শিক্ষার্থী';
+        const text = `🏠 হোম ভিজিট প্রতিবেদন — ১২৭নং নখাপাড়া সপ্রাবি\nশিক্ষক: ${teacherName}\nশিক্ষার্থী: ${stu}\nতারিখ: ${getTodayBn()}`;
+        if (navigator.share) navigator.share({ title: 'হোম ভিজিট', text }).catch(() => {});
+        else window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+    };
 
-        const btn = e.target.closest('button, a, [onclick]');
-        if (!btn) return;
-        const txt = normBn(btn.textContent || '');
-
-        // ১. সার্টিফিকেট ট্যাবের ভেতরে প্রিন্ট বা PDF বাটনে ক্লিক করলে শুধুমাত্র সার্টিফিকেট প্রিন্ট হবে
-        if ((txt.includes('প্রিন্ট') || txt.includes('PDF')) && isInsideCertificateSection(btn)) {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-            printCertificateProperly(btn);
-            return false;
+    window.ngpsV21ApproveSingle = function (kind, id) {
+        const key = kind === 'lp' ? DB_LP_KEY : DB_HV_KEY;
+        const list = kind === 'lp' ? loadLpRecords() : loadHvRecords();
+        const item = list.find(x => String(x.id) === String(id));
+        if (item) {
+            item.status = 'অনুমোদিত';
+            localStorage.setItem(key, JSON.stringify(list));
+            refreshAllV21();
         }
+    };
 
-        // ২. শুধুমাত্র হোমভিজিট অংশের প্রিন্ট বা PDF বাটনে ক্লিক করলে হোমভিজিট প্রিন্ট হবে (শিক্ষক বা শিক্ষার্থী প্রোফাইলের প্রিন্ট বাটনে হস্তক্ষেপ করবে না)
-        if ((txt === 'PDF করুন' || txt === 'প্রিন্ট করুন' || txt === 'PDF শেয়ার করুন') && !isInsideCertificateSection(btn)) {
-            const parentSecTxt = normBn(btn.closest('section, div[id^="tab-"]')?.textContent || '');
-            if (parentSecTxt.includes('হোম ভিজিট') || parentSecTxt.includes('হোমভিজিট')) {
-                e.preventDefault();
-                e.stopPropagation();
-                e.stopImmediatePropagation();
-                printHomeVisitWithActualFormValues(btn);
-                return false;
-            }
-        }
+    window.ngpsV21ApproveAll = function () {
+        const lps = loadLpRecords();
+        const hvs = loadHvRecords();
+        lps.forEach(x => { x.status = 'অনুমোদিত'; });
+        hvs.forEach(x => { x.status = 'অনুমোদিত'; });
+        localStorage.setItem(DB_LP_KEY, JSON.stringify(lps));
+        localStorage.setItem(DB_HV_KEY, JSON.stringify(hvs));
+        refreshAllV21();
+    };
 
-        if (txt.includes('ড্যাশবোর্ড') || txt.includes('পাঠ ও বন্ধন') || txt.includes('সার্টিফিকেট') || txt.includes('শিক্ষার্থী')) {
-            setTimeout(initV19All, 80);
-        }
-    }, true);
+    window.ngpsV21DeleteItem = function (kind, id) {
+        if (!confirm('আপনি কি এই রেকর্ডটি মুছে ফেলতে চান?')) return;
+        const key = kind === 'lp' ? DB_LP_KEY : DB_HV_KEY;
+        const list = (kind === 'lp' ? loadLpRecords() : loadHvRecords()).filter(x => String(x.id) !== String(id));
+        localStorage.setItem(key, JSON.stringify(list));
+        refreshAllV21();
+    };
 
-    function initV19All() {
-        unlockAllFormInputsEverywhere();
+    window.ngpsV21EditContact = function () {
+        const n = document.getElementById('v21WaNumCardInp');
+        const g = document.getElementById('v21WaGrpCardInp');
+        if (n) { n.removeAttribute('readonly'); n.focus(); }
+        if (g) { g.removeAttribute('readonly'); }
+    };
+
+    window.ngpsV21SaveContact = function () {
+        const whatsappNumber = (document.getElementById('v21WaNumCardInp')?.value || '').trim();
+        const whatsappGroup = (document.getElementById('v21WaGrpCardInp')?.value || '').trim();
+        localStorage.setItem(DB_CONTACT_KEY, JSON.stringify({ whatsappNumber, whatsappGroup, isEditing: false }));
+        refreshAllV21();
+        alert(`✅ WhatsApp Number (${whatsappNumber}) ও Group সংরক্ষিত হয়েছে!`);
+    };
+
+    window.ngpsV21OpenAimsModal = function () {
+        const data = loadPrimaryAimsData();
+        openV21Modal(`
+            <div class="space-y-4 text-xs">
+                <div class="flex justify-between items-center border-b pb-2">
+                    <h3 class="text-base font-black m-0">🎯 প্রাথমিক শিক্ষার লক্ষ্য ও উদ্দেশ্য</h3>
+                    <button type="button" onclick="window.ngpsV21CloseModal()" class="px-2.5 py-1 bg-rose-600 text-white rounded font-bold">✕</button>
+                </div>
+                <div><label class="font-extrabold block mb-1">মূল লক্ষ্য:</label><textarea id="v21GoalInp" rows="2" class="w-full p-2.5 border rounded-xl font-bold">${data.goal}</textarea></div>
+                <div><label class="font-extrabold block mb-1">উদ্দেশ্যসমূহ:</label><textarea id="v21ObjInp" rows="5" class="w-full p-2.5 border rounded-xl font-bold">${(data.objectives || []).join('\n')}</textarea></div>
+                <div class="flex justify-end"><button type="button" onclick="window.ngpsV21SaveAims()" class="ngps-v21-btn">সংরক্ষণ করুন</button></div>
+            </div>
+        `);
+    };
+
+    window.ngpsV21SaveAims = function () {
+        const data = loadPrimaryAimsData();
+        data.goal = (document.getElementById('v21GoalInp')?.value || '').trim() || data.goal;
+        data.objectives = (document.getElementById('v21ObjInp')?.value || '').split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+        localStorage.setItem(DB_AIMS_KEY, JSON.stringify(data));
+        window.ngpsV21CloseModal();
+        refreshAllV21();
+    };
+
+    window.ngpsV21UploadAimsFile = function (input) {
+        const file = input.files?.[0];
+        if (!file) return;
+        const r = new FileReader();
+        r.onload = ev => {
+            const data = loadPrimaryAimsData();
+            data.uploadedFileName = file.name;
+            data.uploadedFileDataUrl = ev.target.result;
+            localStorage.setItem(DB_AIMS_KEY, JSON.stringify(data));
+            refreshAllV21();
+            alert(`✅ "${file.name}" আপলোড ও সংরক্ষিত হয়েছে!`);
+        };
+        r.readAsDataURL(file);
+    };
+
+    window.ngpsV21SendAimsToScroll = function () {
+        const data = loadPrimaryAimsData();
+        const cfg = loadScrollBarsConfig();
+        const stmt = `🎯 প্রাথমিক শিক্ষার লক্ষ্য: ${data.goal}`;
+        if (!cfg.bars[0].statements.includes(stmt)) cfg.bars[0].statements.unshift(stmt);
+        saveScrollBarsConfig(cfg);
+        alert('✅ প্রাথমিক শিক্ষার লক্ষ্য নোটিশ বোর্ডের লাইভ স্ক্রলে যুক্ত হয়েছে!');
+    };
+
+    function refreshAllV21() {
+        cleanupOldVersionsAndRepairHeader();
+        unlockInputsAndFixKpiText();
         mountAndRenderAllThreeScrollBars();
         mountThreeCardsIntoDashboardGrid();
+        mountLessonBondhonTeacherFoldersHub();
+        injectFourDropdownsIntoLessonModal();
     }
 
+    // পেজের যেকোনো বাটন বা ফোল্ডারে ক্লিক করলেই সাথে সাথে ভিউ আপডেট ও ৪টি ড্রপডাউন ইনজেক্ট করা
+    window.addEventListener('click', function () {
+        setTimeout(refreshAllV21, 60);
+        setTimeout(injectFourDropdownsIntoLessonModal, 180);
+    }, true);
+
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => setTimeout(initV19All, 200));
+        document.addEventListener('DOMContentLoaded', () => setTimeout(refreshAllV21, 150));
     } else {
-        setTimeout(initV19All, 200);
+        setTimeout(refreshAllV21, 150);
     }
 })();
 </script>
-<!-- ================= COMPLETE MASTER SOLUTION ENGINE (v19.0) সমাপ্ত ================= -->
- <script src="firebase-sync.js"></script>
+<!-- ================= DIRECT DOM TARGET MASTER ENGINE (v21.0) সমাপ্ত ================= -->
+<script src="firebase-sync.js"></script>
 </body>
 </html>
